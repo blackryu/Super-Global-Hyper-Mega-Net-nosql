@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+
+    
 /* GET Methods*/
 
 router.get('/public', function(req, res, next) { res.send('All the public lists of the user'); });
