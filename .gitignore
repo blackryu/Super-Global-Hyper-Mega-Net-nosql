@@ -32,3 +32,6 @@ npm-debug.log
 #Codelite IDE garbage
 nosql.workspace
 .codelite
+
+#ignore the secret config
+secret.js
