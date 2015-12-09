@@ -1,12 +1,11 @@
 # Super-Global-Hyper-Mega-Net-nosql
 Gruppe Super Global Hyper Mega Net 
 
+<h2>install</h2>
 
-== install ==
+ npm install
 
-npm install
-
-== run ==
+<h2>run<h2>
 
 On MacOS or Linux, run the app with this command:
 
