@@ -5,7 +5,7 @@ Gruppe Super Global Hyper Mega Net
 
  npm install
 
-<h2>run<h2>
+<h2>run</h2>
 
 On MacOS or Linux, run the app with this command:
 
