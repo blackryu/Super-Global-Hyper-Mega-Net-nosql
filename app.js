@@ -20,10 +20,10 @@ var mongooseConnection = 'mongodb://' + config.dbUser + ':' + config.dbPass + '@
 
 var db = mongoose.connection;
 
-db.once('open', function(callback) {
+db.once('open', function callback() {
 
     console.log('yay we conected :) ');
-    callback();
+    
 });
 
 mongoose.connect(mongooseConnection);
