@@ -13,19 +13,18 @@ var mongoose = require('mongoose');
 var app = express();
 
 // Sectret Config
-var config = require(. / secret.js);
+var config = require('./secret.js');
 
 // DB
 var mongooseConnection = 'mongodb://' + config.dbUser + ':' + config.dbPass + '@' + config.dbUrl + '/' + config.dbName;
 
 var db = mongoose.connection;
 
-db.once('open', function(callback){
-    
+db.once('open', function(callback) {
+
     console.log('yay we conected :) ');
     callback();
-    });
-
+});
 
 mongoose.connect(mongooseConnection);
 // view engine setup
