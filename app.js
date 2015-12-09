@@ -26,6 +26,9 @@ db.once('open', function callback() {
     
 });
 
+db.on('error', console.error.bind(console, 'connection error:'));
+
+
 mongoose.connect(mongooseConnection);
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
