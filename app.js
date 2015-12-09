@@ -13,7 +13,7 @@ var mongoose = require('mongoose');
 var app = express();
 
 // Sectret Config
-var config = require('./secret.js');
+var config = require('./secret');
 
 // DB
 var mongooseConnection = 'mongodb://' + config.dbUser + ':' + config.dbPass + '@' + config.dbUrl + '/' + config.dbName;
