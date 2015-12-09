@@ -10,10 +10,9 @@ Gruppe Super Global Hyper Mega Net
 On MacOS or Linux, run the app with this command:
 
 
-$ DEBUG=myapp:* npm start
+<code>$ DEBUG=myapp:* npm start</code>
 
 
 On Windows, use this command:
 
-
-> set DEBUG=myapp:* & npm start
+<code>set DEBUG=myapp:* & npm start</code>
