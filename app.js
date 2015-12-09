@@ -20,16 +20,18 @@ var mongooseConnection = 'mongodb://' + config.dbUser + ':' + config.dbPass + '@
 
 var db = mongoose.connection;
 
+//let us konw we connected
 db.once('open', function callback() {
 
     console.log('yay we conected :) ');
     
 });
-
+// die on connection erros
 db.on('error', console.error.bind(console, 'connection error:'));
 
-
+//connect 
 mongoose.connect(mongooseConnection);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
