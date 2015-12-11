@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+//DBA Acesss for todos. 
+var todoModel = require('../dbModels/todos');
+
 /* GET Methods*/
 
 router.get('/today', function(req, res, next) {

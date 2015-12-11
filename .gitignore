@@ -30,5 +30,10 @@ node_modules
 npm-debug.log
 
 #Codelite IDE garbage
-nosql.workspace
+*.workspace
 .codelite
+.tern-port
+.tern-project
+
+#ignore the secret config
+secret.js
