@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+//DBA Acesss for lists. 
+var listModel = require('../dbModels/lists');
+
 
     
 /* GET Methods*/

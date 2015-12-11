@@ -3,10 +3,9 @@ var mongoose = require('mongoose');
 var todosSchema = mongoose.Schema({
     
     duedate: {type: Date},
-    description: String,
-    completed: Boolean,
-    });
-    
+    description: {type:String, required: true},
+    completed: {type:Boolean, default: false},
+    });    
     
 var TodoModel = mongoose.model('Todos', todosSchema);
 
