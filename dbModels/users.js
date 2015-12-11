@@ -8,6 +8,6 @@ var usersSchema = mongoose.Schema({
     }, {_id: false});
     
     
-var UserModel = mongoose.model('Todos', usersSchema);
+var UserModel = mongoose.model('Users', usersSchema);
 
 module.exports = UserModel;
