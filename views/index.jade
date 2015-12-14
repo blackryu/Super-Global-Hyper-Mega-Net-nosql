@@ -1,8 +1,5 @@
 extends layout
 
 block content
-  div(class='panel panel-default')
-    div(class='panel-heading')= title
-    div(class='panel-body') 
-        include ./ngtemplates/ngView.html
-        
+  h1= title
+  p Welcome to #{title}

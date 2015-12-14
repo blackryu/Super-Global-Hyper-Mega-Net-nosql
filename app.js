@@ -13,12 +13,11 @@ var mongoose = require('mongoose');
 var app = express();
 
 // Sectret Config
-//var config = require('./secret');
+var config = require('./secret');
 
 // DB
+var mongooseConnection = 'mongodb://' + config.dbUser + ':' + config.dbPass + '@' + config.dbUrl + '/' + config.dbName;
 
-//var mongooseConnection = 'mongodb://' + config.dbUser + ':' + config.dbPass + '@' + config.dbUrl + '/' + config.dbName;
-mongooseConnection='mongodb://nosql:nosql123@ds061354.mongolab.com:61354/superglobalhypermeganet';
 var db = mongoose.connection;
 
 //let us konw we connected
@@ -37,25 +36,12 @@ mongoose.connect(mongooseConnection);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
 // uncomment after placing your favicon in /public
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended : false }));
 app.use(cookieParser());
-
-// make bootflap files accessible
-app.use('/bootflat/css',express.static(__dirname+'/node_modules/bootflat/css/'));
-app.use('/bootflat/js',express.static(__dirname+'/node_modules/bootflat/js/'));
-app.use('/bootflat/bootflat/js',express.static(__dirname+'/node_modules/bootflat/bootflat/js/'));
-
-app.use('/bootflat/bootflat/css',express.static(__dirname+'/node_modules/bootflat/bootflat/css/'));
-app.use('/bootflat/fonts',express.static(__dirname+'/node_modules/bootflat/fonts/'));
-// make angular files accessible
-app.use('/lib/angular/angular.js',express.static(__dirname+'/node_modules/angular/angular.js'));
-app.use('/lib/angular-route/angular-route.js',express.static(__dirname+'/node_modules/angular-route/angular-route.js'));
-
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
