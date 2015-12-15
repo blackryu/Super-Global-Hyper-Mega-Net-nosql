@@ -5,7 +5,8 @@
     <div ng-repeat="list in lists" class=" col-xs-6 col-sm-3">
         <div class="panel panel-default">
         <div class="panel-heading">
-        <a href="#/list/{{$index}}">{{list.name}}</a>
+            <input type='checkbox' id='{{$list.name}}' name='delteLists'/>
+        <a href="{{$list.name}}/#/list/{{$index}}">{{list.name}}</a>
             </div>
             <div class="panel-body">
             <table class="table">
@@ -31,8 +32,7 @@
     </div>
     
 </script>
-
-<script type="text/ng-template" id="/listDetails.html">
+<script type="text/ng-template" id="/listCreate.html">
   <div class="panel panel-default">
         <div class="panel-heading">
         <a href="#">{{list.name}}</a>
@@ -55,6 +55,38 @@
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
            <input type="checkbox" ng-value="list.visibility" id="list.name"/>
             </div>
-            </div>y">
+            </div>
+</script>
+<script type="text/ng-template" id="/listEdit.html">
+    <div class="container-fluid">
+        <div class="row">
+    
+    <div  class=" col-xs-6 col-sm-3">
+  <div class="panel panel-default">
+        <div class="panel-heading">
+        <input type='text' ng-value='list.name'/>
+            </div>
+            <div class="panel-body">
+            <table class="table">
+                <tbody class="table-striped">
+                <tr ng-repeat="todo in list.todos">
+                    <td>
+           <input type="checkbox" ng-value="todo.completed" id="list.name+todo.name"/>
+                      {{todo.name}} 
+                    </td>
+                    <td>
+<a class="btn btn-danger" href='/todo/{{todo.name}}/#/todo/{{$index}}'><span class='glyphicon glyphicon-remove pull-right'></span></button></td>
+                    
+                    </tr>
+                </tbody>
+                </table>
+            </div>
+        <div class="panel-footer">
+            
+            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+           <input type="checkbox" ng-value="list.visibility" id="list.name"/>
+            </div>
+            </div>
+            </div></div></div>
 </script>
 

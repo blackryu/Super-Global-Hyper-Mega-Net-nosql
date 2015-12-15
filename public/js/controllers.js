@@ -74,7 +74,8 @@
       "note": "note for todo"
     }
   ]
-}];})
+}];
+ })
     .factory('Todos',function(){
      return [
          { name: 'AngularJS Directives', completed: true, note: 'add notes...' },
@@ -97,7 +98,7 @@
         $scope.lists=Lists;
     }])
     .controller('ListControllerCtrl',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
-        $scope.lists=Lists[$routeParams.id];
+        $scope.list=Lists[$routeParams.id];
     }])
     .controller('TodoController', ['$scope', 'Todos', function ($scope, Todos) {
       $scope.todos = Todos;
@@ -115,9 +116,13 @@
           controller:'ListController'
         })
       .when('/list/:id',{
-          templateUrl:'/listDetails.html',
+          templateUrl:'/listEdit.html',
           controller:'ListControllerCtrl'
         })
+      .when('/list/create',{
+          templateUrl:'/listCreate.html',
+            controller:'ListControllerCtrl'
+      })
         .when('/todos', {
           templateUrl: '/todos.html',
           controller: 'TodoController'
