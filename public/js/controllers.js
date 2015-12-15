@@ -114,6 +114,10 @@
           templateUrl:'/lists.html',
           controller:'ListController'
         })
+      .when('/list/:id',{
+          templateUrl:'/listDetails.html',
+          controller:'ListControllerCtrl'
+        })
         .when('/todos', {
           templateUrl: '/todos.html',
           controller: 'TodoController'

@@ -3,7 +3,7 @@
   <ul>
     <li ng-repeat="todo in todos | filter: search">
       <input type="checkbox" ng-model="todo.completed">
-      <a href="#/{{$index}}">{{todo.name}}</a>
+      <a href="#/todos/{{$index}}">{{todo.name}}</a>
     </li>
   </ul>
 </script>
