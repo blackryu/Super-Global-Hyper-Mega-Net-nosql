@@ -1,8 +1,7 @@
 html,body {
-    
-  background-image:url('./../img/batthern.png') !important;
-    background-color: rgba(0, 100, 100, 0.1);
+    background-image:url('./../img/batthern.png');
 }
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;

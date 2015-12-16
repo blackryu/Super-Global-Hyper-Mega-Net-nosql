@@ -5,8 +5,17 @@
     <div ng-repeat="list in lists" class=" col-xs-6 col-sm-3">
         <div class="panel panel-default">
         <div class="panel-heading">
-            <input type='checkbox' id='{{$list.name}}' name='delteLists'/>
-        <a href="{{$list.name}}/#/list/{{$index}}">{{list.name}}</a>
+            <div class="container-fluid">
+                <div class='row'>
+            <input type='checkbox' id='{{$list.name}}' name='deleteLists'/>
+        <a href="/list/{{$list.name}}/#/list/{{$index}}">{{list.name}}</a>
+                    <div class='pull-right'>
+                     <button type='submit' class='btn btn-success btn-xs'>
+                <span class='glyphicon glyphicon-plus '>
+            </button>
+                    </div>
+                    </div>
+            </div>
             </div>
             <div class="panel-body">
             <table class="table">
@@ -25,6 +34,7 @@
             
             <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
            <input type="checkbox" ng-value="list.visibility" id="list.name"/>
+           
             </div>
             </div>
     </div>
@@ -71,11 +81,13 @@
                 <tbody class="table-striped">
                 <tr ng-repeat="todo in list.todos">
                     <td>
+                         <div class='container-fluid'>
+                             <div class='row'>
            <input type="checkbox" ng-value="todo.completed" id="list.name+todo.name"/>
                       {{todo.name}} 
-                    </td>
-                    <td>
-<a class="btn btn-danger" href='/todo/{{todo.name}}/#/todo/{{$index}}'><span class='glyphicon glyphicon-remove pull-right'></span></button></td>
+                    
+<a class="btn btn-danger btn-xs pull-right" href='/todo/{{todo.name}}/#/todo/{{$index}}'><span class='glyphicon glyphicon-remove '></span></button>
+                        </div></div></td>
                     
                     </tr>
                 </tbody>
