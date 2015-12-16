@@ -8,21 +8,18 @@ var listModel = require('../dbModels/lists');
     
 /* GET Methods*/
 
-router.get('/public', function(req, res, next) { 
-    res.send('All the public lists of the user'); 
-    
-});
+router.get('/public', function(req, res, next) { res.send('All the public lists of the user'); });
 
 router.get('/private', function(req, res, next) { res.send('All the private lists of the user'); });
 
 router.get('/:id', function(req, res, next) {
 
     var listID = req.params.id;
-    res.render('list',{title:'List Detail',id:listID});
-    //res.send('list indentified with: ' + listID);
+
+    res.send('list indentified with: ' + listID);
 });
 
-router.get('/', function(req, res, next) { res.render('list',{title:'All Lists'}); });
+router.get('/', function(req, res, next) { res.send('All the list for the user'); });
 
 // POST methods
 
