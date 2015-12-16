@@ -37,7 +37,7 @@
   "aktiv": "true",
   "owner": "sabse",
   "color": "#fff",
-  "visibility": "true",
+  "visibility": "false",
   "todos": [
     {
       "name": "todo1",
