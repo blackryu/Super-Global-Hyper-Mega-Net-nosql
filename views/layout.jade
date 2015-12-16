@@ -9,11 +9,10 @@ html(ng-app='app')
   body
     block content
     
-
+    
     script(src='/lib/angular/angular.js')
     script(src='/lib/angular-route/angular-route.js')
     script(src='/js/controllers.js')
-    script(src='/js/main.js')
     script(src='/bootflat/js/site.min.js')
 
     script(src='/bootflat/js/jquery-1.10.1.min.js')
@@ -23,3 +22,5 @@ html(ng-app='app')
     script(src='/bootflat/bootflat/js/jquery.fs.stepper.min.js')
     include ./ngtemplates/listTemplates.html
     include ./ngtemplates/todoTemplates.html
+    
+    script(src='/js/main.js')
