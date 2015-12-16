@@ -16,10 +16,11 @@ router.get('/:id', function(req, res, next) {
 
     var listID = req.params.id;
 
-    res.send('list indentified with: ' + listID);
+    res.render('list', { title: 'List Detail'+listID });
 });
 
-router.get('/', function(req, res, next) { res.send('All the list for the user'); });
+router.get('/', function(req, res, next) { 
+  res.render('list', { title: 'All Lists' }); });
 
 // POST methods
 

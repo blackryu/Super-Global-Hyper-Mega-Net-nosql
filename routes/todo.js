@@ -15,13 +15,13 @@ router.get('/today', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
 
     var todoID = req.params.id;
-    res.send('Get the todo identified by: ' + todoID);
+   res.render('todo', { title: 'Todos Detail '+todoID });
 
 });
 
 router.get('/', function(req, res, next) {
 
-    res.send('Get all the todos for this user');
+    res.render('todo', { title: 'All Todos' });
 
 });
 
