@@ -16,7 +16,7 @@ router.get('/:id', function(req, res, next) {
 
     var listID = req.params.id;
 
-    res.render('list', { title: 'List Detail'+listID });
+    res.render('list', { title: 'List Detail' });
 });
 
 router.get('/', function(req, res, next) { 
