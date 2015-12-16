@@ -3,11 +3,8 @@ html(ng-app='app')
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/bootflat/css/bootstrap.min.css')
-    
-    link(rel='stylesheet', href='/bootflat/bootflat/css/bootflat.min.css')
-    include ./ngtemplates/listTemplates.html
-    include ./ngtemplates/todoTemplates.html
+    link(rel='stylesheet', href='/bootflat/css/bootstrap.min.css')    
+    link(rel='stylesheet', href='/bootflat/bootflat/css/bootflat.min.css') 
    
   body
     block content
@@ -22,5 +19,5 @@ script(src='/bootflat/js/site.min.js')
 script(src='/bootflat/js/jquery-1.10.1.min.js')
 script(src='/bootflat/js/bootstrap.min.js')
 script(src='/bootflat/bootflat/js/icheck.min.js')
-script(src='/bootflat/bootflat/js/jquery.fs.stepper.min.js')
-script(src='/bootflat/bootflat/js/jquery.fs.selector.min.js')
+include ./ngtemplates/listTemplates.html
+include ./ngtemplates/todoTemplates.html
