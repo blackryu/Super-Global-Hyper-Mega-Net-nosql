@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 var usersSchema = mongoose.Schema({
     
     _name: {type: String, unique: true, index: true},
+    realName: {type: String},
     password: String,
-    completed: Boolean,
-    }, {_id: false});
+    });
     
     
 var UserModel = mongoose.model('Users', usersSchema);

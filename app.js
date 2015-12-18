@@ -15,6 +15,14 @@ var app = express();
 // Sectret Config
 var config = require('./secret');
 
+//Configuration for Passwort
+var passport = require('passport');
+var expressSession = require('express-session');
+
+app.use(expressSession({secret: config.sessionSecret}));
+app.use(passport.initialize());
+app.use(passport.session());
+
 // DB
 var mongooseConnection = 'mongodb://' + config.dbUser + ':' + config.dbPass + '@' + config.dbUrl + '/' + config.dbName;
 
