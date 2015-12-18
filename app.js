@@ -49,6 +49,7 @@ app.use('/bootflat/css',express.static(__dirname+'/node_modules/bootflat/css/'))
 app.use('/bootflat/js',express.static(__dirname+'/node_modules/bootflat/js/'));
 app.use('/bootflat/bootflat/js',express.static(__dirname+'/node_modules/bootflat/bootflat/js/'));
 
+app.use('/bootflat/bootflat/bootflat/img',express.static(__dirname+'/node_modules/bootflat/bootflat/img/'));
 app.use('/bootflat/bootflat/css',express.static(__dirname+'/node_modules/bootflat/bootflat/css/'));
 app.use('/bootflat/fonts',express.static(__dirname+'/node_modules/bootflat/fonts/'));
 // make angular files accessible

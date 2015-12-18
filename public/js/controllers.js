@@ -4,7 +4,7 @@
     //---------------
     .factory('Lists',function(){
      return [{
-  "name": "testlist",
+  "name": "testlist1",
   "aktiv": "true",
   "owner": "sabse",
   "color": "#fff",
@@ -33,7 +33,7 @@
   ]
 },
 {
-  "name": "testlist",
+  "name": "testlist2",
   "aktiv": "true",
   "owner": "sabse",
   "color": "#fff",
@@ -100,6 +100,9 @@
     .controller('ListControllerCtrl',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
         $scope.list=Lists[$routeParams.id];
     }])
+    .controller('ListControllerCreate',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
+        
+    }])
     .controller('TodoController', ['$scope', 'Todos', function ($scope, Todos) {
       $scope.todos = Todos;
     }])
@@ -115,22 +118,16 @@
           templateUrl:'/lists.html',
           controller:'ListController'
         })
+        .when('/list/create',{
+          templateUrl:'/listCreate.html',
+            controller:'ListControllerCreate'
+      })
       .when('/list/:id',{
           templateUrl:'/listEdit.html',
           controller:'ListControllerCtrl'
         })
-      .when('/list/create',{
-          templateUrl:'/listCreate.html',
-            controller:'ListControllerCtrl'
-      })
-        .when('/todos', {
-          templateUrl: '/todos.html',
-          controller: 'TodoController'
-        })
-        .when('/todos/:id', {
-          templateUrl: '/todoDetails.html',
-          controller: 'TodoDetailCtrl'
-       })
+      
+        
           .otherwise({
           templateUrl:'/lists.html',
           controller:'ListController'

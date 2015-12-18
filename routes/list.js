@@ -15,12 +15,11 @@ router.get('/private', function(req, res, next) { res.send('All the private list
 router.get('/:id', function(req, res, next) {
 
     var listID = req.params.id;
-
-    res.render('list', { title: 'List Detail' });
 });
 
 router.get('/', function(req, res, next) { 
-  res.render('list', { title: 'All Lists' }); });
+  
+ });
 
 // POST methods
 
