@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 //implicit _id
-var todosSchema = mongoose.Schema({
+var todosSchema = new mongoose.Schema({
     
     duedate: {type: Date},
     description: {type:String, required: true},
