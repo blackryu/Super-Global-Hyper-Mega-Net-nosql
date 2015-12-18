@@ -20,16 +20,16 @@ var mongooseConnection = 'mongodb://' + config.dbUser + ':' + config.dbPass + '@
 
 var db = mongoose.connection;
 
-//let us konw we connected
+// let us konw we connected
 db.once('open', function callback() {
 
     console.log('yay we conected :) ');
-    
+
 });
 // die on connection erros
 db.on('error', console.error.bind(console, 'connection error:'));
 
-//connect 
+// connect
 mongoose.connect(mongooseConnection);
 
 // view engine setup
@@ -40,7 +40,7 @@ app.set('view engine', 'jade');
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended : false }));
+app.use(bodyParser.urlencoded({ extended : true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -57,20 +57,22 @@ app.use(function(req, res, next) {
 
 // error handlers
 
-// development error handler
-// will print stacktrace
-if(app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500);
-        res.render('error', { message : err.message, error : err });
-    });
-}
-
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
+
     res.status(err.status || 500);
-    res.render('error', { message : err.message, error : {} });
+
+    console.log(res.get('Content-Type'));
+    if(res.get('Content-Type') === 'text/html') {
+
+        res.render('error', { message : err.message, error : {} });
+
+    } else {
+
+        res.send(err);
+    }
+
 });
 
 module.exports = app;
