@@ -4,11 +4,22 @@ var router = express.Router();
 // DBA Acesss for lists.
 var listModel = require('../dbModels/lists');
 
+
+//set respose Type.
+
+//this routes shoudl return only json  
+router.use(function(req, res, next){
+    
+    res.set('Content-Type', 'application/json');
+    next();
+    });
+
 /* GET Methods*/
 
 router.get('/public', function(req, res, next) {
 
-    var user = req.user;
+    //TODO show only for user when auth is added
+    var user = req.query.user;
     listModel.find({
                      owner : user,
                      visibility : 'public'
@@ -16,96 +27,90 @@ router.get('/public', function(req, res, next) {
                    }).exec(function(err, results) {
 
         if(err) {
-            throw(err);
+           return next(err);
         };
-        res.send(results);
+        res.send({result:results});
     });
 });
 
 router.get('/private', function(req, res, next) {
-<<<<<<< HEAD
 
-    var user = req.user;
+    //TODO show only for user when auth is added
+    var user = req.query.user;
     listModel.find({
                      owner : user,
                      visibility : 'private'
 
                    }).exec(function(err, results) {
-
+        
         if(err) {
-            throw(err);
+            return next(err);
         };
-        res.send(results);
+        res.send({result:results});
     });
-
-=======
-
-    var user = req.user;
-    listModel.find({
-                     owner : user,
-                     visibility : 'private'
-
-                   }).exec(function(err, results) {
-
-        if(err) {
-            throw(err);
-        };
-        res.send(results);
-    });
-
->>>>>>> 8546a9037e62133ebde688e5beb5a4d30c3870de
 });
 // get list from ID
 router.get('/:id', function(req, res, next) {
 
     var listID = req.params.id;
 
-    var user = req.user;
+    var user = req.query.user;
     listModel.findOne({ _name : listID, owner : user }).exec(function(err, results) {
 
         if(err) {
-            throw(err);
+            console.error(err);
+            return next(err);
         };
-        res.send(results);
+
+        res.send({result:results});
     });
 });
 
 router.get('/', function(req, res, next) {
 
-    var user = req.user;
+    //TODO show only for user when auth is added
+    var user = req.query.user;
     listModel.find({
                      owner : user,
 
                    }).exec(function(err, results) {
 
         if(err) {
-            throw(err);
+            console.error(err);
+            nex(err);
         };
-        res.send(results);
+        res.send({result:results});
     });
 
 });
 
 // POST methods
 
-//Updates an existing list
+// Updates an existing list
 router.put('/:id', function(req, res, next) {
 
     var listID = req.params.id;
 
 });
 
-//Creates a new list
+// Creates a new list
 router.post('/', function(req, res, next) {
 
-    var newList = new listModel(req.body.list);
+    var bodyParamNames = Object.keys(req.body);
+    var newListDoc = {};
+    for(var sentParam in bodyParamNames) {
 
+        if(listModel.schema.paths.hasOwnProperty(bodyParamNames[sentParam])) {
+
+            newListDoc[bodyParamNames[sentParam]] = req.body[bodyParamNames[sentParam]];
+        }
+    };
+    var newList = new listModel(newListDoc);
     newList.save(function(err) {
 
         if(err) {
-            throw(err);
-            res.sendStatus(500);
-            res.send(err);
+            console.error(err.errmsg);
+            return next(err);
         } else {
             res.send({ status : 'ok' });
         }
@@ -114,4 +119,3 @@ router.post('/', function(req, res, next) {
 });
 
 module.exports = router;
-
