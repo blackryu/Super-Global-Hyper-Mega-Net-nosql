@@ -23,6 +23,7 @@ router.get('/public', function(req, res, next) {
 });
 
 router.get('/private', function(req, res, next) {
+<<<<<<< HEAD
 
     var user = req.user;
     listModel.find({
@@ -37,6 +38,22 @@ router.get('/private', function(req, res, next) {
         res.send(results);
     });
 
+=======
+
+    var user = req.user;
+    listModel.find({
+                     owner : user,
+                     visibility : 'private'
+
+                   }).exec(function(err, results) {
+
+        if(err) {
+            throw(err);
+        };
+        res.send(results);
+    });
+
+>>>>>>> 8546a9037e62133ebde688e5beb5a4d30c3870de
 });
 // get list from ID
 router.get('/:id', function(req, res, next) {
