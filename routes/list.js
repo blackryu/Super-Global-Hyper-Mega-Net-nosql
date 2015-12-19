@@ -16,6 +16,7 @@ router.use(function(req, res, next){
 
 /* GET Methods*/
 
+
 router.get('/public', function(req, res, next) {
 
     //TODO show only for user when auth is added
@@ -32,6 +33,7 @@ router.get('/public', function(req, res, next) {
         res.send({result:results});
     });
 });
+
 
 router.get('/private', function(req, res, next) {
 
@@ -53,6 +55,7 @@ router.get('/private', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
 
     var listID = req.params.id;
+
 
     var user = req.query.user;
     listModel.findOne({ _name : listID, owner : user }).exec(function(err, results) {
@@ -83,6 +86,7 @@ router.get('/', function(req, res, next) {
     });
 
 });
+
 
 // POST methods
 

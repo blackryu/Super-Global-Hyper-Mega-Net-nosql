@@ -3,9 +3,6 @@ var router = express.Router();
 
 /* If not logged-in redirect */
 var isAuthenticated = function(req, res, next) {
-
-    console.log('here');   
-    console.log(req.isAuthenticated());
     
     if(req.isAuthenticated()) {
 
