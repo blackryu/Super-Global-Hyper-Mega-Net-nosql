@@ -27,6 +27,10 @@
                               <td>
                                  <div class='container-fluid'>
                                     <div class='row'>
+                                    <div class="checkbox">
+                  <div style="position: relative;" class="icheckbox_flat checked"><input style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" id="flat-checkbox-2" checked="" type="checkbox"><ins style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div>
+                  <label class="" for="flat-checkbox-2">checked</label>
+                </div>
                                        <input type="checkbox" ng-value="todo.completed" id="list.name+todo.name">
                                        {{todo.name}} </input>
                                     </div>
@@ -37,8 +41,10 @@
                      </table>
                   </div>
                   <div class="panel-footer">
-                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                     <input type="checkbox" ng-value="list.visibility" id="list.name"/>
+                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <label class="toggle">
+			  <input ng-value="list.visibility"  type="checkbox"> 
+			  <span class="handle"></span>
+			</label>
                   </div>
                </div>
             </div>

@@ -95,7 +95,22 @@
     //---------------
  
     .controller('ListController',['$scope','Lists',function($scope,Lists){
-        $scope.lists=Lists;
+        
+        /*
+        $scope.checkboxes=function () {
+        
+                $('.checkbox input').iCheck({
+        checkboxClass: 'icheckbox_flat',
+        increaseArea: '20%'
+    });
+
+   
+         
+        
+      };    
+      $scope.checkboxes();*/
+      $scope.lists=Lists;
+        
     }])
     .controller('ListControllerCtrl',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
         $scope.list=Lists[$routeParams.id];

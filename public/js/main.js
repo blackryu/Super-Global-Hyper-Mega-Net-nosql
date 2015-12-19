@@ -11,8 +11,19 @@
         modal.find('.modal-title').text('New Todo for List: ' + recipient)
         modal.find('.modal-body .list_class').val(recipient)
      });
-    $( document ).ready(function() {
-    
-    
-});
- 
+
+  /*
+!function ($) {
+  $(function(){
+       $('.checkbox input').iCheck({
+        checkboxClass: 'icheckbox_flat',
+        increaseArea: '20%'
+    });
+
+    $('.radio input').iCheck({
+        radioClass: 'iradio_flat',
+        increaseArea: '20%'
+    });
+  })
+}(window.jQuery)
+*/
