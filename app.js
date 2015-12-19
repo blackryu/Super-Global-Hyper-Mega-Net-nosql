@@ -76,14 +76,7 @@ app.use('/bootflat/fonts',express.static(__dirname+'/node_modules/bootflat/fonts
 app.use('/lib/angular/angular.js',express.static(__dirname+'/node_modules/angular/angular.js'));
 app.use('/lib/angular-route/angular-route.js',express.static(__dirname+'/node_modules/angular-route/angular-route.js'));
 
-
-app.use(express.static(path.join(__dirname, 'public')));
-
- 
-
-
 app.use('/', indexRoutes);
- 
  
 // auth for api
 app.use('/', function(req, res, next){
@@ -100,6 +93,10 @@ app.use('/', function(req, res, next){
 app.use('/users', users);
 app.use('/list', listRoutes);
 app.use('/todos', todosRoutes);
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 // catch 404 and forward to error handler
 
 

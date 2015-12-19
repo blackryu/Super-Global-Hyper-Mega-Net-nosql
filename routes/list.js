@@ -20,7 +20,8 @@ router.use(function(req, res, next){
 router.get('/public', function(req, res, next) {
 
     //TODO show only for user when auth is added
-    var user = req.query.user;
+
+    var user = req.user._name;
     listModel.find({
                      owner : user,
                      visibility : 'public'
@@ -38,7 +39,7 @@ router.get('/public', function(req, res, next) {
 router.get('/private', function(req, res, next) {
 
     //TODO show only for user when auth is added
-    var user = req.query.user;
+    var user = req.user._name;
     listModel.find({
                      owner : user,
                      visibility : 'private'
@@ -57,7 +58,7 @@ router.get('/:id', function(req, res, next) {
     var listID = req.params.id;
 
 
-    var user = req.query.user;
+    var user = req.user._name;
     listModel.findOne({ _name : listID, owner : user }).exec(function(err, results) {
 
         if(err) {
@@ -72,7 +73,7 @@ router.get('/:id', function(req, res, next) {
 router.get('/', function(req, res, next) {
 
     //TODO show only for user when auth is added
-    var user = req.query.user;
+    var user = req.user._name;
     listModel.find({
                      owner : user,
 

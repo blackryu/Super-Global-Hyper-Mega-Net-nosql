@@ -4,6 +4,8 @@ var router = express.Router();
 /* If not logged-in redirect */
 var isAuthenticated = function(req, res, next) {
     
+    
+    console.log('Authentication Status: ' + req.isAuthenticated() );
     if(req.isAuthenticated()) {
 
         return next();
@@ -42,15 +44,7 @@ function routeIndex(passport)
     router.get('/', isAuthenticated, function(req, res) {
 
         console.log('get home page');
-        res.render('index', { title : 'Express' });
-
-    });
-
-    router.post('/', isAuthenticated, function(req, res) {
-
-        console.log('post home page');
-
-        res.render('index', { title : 'Express' });
+        res.sendFile('public/index.html', {root: __dirname + '/../'});
 
     });
 
