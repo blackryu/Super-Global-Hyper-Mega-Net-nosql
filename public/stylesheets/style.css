@@ -1,8 +1,18 @@
+
+
+body,html{
+    background-image:url('./../img/dark_wood.png');
+}
+
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+ 
 }
-
+.panel{
+     background-color:rgba(200, 200,200, 0.6) !important;
+}
 a {
   color: #00B7FF;
 }

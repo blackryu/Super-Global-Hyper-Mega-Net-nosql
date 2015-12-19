@@ -1,0 +1,54 @@
+<div class="panel panel-default">
+   <div class="panel-heading ">
+      <div class="container">
+         <div class="row-fluid">
+            <h5 class="col-xs-6 col-sm-3">Create new List</h5>
+            <div class="col-xs-6 col-sm-3 pull-right">
+               <div role="group" class="btn-group">
+                <a href='#/list/' role='button' class='btn btn-default'><span class=' glyphicon glyphicon-arrow-left'></span></a>
+                <button class='btn btn-success' type='submit'><span class='glyphicon glyphicon-floppy-disk'></span></button>
+                </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="panel panel-body">
+      <div class="container-fluid">
+         <div class="row">
+            <div  class=" col-xs-6 col-sm-3">
+               <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <input type='text' ng-value='list.name'/>
+                  </div>
+                  <div class="panel-body">
+                     <table class="table">
+                        <tbody class="table-striped">
+                           <tr ng-repeat="todo in list.todos">
+                              <td>
+                                 <div class='container-fluid'>
+                                    <div class='row'>
+                                    <div class="checkbox">
+                  <div style="position: relative;" class="icheckbox_flat checked"><input style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" id="flat-checkbox-2" checked="" type="checkbox"><ins style="position: absolute; top: -20%; left: -20%; display: block; width: 140%; height: 140%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;" class="iCheck-helper"></ins></div>
+                  <label class="" for="flat-checkbox-2">checked</label>
+                </div>
+                                       <input type="checkbox" ng-value="todo.completed" id="list.name+todo.name">
+                                       {{todo.name}} </input>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="panel-footer">
+                     <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <label class="toggle">
+			  <input ng-value="list.visibility"  type="checkbox"> 
+			  <span class="handle"></span>
+			</label>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>

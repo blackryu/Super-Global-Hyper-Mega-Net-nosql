@@ -28,12 +28,14 @@ router.get('/today', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
+
     todoModel.findById(req.params.id, function (err, post){
         if(err) return next(err);
         res.json(post);
     })
     // var todoID = req.params.id;
     // res.send('Get the todo identified by: ' + todoID);
+
 
 });
 
@@ -43,12 +45,14 @@ router.get('/:id', function(req, res, next) {
 * returns all todos
 */
 router.get('/', function(req, res, next) {
+
     /*res.send('Get all the todos for this user'); */
     todoModel.find(function(err, todos){
        if (err) return next(err);
        res.json(todos);
     });
     
+
 });
 
 // POST Methods

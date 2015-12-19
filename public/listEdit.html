@@ -1,0 +1,55 @@
+<div class="panel panel-default">
+   <div class="panel-heading ">
+      <div class="container">
+         <div class="row-fluid">
+            <h5 class="col-xs-6 col-sm-3">Edit List {{list.name}}</h5>
+            <div class="col-xs-6 col-sm-3 pull-right">
+               <div role="group" class="btn-group">
+                <a href='#/list/' role='button' class='btn btn-default'><span class=' glyphicon glyphicon-arrow-left'></span></a>
+                <button class='btn btn-success' type='submit'><span class='glyphicon glyphicon-floppy-disk'></span></button>
+                <button class='btn btn-danger' type='submit'><span class='glyphicon glyphicon-remove'></span></button>
+            </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="panel panel-body">
+      <div class="container-fluid">
+         <div class="row">
+            <div  class=" col-xs-6 col-sm-3">
+               <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <input type='text' ng-value='list.name'/>
+                  </div>
+                  <div class="panel-body">
+                     <table class="table">
+                        <tbody class="table-striped">
+                           <tr ng-repeat="todo in list.todos">
+                              <td>
+                                 <div class='container-fluid'>
+                                    <div class='row'>
+                                       <input type="checkbox" ng-value="todo.completed" id="list.name+todo.name"/>
+                                       {{todo.name}} 
+                                       <a class="btn btn-danger btn-xs pull-right" href='/todo/{{todo.name}}/#/todo/{{$index}}'>
+                                          <span class='glyphicon glyphicon-remove '></span></a>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                        </tbody>
+                     </table>
+                  </div>
+                  <div class="panel-footer">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+                  <label class="toggle">
+			  <input ng-value="list.visibility"  type="checkbox"> 
+			  <span class="handle"></span>
+			</label>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
