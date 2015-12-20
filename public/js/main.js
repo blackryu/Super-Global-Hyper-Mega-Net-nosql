@@ -36,34 +36,5 @@ $('.datepicker').datepicker({
   })
 }(window.jQuery)
  */
-  $http({method: 'GET', url: '/todos'}).
-  success(function(data, status, headers, config) {
-    console.log('todos: ', data );
-  }).
-  error(function(data, status, headers, config) {
-    console.log('Oops and error', data);
-  });
-  
-   $http({method: 'GET', url: '/list'}).
-  success(function(data, status, headers, config) {
-    console.log('list: ', data );
-  }).
-  error(function(data, status, headers, config) {
-    console.log('Oops and error', data);
-  });
-  
-  $http({method: 'GET', url: '/list/public'}).
-  success(function(data, status, headers, config) {
-    console.log('list: ', data );
-  }).
-  error(function(data, status, headers, config) {
-    console.log('Oops and error', data);
-  });
-  $http({method: 'GET', url: '/list/:id'}).
-  success(function(data, status, headers, config) {
-    console.log('list: ', data );
-  }).
-  error(function(data, status, headers, config) {
-    console.log('Oops and error', data);
-  });
+
  

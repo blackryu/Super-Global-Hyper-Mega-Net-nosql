@@ -31,7 +31,8 @@ router.get('/public', function(req, res, next) {
         if(err) {
            return next(err);
         };
-        res.send({result:results});
+       
+        res.send(results);
     });
 });
 
@@ -49,7 +50,8 @@ router.get('/private', function(req, res, next) {
         if(err) {
             return next(err);
         };
-        res.send({result:results});
+        
+        res.send(results);
     });
 });
 // get list from ID
@@ -66,7 +68,8 @@ router.get('/:id', function(req, res, next) {
             return next(err);
         };
 
-        res.send({result:results});
+        
+        res.send(results);
     });
 });
 
@@ -83,7 +86,7 @@ router.get('/', function(req, res, next) {
             console.error(err);
             nex(err);
         };
-        res.send({result:results});
+        res.send(results);
     });
 
 });
