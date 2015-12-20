@@ -37,11 +37,16 @@
       $scope.checkboxes();*/
     
 $scope.lists = Lists.query();
-
+var vis
+        if($scope.visibility){
+            vis="public"
+        } else {
+            vis="private"
+        }
         $scope.save = function(){
         if(!$scope.name || $scope.name.length < 1) return;
         // TODO get the current user.
-        var list = new Lists({ _name: $scope.name, owner: 'Sabrina-Sachs87@web.de' ,visibility:$scope.visibility});
+        var list = new Lists({ _name: $scope.name, owner: 'Sabrina-Sachs87@web.de' ,visibility:"public"});
 
         list.$save(function(){
           $scope.lists.push(list);

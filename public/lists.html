@@ -98,7 +98,7 @@
                      
                      <div role="group" class="btn-group pull-right">
                      <a type="button" class="btn btn-success btn-xs" href="#/list/{{$index}}"><span class='glyphicon glyphicon-pencil '></span></a>
-                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#todoModal"  data-whatever="{{list.name}}"><span class='glyphicon glyphicon-plus '></span></button>
+                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#todoModal"  data-whatever="{{list._name}}"><span class='glyphicon glyphicon-plus '></span></button>
                      </div>
                      </div>
                   </div>
@@ -126,16 +126,13 @@
                </table>
             </div>
             <div class="panel-footer">
-              
+               <span class="glyphicon glyphicon-user" aria-hidden="list.visibility"></span>
                <label class="toggle">
-			  <input ng-value="list.visibility" disabled="" type="checkbox"> 
+			  <input ng-model="list.visibility" ng-checked="{{list.visibility=='public'}}" ng-True-Value="{{public}}" ng-False-Value="{{private}}" disabled="" type="checkbox"> 
 			  <span class="handle">
-               <span class="glyphicon glyphicon-user" aria-hidden="list.visibility"></span></span>
+             </span>
 			</label>
-                <div class="checkbox">
-                  <input type="checkbox" id="flat-checkbox-1">
-                  <label for="flat-checkbox-1">default</label>
-                </div>
+                
             </div>
          </div>
       </div>
