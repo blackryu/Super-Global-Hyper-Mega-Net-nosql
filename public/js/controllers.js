@@ -12,9 +12,13 @@
             'update': { method:'PUT' }
           });*/
 })
-
+   .factory('ListsEdit', function($resource) {
+ return $resource('/list/:id',{},{
+      query: {method:'GET',isArray:false}
+      
+  }); 
  
-
+})
  
     //---------------
     // Controllers
@@ -56,8 +60,9 @@ var vis
         window.location.replace('/');
       }
     }])
-    .controller('ListControllerCtrl',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
+    .controller('ListControllerEdit',['$scope','$routeParams','ListsEdit',function($scope,$routeParams,ListsEdit){
        
+       $scope.list=ListsEdit.get({id: $routeParams.id });
     }])
     .controller('ListControllerCreate',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
          $scope.lists = Lists.query();
@@ -105,7 +110,7 @@ var vis
       })
       .when('/list/:id',{
           templateUrl:'/listEdit.html',
-          controller:'ListControllerCtrl'
+          controller:'ListControllerEdit'
         })
       
         
