@@ -1,0 +1,9 @@
+extends layout
+
+block content
+    .container
+        form.form-signin(action="/singup", method="post")
+            h2.form-signin-heading Please Register
+            input.input-block-level(type="text", name="username", placeholder="Username")
+            input.input-block-level(type="password", name="password", placeholder="Password")
+            button.btn.btn-large.btn-primary(type="submit") Register

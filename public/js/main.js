@@ -10,11 +10,11 @@
          var modal = $(this)
         modal.find('.modal-title').text('New Todo for List: ' + recipient)
         modal.find('.modal-body .list_class').val(recipient)
-        
+        /*
     $(".prev .next .day").addClass('unit');
      })
      $( document ).ready(function() {
-    $("#datepicker").datepicker();
+    $("#datepicker").datepicker();*/
 });
 /*     jQuery.noConflict();
 $('.datepicker').datepicker({
@@ -35,7 +35,7 @@ $('.datepicker').datepicker({
     });
   })
 }(window.jQuery)
-
+ */
   $http({method: 'GET', url: '/todos'}).
   success(function(data, status, headers, config) {
     console.log('todos: ', data );
@@ -66,4 +66,4 @@ $('.datepicker').datepicker({
   error(function(data, status, headers, config) {
     console.log('Oops and error', data);
   });
-  */
+ 
