@@ -13,7 +13,8 @@ var config = {
         dbUser: "SECRET",
         dbPass: "SECRET",
         dbUrl: "SECRET",
-        dbName: "SECRET"
+        dbName: "SECRET",
+        sessionSecret:  "longSecret"
     
     };
 
