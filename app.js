@@ -53,9 +53,13 @@ app.use('/bootflat/bootflat/img',express.static(__dirname+'/node_modules/bootfla
 app.use('/bootflat/bootflat/bootflat/img',express.static(__dirname+'/node_modules/bootflat/bootflat/img/'));
 app.use('/bootflat/bootflat/css',express.static(__dirname+'/node_modules/bootflat/bootflat/css/'));
 app.use('/bootflat/fonts',express.static(__dirname+'/node_modules/bootflat/fonts/'));
-// make angular files accessible
+// make angular files accessible angular-resource
 app.use('/lib/angular/angular.js',express.static(__dirname+'/node_modules/angular/angular.js'));
 app.use('/lib/angular-route/angular-route.js',express.static(__dirname+'/node_modules/angular-route/angular-route.js'));
+app.use('/lib/angular-route/angular-resource.js',express.static(__dirname+'/node_modules/angular-resource/angular-resource.js'));
+
+app.use('/bootstrap-datepicker/css',express.static(__dirname+'/node_modules/bootstrap-datepicker/less/'));
+app.use('/bootstrap-datepicker/js',express.static(__dirname+'/node_modules/bootstrap-datepicker/js/'));
 
 
 app.use(express.static(path.join(__dirname, 'public')));

@@ -15,8 +15,13 @@
                   <label for="todo_name" class="control-label">Todo name:</label>
                   <input type="text"  class="form-control" id="todo_name">
                </div>
-            </form>
-         </div>
+  <div class="input-group date" data-provide="datepicker">
+    <input type="text" class="form-control">
+    <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
+</div>    </form>
+
          <div class="modal-footer">
          <div role="group" class="btn-group">
             <button type="button" class="btn btn-default" data-dismiss="modal"><span class='glyphicon glyphicon-remove'></span></button>
@@ -102,8 +107,8 @@
             
             <div ng-repeat="todo in list.todos">
             <div class="checkbox">
-                  <input type="checkbox" id="{{$index}}">
-                  <label for="{{$index}}"> {{todo.name}}</label>
+                  <input type="checkbox" id="{{todo._id}}">
+                  <label for="{{todo._id}}"> {{todo.description}}</label>
                 </div>
                   
     </div>
@@ -113,7 +118,7 @@
                         <td>
                           
               <input  id="todo_completed" ng-value="todo.completed" class="checkbox" type="checkbox"/>
-                            {{todo.name}}
+                            {{todo.description}}
                         </td>
                      </tr>
                   </tbody>

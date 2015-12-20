@@ -30,8 +30,12 @@
                                     <div class='row'>
                                        <input type="checkbox" ng-value="todo.completed" id="list.name+todo.name"/>
                                        {{todo.name}} 
+                                       <div class="btn-group">
                                        <a class="btn btn-danger btn-xs pull-right" href='/todo/{{todo.name}}/#/todo/{{$index}}'>
                                           <span class='glyphicon glyphicon-remove '></span></a>
+                                    <a class="btn btn-default btn-xs pull-right" href='/todo/{{todo.name}}/#/todo/{{$index}}'>
+                                          <span class='glyphicon glyphicon-pencil '></span></a>
+                                          </div>
                                     </div>
                                  </div>
                               </td>
