@@ -28,17 +28,34 @@
   }); 
 
 })
+ .factory('ListsPrivate', function($resource) {
+ return $resource('/list/private',{},{
+      query: {method:'GET',isArray:true}
+      
+  }); 
+
+})
 
  
     //---------------
     // Controllers
     //---------------
  
-    .controller('ListController',['$scope','Lists',function($scope,Lists,user,index){
+    .controller('ListController',['$scope','Lists','ListsPrivate',function($scope,Lists,ListsPrivate,user,index){
         
      
-    
+    if(!$scope.filter){
 $scope.lists = Lists.query();
+}
+$scope.filterPrivate=function(){
+    $scope.lists=ListsPrivate.query();
+     $scope.filter=true;
+}
+
+$scope.resetFilter=function(){
+    $scope.lists=Lists.query();
+     $scope.filter=false;
+}
 
         $scope.save = function(){
         if(!$scope.name || $scope.name.length < 1) return;
