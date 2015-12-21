@@ -21,6 +21,13 @@
   }); 
  
 })
+ .factory('ListsPublic', function($resource) {
+ return $resource('/list/public',{},{
+      query: {method:'GET',isArray:true}
+      
+  }); 
+
+})
 
  
     //---------------
@@ -32,16 +39,18 @@
      
     
 $scope.lists = Lists.query();
-var vis
+
+        $scope.save = function(){
+        if(!$scope.name || $scope.name.length < 1) return;
+        var vis
         if($scope.visibility){
             vis="public"
         } else {
             vis="private"
         }
-        $scope.save = function(){
-        if(!$scope.name || $scope.name.length < 1) return;
+        alert(vis)
         // TODO get the current user.
-        var list = new Lists({ _name: $scope.name, owner: 'Sabrina-Sachs87@web.de' ,visibility:"public"});
+        var list = new Lists({ _name: $scope.name, owner: 'test@test.de' ,visibility:vis});
 
         list.$save(function(){
           $scope.lists.push(list);
@@ -58,10 +67,8 @@ var vis
           var index=$('#idListHidden').val();
          
           
-          alert(index);
-          
          var listObject= $scope.lists[index];
-         listObject.todos.push({_name:todo,completed:false});
+         listObject.todos.push({description:todo,completed:false});
          /*
          
       $scope.update = function(index){
@@ -80,6 +87,12 @@ var vis
       }
 
     }])
+    .controller('ListControllerPublic',['$scope','ListsPublic',function($scope,ListsPublic){
+    
+$scope.lists = ListsPublic.query();
+     
+
+    }])
     .controller('ListControllerEdit',['$scope','$routeParams','ListsEdit',function($scope,$routeParams,ListsEdit){
        
        $scope.list=ListsEdit.get({id: $routeParams.id });
@@ -92,7 +105,7 @@ var vis
           }
           
           $scope.update = function(){
-              ListsEdit.update({_name:$scope.list._name,owner:"Sabrina-Sachs87@web.de",visibility:$scope.list.visibility})
+              ListsEdit.update({_name:$scope.list._name,owner:"test@test.de",visibility:$scope.list.visibility})
                window.location.replace('/');
           }
     }])
@@ -139,6 +152,10 @@ var vis
           templateUrl:'/listCreate.html',
             controller:'ListController'
       })
+      .when('/list/public',{
+          templateUrl:'/listsPublic.html',
+          controller:'ListControllerPublic'
+        })
       .when('/list/:id',{
           templateUrl:'/listEdit.html',
           controller:'ListControllerEdit'
