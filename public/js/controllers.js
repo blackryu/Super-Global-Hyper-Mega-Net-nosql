@@ -1,44 +1,35 @@
   angular.module('app', ['ngRoute', 'ngResource'])
+  
+ 
     //---------------
     // Services
     //---------------
     .factory('Lists', function($resource) {
  return $resource('/list',{},{
-      query: {method:'GET',isArray:true}
+      query: {method:'GET',isArray:true},
+      update: {method: 'POST',isArray:false},
+    delete: {method: 'DELETE',isArray:false}
       
   }); 
-  /*
-   return $resource('/list/:id', null, {
-            'update': { method:'PUT' }
-          });*/
+
 })
    .factory('ListsEdit', function($resource) {
  return $resource('/list/:id',{},{
-      query: {method:'GET',isArray:false}
+      query: {method:'GET',isArray:false},
+      update:{method:'POST',isArray:false}
       
   }); 
  
 })
+
  
     //---------------
     // Controllers
     //---------------
  
-    .controller('ListController',['$scope','Lists',function($scope,Lists,user){
+    .controller('ListController',['$scope','Lists',function($scope,Lists,user,index){
         
-        /*
-        $scope.checkboxes=function () {
-        
-                $('.checkbox input').iCheck({
-        checkboxClass: 'icheckbox_flat',
-        increaseArea: '20%'
-    });
-
-   
-         
-        
-      };    
-      $scope.checkboxes();*/
+     
     
 $scope.lists = Lists.query();
 var vis
@@ -59,11 +50,68 @@ var vis
         
         window.location.replace('/');
       }
+
+      
+      $scope.saveTodo = function(){
+          var todo=$('#todo_name').val();
+          
+          var index=$('#idListHidden').val();
+         
+          
+          alert(index);
+          
+         var listObject= $scope.lists[index];
+         listObject.todos.push({_name:todo,completed:false});
+         /*
+         
+      $scope.update = function(index){
+        var todo = $scope.todos[index];
+        Todos.update({id: todo._id}, todo);
+        $scope.editing[index] = false;
+      }
+
+         
+         *//*
+         listObject.$update(function(index){
+             $scope.lists[index]=ListObject;
+             Lists[index]=listObject;
+         })*/
+         Lists.update({id:listObject._name,todos:listObject.todos},listObject);
+      }
+
     }])
     .controller('ListControllerEdit',['$scope','$routeParams','ListsEdit',function($scope,$routeParams,ListsEdit){
        
        $scope.list=ListsEdit.get({id: $routeParams.id });
+       
+          $scope.remove = function(){
+            //var list = $scope.lists[index];
+            ListsEdit.delete({id: $scope.list._name})
+
+                     window.location.replace('/');
+          }
+          
+          $scope.update = function(){
+              ListsEdit.update({_name:$scope.list._name,owner:"Sabrina-Sachs87@web.de",visibility:$scope.list.visibility})
+               window.location.replace('/');
+          }
     }])
+   
+    /*
+    
+    $scope.saveTodo=function(){
+        
+      //  if(!$scope._name || $scope._name.length < 1) return;
+        
+     
+     //if(!$scope.todo_name || $scope.todo_name.length < 1) return;
+        var list=Lists.get({id: $scope._name })
+        alert($scope._name)
+        alert($scope.todo_name)
+        alert(list._name)
+        //saveTodoIntern()
+    }
+    */
     .controller('ListControllerCreate',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
          $scope.lists = Lists.query();
           $scope.save = function(){
@@ -75,24 +123,7 @@ var vis
         })
       }
     }])
-    .controller('TodoController', ['$scope', 'Todos', function ($scope, Todos) {
-
-    $scope.todos = Todos.query();
-    
-    $scope.save = function(){
-        if(!$scope.newTodo || $scope.newTodo.length < 1) return;
-        var todo = new Todos({ name: $scope.newTodo, completed: false });
-
-        todo.$save(function(){
-          $scope.todos.push(todo);
-          $scope.newTodo = ''; // clear textbox
-        })
-      }
-
-    }])
-    .controller('TodoDetailCtrl', ['$scope', '$routeParams', 'Todos', function ($scope, $routeParams, Todos) {
-      $scope.todo = Todos[$routeParams.id];
-    }])
+  
   
 
     //---------------
@@ -112,8 +143,6 @@ var vis
           templateUrl:'/listEdit.html',
           controller:'ListControllerEdit'
         })
-      
-        
           .otherwise({
           templateUrl:'/lists.html',
           controller:'ListController'
