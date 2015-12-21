@@ -6,8 +6,8 @@
             <div class="col-xs-6 col-sm-3 pull-right">
                <div role="group" class="btn-group">
                 <a href='#/list/' role='button' class='btn btn-default'><span class=' glyphicon glyphicon-arrow-left'></span></a>
-                <button class='btn btn-success' type='submit'><span class='glyphicon glyphicon-floppy-disk'></span></button>
-                <button class='btn btn-danger' type='submit'><span class='glyphicon glyphicon-remove'></span></button>
+                <button class='btn btn-success' ng-click="update()" type='submit'><span class='glyphicon glyphicon-floppy-disk'></span></button>
+                <button class='btn btn-danger'  ng-click="remove($index)"><span class='glyphicon glyphicon-remove'></span></button>
             </div>
             </div>
          </div>
@@ -16,10 +16,11 @@
    <div class="panel panel-body">
       <div class="container-fluid">
          <div class="row">
+         
             <div  class=" col-xs-6 col-sm-3">
                <div class="panel panel-default">
                   <div class="panel-heading">
-                     <input type='text' ng-value='list.name'/>
+                     <input type='text' ng-model='list._name'/>
                   </div>
                   <div class="panel-body">
                      <table class="table">
@@ -30,8 +31,12 @@
                                     <div class='row'>
                                        <input type="checkbox" ng-value="todo.completed" id="list.name+todo.name"/>
                                        {{todo.name}} 
+                                       <div class="btn-group">
                                        <a class="btn btn-danger btn-xs pull-right" href='/todo/{{todo.name}}/#/todo/{{$index}}'>
                                           <span class='glyphicon glyphicon-remove '></span></a>
+                                    <a class="btn btn-default btn-xs pull-right" href='/todo/{{todo.name}}/#/todo/{{$index}}'>
+                                          <span class='glyphicon glyphicon-pencil '></span></a>
+                                          </div>
                                     </div>
                                  </div>
                               </td>
@@ -40,11 +45,13 @@
                      </table>
                   </div>
                   <div class="panel-footer">
-                  <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-                  <label class="toggle">
-			  <input ng-value="list.visibility"  type="checkbox"> 
-			  <span class="handle"></span>
+                  <span class="glyphicon glyphicon-user" aria-hidden="list.visibility"></span>
+               <label class="toggle">
+			  <input ng-model="list.visibility" ng-checked="list.visibility=='public'" ng-True-Value="'public'" ng-False-Value="'private'"  type="checkbox"> 
+			  <span class="handle">
+             </span>
 			</label>
+                  
 
                   </div>
                </div>

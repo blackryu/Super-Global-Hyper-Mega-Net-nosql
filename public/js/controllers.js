@@ -1,129 +1,131 @@
- angular.module('app', ['ngRoute'])
+  angular.module('app', ['ngRoute', 'ngResource'])
+  
+ 
     //---------------
     // Services
     //---------------
-    .factory('Lists',function(){
-     return [{
-  "name": "testlist1",
-  "aktiv": "true",
-  "owner": "sabse",
-  "color": "#fff",
-  "visibility": "true",
-  "todos": [
-    {
-      "name": "todo1",
-      "completed": "true",
-      "note": "note for todo"
-    },
-    {
-      "name": "todo2",
-      "completed": "true",
-      "note": "note for todo"
-    },
-    {
-      "name": "todo3",
-      "completed": "false",
-      "note": "note for todo"
-    },
-    {
-      "name": "todo4",
-      "completed": "false",
-      "note": "note for todo"
-    }
-  ]
-},
-{
-  "name": "testlist2",
-  "aktiv": "true",
-  "owner": "sabse",
-  "color": "#fff",
-  "visibility": "false",
-  "todos": [
-    {
-      "name": "todo1",
-      "completed": "true",
-      "note": "note for todo"
-    },
-    {
-      "name": "todo2",
-      "completed": "true",
-      "note": "note for todo"
-    }
-  ]
-},
-{
-  "name": "testlist",
-  "aktiv": "true",
-  "owner": "sabse",
-  "color": "#fff",
-  "visibility": "true",
-  "todos": [
-    {
-      "name": "todo1",
-      "completed": "true",
-      "note": "note for todo"
-    },
-    {
-      "name": "todo2",
-      "completed": "true",
-      "note": "note for todo"
-    },
-    {
-      "name": "todo3",
-      "completed": "false",
-      "note": "note for todo"
-    }
-  ]
-}];
- })
-    .factory('Todos',function(){
-     return [
-         { name: 'AngularJS Directives', completed: true, note: 'add notes...' },
-        { name: 'Data binding', completed: true, note: 'add notes...' },
-        { name: '$scope', completed: true, note: 'add notes...' },
-        { name: 'Controllers and Modules', completed: true, note: 'add notes...' },
-        { name: 'Templates and routes', completed: true, note: 'add notes...' },
-        { name: 'Filters and Services', completed: false, note: 'add notes...' },
-        { name: 'Get started with Node/ExpressJS', completed: false, note: 'add notes...' },
-        { name: 'Setup MongoDB database', completed: false, note: 'add notes...' },
-        { name: 'Be awesome!', completed: false, note: 'add notes...' },
-     ];
- })
-    
+    .factory('Lists', function($resource) {
+ return $resource('/list',{},{
+      query: {method:'GET',isArray:true},
+      update: {method: 'POST',isArray:false},
+    delete: {method: 'DELETE',isArray:false}
+      
+  }); 
+
+})
+   .factory('ListsEdit', function($resource) {
+ return $resource('/list/:id',{},{
+      query: {method:'GET',isArray:false},
+      update:{method:'POST',isArray:false}
+      
+  }); 
+ 
+})
+
+ 
     //---------------
     // Controllers
     //---------------
  
-    .controller('ListController',['$scope','Lists',function($scope,Lists){
+    .controller('ListController',['$scope','Lists',function($scope,Lists,user,index){
         
-        /*
-        $scope.checkboxes=function () {
-        
-                $('.checkbox input').iCheck({
-        checkboxClass: 'icheckbox_flat',
-        increaseArea: '20%'
-    });
+     
+    
+$scope.lists = Lists.query();
+var vis
+        if($scope.visibility){
+            vis="public"
+        } else {
+            vis="private"
+        }
+        $scope.save = function(){
+        if(!$scope.name || $scope.name.length < 1) return;
+        // TODO get the current user.
+        var list = new Lists({ _name: $scope.name, owner: 'Sabrina-Sachs87@web.de' ,visibility:"public"});
 
-   
+        list.$save(function(){
+          $scope.lists.push(list);
+          
+        })
+        
+        window.location.replace('/');
+      }
+
+      
+      $scope.saveTodo = function(){
+          var todo=$('#todo_name').val();
+          
+          var index=$('#idListHidden').val();
          
-        
-      };    
-      $scope.checkboxes();*/
-      $scope.lists=Lists;
-        
+          
+          alert(index);
+          
+         var listObject= $scope.lists[index];
+         listObject.todos.push({_name:todo,completed:false});
+         /*
+         
+      $scope.update = function(index){
+        var todo = $scope.todos[index];
+        Todos.update({id: todo._id}, todo);
+        $scope.editing[index] = false;
+      }
+
+         
+         *//*
+         listObject.$update(function(index){
+             $scope.lists[index]=ListObject;
+             Lists[index]=listObject;
+         })*/
+         Lists.update({id:listObject._name,todos:listObject.todos},listObject);
+      }
+
     }])
-    .controller('ListControllerCtrl',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
-        $scope.list=Lists[$routeParams.id];
+    .controller('ListControllerEdit',['$scope','$routeParams','ListsEdit',function($scope,$routeParams,ListsEdit){
+       
+       $scope.list=ListsEdit.get({id: $routeParams.id });
+       
+          $scope.remove = function(){
+            //var list = $scope.lists[index];
+            ListsEdit.delete({id: $scope.list._name})
+
+                     window.location.replace('/');
+          }
+          
+          $scope.update = function(){
+              ListsEdit.update({_name:$scope.list._name,owner:"Sabrina-Sachs87@web.de",visibility:$scope.list.visibility})
+               window.location.replace('/');
+          }
     }])
+   
+    /*
+    
+    $scope.saveTodo=function(){
+        
+      //  if(!$scope._name || $scope._name.length < 1) return;
+        
+     
+     //if(!$scope.todo_name || $scope.todo_name.length < 1) return;
+        var list=Lists.get({id: $scope._name })
+        alert($scope._name)
+        alert($scope.todo_name)
+        alert(list._name)
+        //saveTodoIntern()
+    }
+    */
     .controller('ListControllerCreate',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
-        
+         $scope.lists = Lists.query();
+          $scope.save = function(){
+        if(!$scope.name || $scope.name.length < 1) return;
+        var list = new Lists({ name: $scope.name, owner: $scope.user,visibility:$scope.visibility  });
+
+        list.$save(function(){
+          $scope.lists.push(list);
+        })
+      }
     }])
-    .controller('TodoController', ['$scope', 'Todos', function ($scope, Todos) {
-      $scope.todos = Todos;
-    }])
-    .controller('TodoDetailCtrl', ['$scope', '$routeParams', 'Todos', function ($scope, $routeParams, Todos) {
-      $scope.todo = Todos[$routeParams.id];
-    }])
+  
+  
+
     //---------------
     // Routes
     //---------------
@@ -135,14 +137,12 @@
         })
         .when('/list/create',{
           templateUrl:'/listCreate.html',
-            controller:'ListControllerCreate'
+            controller:'ListController'
       })
       .when('/list/:id',{
           templateUrl:'/listEdit.html',
-          controller:'ListControllerCtrl'
+          controller:'ListControllerEdit'
         })
-      
-        
           .otherwise({
           templateUrl:'/lists.html',
           controller:'ListController'
