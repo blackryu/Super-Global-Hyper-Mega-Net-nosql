@@ -122,7 +122,7 @@ $scope.lists = ListsPublic.query();
           }
           
           $scope.update = function(){
-              ListsEdit.update({_name:$scope.list._name,owner:"test@test.de",visibility:$scope.list.visibility,color:$scope.color})
+              ListsEdit.update({_name:$scope.list._name,owner:"test@test.de",visibility:$scope.list.visibility,color:$scope.list.color})
                window.location.replace('/');
           }
     }])
