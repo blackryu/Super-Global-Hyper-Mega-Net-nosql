@@ -66,8 +66,8 @@ $scope.resetFilter=function(){
             vis="private"
         }
         alert(vis)
-        // TODO get the current user.
-        var list = new Lists({ _name: $scope.name, owner: 'test@test.de' ,visibility:vis});
+        // TODO owner set in the post method.
+        var list = new Lists({ _name: $scope.name, owner: 'test@test.de' ,visibility:vis, color:$scope.color});
 
         list.$save(function(){
           $scope.lists.push(list);
@@ -122,7 +122,7 @@ $scope.lists = ListsPublic.query();
           }
           
           $scope.update = function(){
-              ListsEdit.update({_name:$scope.list._name,owner:"test@test.de",visibility:$scope.list.visibility})
+              ListsEdit.update({_name:$scope.list._name,owner:"test@test.de",visibility:$scope.list.visibility,color:$scope.color})
                window.location.replace('/');
           }
     }])
