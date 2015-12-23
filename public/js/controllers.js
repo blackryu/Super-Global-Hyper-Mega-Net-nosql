@@ -16,13 +16,21 @@
    .factory('ListsEdit', function($resource) {
  return $resource('/list/:id',{},{
       query: {method:'GET',isArray:false},
-      update:{method:'POST',isArray:false}
+      update:{method:'PUT',isArray:false}
       
   }); 
  
 })
+
  .factory('ListsPublic', function($resource) {
  return $resource('/list/public',{},{
+      query: {method:'GET',isArray:true}
+      
+  }); 
+
+})
+.factory('ListsPublicAll', function($resource) {
+ return $resource('/list/publicAll',{},{
       query: {method:'GET',isArray:true}
       
   }); 
@@ -41,20 +49,40 @@
     // Controllers
     //---------------
  
-    .controller('ListController',['$scope','Lists','ListsPrivate',function($scope,Lists,ListsPrivate,user,index){
+    .controller('ListController',['$scope','Lists','ListsPrivate','ListsPublic',function($scope,Lists,ListsPrivate,ListsPublic,user,index){
         
      
-    if(!$scope.filter){
 $scope.lists = Lists.query();
+
+$scope.filterPrivates=function(){
+    if((!$scope.filterPrivate) && (!$scope.filterPublic)){
+        $scope.filterPrivate=true;
+        $scope.lists=ListsPrivate.query();
+        
+    } else {
+        //both buttons are pressed
+         $scope.lists=Lists.query();
+         $scope.filterPrivate=false;
+         $scope.filterPublic=false;
+    }
+     
 }
-$scope.filterPrivate=function(){
-    $scope.lists=ListsPrivate.query();
-     $scope.filter=true;
+$scope.filterPublics=function(){
+    
+    if((!$scope.filterPrivate) && (!$scope.filterPublic)){
+        $scope.filterPublic=true;
+    $scope.lists=ListsPublic.query();
+    } else{
+        //both buttons are pressed
+         $scope.lists=Lists.query();
+         $scope.filterPrivate=false;
+         $scope.filterPublic=false;
+    } 
 }
 
 $scope.resetFilter=function(){
-    $scope.lists=Lists.query();
-     $scope.filter=false;
+   
+    
 }
 
         $scope.save = function(){
@@ -65,7 +93,6 @@ $scope.resetFilter=function(){
         } else {
             vis="private"
         }
-        alert(vis)
         // TODO owner set in the post method.
         var list = new Lists({ _name: $scope.name, owner: 'test@test.de' ,visibility:vis, color:$scope.color});
 
@@ -104,9 +131,9 @@ $scope.resetFilter=function(){
       }
 
     }])
-    .controller('ListControllerPublic',['$scope','ListsPublic',function($scope,ListsPublic){
+    .controller('ListControllerPublic',['$scope','ListsPublicAll',function($scope,ListsPublicAll){
     
-$scope.lists = ListsPublic.query();
+$scope.lists = ListsPublicAll.query();
      
 
     }])

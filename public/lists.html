@@ -72,8 +72,8 @@
          
            <div role="group" class="btn-group ">
             <a href="#/list/public" role="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></a>
-          <button id="filter" ng-if="filter" ng-click="resetFilter()" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></button>
-          <button id="filter" ng-if="!filter" ng-click="filterPrivate()" class="btn btn-default"><span class="glyphicon glyphicon-eye-close"></span></button>
+          <button id="filterPrivate"  ng-click="filterPrivates()" class="btn btn-default"><span class="glyphicon glyphicon-eye-close"></span></button>
+            <button id="filterPublic"  ng-click="filterPublics()" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></button>
          
            <a href="#/list/create" role="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a>
                

@@ -36,6 +36,23 @@ router.get('/public', function(req, res, next) {
     });
 });
 
+router.get('/publicAll', function(req, res, next) {
+
+    //TODO show only for user when auth is added
+
+    var user = req.user._name;
+    listModel.find({
+                     visibility : 'public'
+
+                   }).exec(function(err, results) {
+
+        if(err) {
+           return next(err);
+        };
+       
+        res.send(results);
+    });
+});
 
 router.get('/private', function(req, res, next) {
 
@@ -54,6 +71,8 @@ router.get('/private', function(req, res, next) {
         res.send(results);
     });
 });
+
+
 // get list from ID
 router.get('/:id', function(req, res, next) {
 
@@ -100,6 +119,7 @@ router.put('/:id', function(req, res, next) {
     var listID = req.params.id;
 
 });
+
 
 // Creates a new list
 router.post('/', function(req, res, next) {
