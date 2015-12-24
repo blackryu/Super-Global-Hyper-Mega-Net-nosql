@@ -7,12 +7,24 @@ var listModel = require('../dbModels/lists');
 
 //set respose Type.
 
-//this routes shoudl return only json  
+//this routes should return only json
 router.use(function(req, res, next){
     
     res.set('Content-Type', 'application/json');
+    //parse the request params into a object. 
+    var bodyParamNames = Object.keys(req.body);
+    var newListDoc = {};
+    for(var sentParam in bodyParamNames) {
+
+        if(listModel.schema.paths.hasOwnProperty(bodyParamNames[sentParam])) {
+
+            newListDoc[bodyParamNames[sentParam]] = req.body[bodyParamNames[sentParam]];
+        }
+    };
+    req.listDoc = newListDoc;
     next();
     });
+
 
 /* GET Methods*/
 
@@ -113,10 +125,22 @@ router.get('/', function(req, res, next) {
 
 // POST methods
 
-// Updates an existing list
-router.put('/:id', function(req, res, next) {
+// Updates or creates a list
+router.post('/:id', function(req, res, next) {
 
     var listID = req.params.id;
+     req.listDoc._name = listID;
+    listModel.findOneAndUpdate({_name: req.listDoc._name}, req.listDoc, {upsert: true, new: true}, function(err, newList){
+    
+    if(err) {
+            console.error(err.errmsg);
+            return next(err);
+        } else {
+            res.send({ status : 'ok' });
+        }
+    
+    
+    });
 
 });
 
@@ -124,16 +148,8 @@ router.put('/:id', function(req, res, next) {
 // Creates a new list
 router.post('/', function(req, res, next) {
 
-    var bodyParamNames = Object.keys(req.body);
-    var newListDoc = {};
-    for(var sentParam in bodyParamNames) {
-
-        if(listModel.schema.paths.hasOwnProperty(bodyParamNames[sentParam])) {
-
-            newListDoc[bodyParamNames[sentParam]] = req.body[bodyParamNames[sentParam]];
-        }
-    };
-    var newList = new listModel(newListDoc);
+    
+    var newList = new listModel(req.listDoc);
     newList.save(function(err) {
 
         if(err) {
