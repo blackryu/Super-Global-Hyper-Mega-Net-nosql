@@ -25,7 +25,7 @@
    .factory('ListsEdit', function($resource) {
  return $resource('/list/:id',{},{
       query: {method:'GET',isArray:false},
-      update:{method:'PUT',isArray:false}
+      update:{method:'POST',isArray:false}
       
   }); 
  
@@ -33,7 +33,7 @@
 
  .factory('ListsPublic', function($resource) {
  return $resource('/list/public',{},{
-      query: {method:'GET',isArray:true}
+      query: {method:'POST',isArray:true}
       
   }); 
 
@@ -65,6 +65,7 @@ $scope.lists = Lists.query();
 
 //Check for the lists.lists
 // Private Backlog, Work Backlog. List of day 
+/*
 var PrivateB="Private Backlog";
 var WorkB="Work Backlog";
 var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -112,7 +113,7 @@ if(!hasCurrentDay){
 if(!hasCurrentDay || !hasWorkB || !hasPrivateB){
     $scope.lists=Lists.query();
 }
-
+*/
 $scope.filterPrivates=function(){
     if((!$scope.filterPrivate) && (!$scope.filterPublic)){
         $scope.filterPrivate=true;
@@ -237,7 +238,7 @@ $scope.lists = ListsPublicAll.query();
           }
           
           $scope.update = function(){
-              ListsEdit.update({_name:$scope.list._name, owner: $scope.user,visibility:$scope.list.visibility,color:$scope.list.color})
+              ListsEdit.update({_name:$scope.list._name,  owner: 'test@test.de',visibility:$scope.list.visibility,color:$scope.list.color})
                window.location.replace('/');
           }
     }])
