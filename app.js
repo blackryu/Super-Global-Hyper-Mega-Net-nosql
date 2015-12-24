@@ -77,6 +77,7 @@ app.use('/lib/angular/angular.js',express.static(__dirname+'/node_modules/angula
 app.use('/lib/angular-route/angular-route.js',express.static(__dirname+'/node_modules/angular-route/angular-route.js'));
 app.use('/lib/angular-resource/angular-resource.js',express.static(__dirname+'/node_modules/angular-resource/angular-resource.js'));
 
+
 app.use('/bootstrap-datepicker/css',express.static(__dirname+'/node_modules/bootstrap-datepicker/less/'));
 app.use('/bootstrap-datepicker/js',express.static(__dirname+'/node_modules/bootstrap-datepicker/js/'));
 
@@ -86,6 +87,7 @@ app.use('/', indexRoutes);
 app.use('/', function(req, res, next){
     
     if(req.isAuthenticated()) {
+
 
         return next();
     }
