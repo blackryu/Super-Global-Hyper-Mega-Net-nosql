@@ -16,10 +16,32 @@
    .factory('ListsEdit', function($resource) {
  return $resource('/list/:id',{},{
       query: {method:'GET',isArray:false},
-      update:{method:'POST',isArray:false}
+      update:{method:'PUT',isArray:false}
       
   }); 
  
+})
+
+ .factory('ListsPublic', function($resource) {
+ return $resource('/list/public',{},{
+      query: {method:'GET',isArray:true}
+      
+  }); 
+
+})
+.factory('ListsPublicAll', function($resource) {
+ return $resource('/list/publicAll',{},{
+      query: {method:'GET',isArray:true}
+      
+  }); 
+
+})
+ .factory('ListsPrivate', function($resource) {
+ return $resource('/list/private',{},{
+      query: {method:'GET',isArray:true}
+      
+  }); 
+
 })
 
  
@@ -27,21 +49,52 @@
     // Controllers
     //---------------
  
-    .controller('ListController',['$scope','Lists',function($scope,Lists,user,index){
+    .controller('ListController',['$scope','Lists','ListsPrivate','ListsPublic',function($scope,Lists,ListsPrivate,ListsPublic,user,index){
         
      
-    
 $scope.lists = Lists.query();
-var vis
+
+$scope.filterPrivates=function(){
+    if((!$scope.filterPrivate) && (!$scope.filterPublic)){
+        $scope.filterPrivate=true;
+        $scope.lists=ListsPrivate.query();
+        
+    } else {
+        //both buttons are pressed
+         $scope.lists=Lists.query();
+         $scope.filterPrivate=false;
+         $scope.filterPublic=false;
+    }
+     
+}
+$scope.filterPublics=function(){
+    
+    if((!$scope.filterPrivate) && (!$scope.filterPublic)){
+        $scope.filterPublic=true;
+    $scope.lists=ListsPublic.query();
+    } else{
+        //both buttons are pressed
+         $scope.lists=Lists.query();
+         $scope.filterPrivate=false;
+         $scope.filterPublic=false;
+    } 
+}
+
+$scope.resetFilter=function(){
+   
+    
+}
+
+        $scope.save = function(){
+        if(!$scope.name || $scope.name.length < 1) return;
+        var vis
         if($scope.visibility){
             vis="public"
         } else {
             vis="private"
         }
-        $scope.save = function(){
-        if(!$scope.name || $scope.name.length < 1) return;
-        // TODO get the current user.
-        var list = new Lists({ _name: $scope.name, owner: 'Sabrina-Sachs87@web.de' ,visibility:"public"});
+        // TODO owner set in the post method.
+        var list = new Lists({ _name: $scope.name, owner: 'test@test.de' ,visibility:vis, color:$scope.color});
 
         list.$save(function(){
           $scope.lists.push(list);
@@ -58,10 +111,8 @@ var vis
           var index=$('#idListHidden').val();
          
           
-          alert(index);
-          
          var listObject= $scope.lists[index];
-         listObject.todos.push({_name:todo,completed:false});
+         listObject.todos.push({description:todo,completed:false});
          /*
          
       $scope.update = function(index){
@@ -80,6 +131,12 @@ var vis
       }
 
     }])
+    .controller('ListControllerPublic',['$scope','ListsPublicAll',function($scope,ListsPublicAll){
+    
+$scope.lists = ListsPublicAll.query();
+     
+
+    }])
     .controller('ListControllerEdit',['$scope','$routeParams','ListsEdit',function($scope,$routeParams,ListsEdit){
        
        $scope.list=ListsEdit.get({id: $routeParams.id });
@@ -92,7 +149,7 @@ var vis
           }
           
           $scope.update = function(){
-              ListsEdit.update({_name:$scope.list._name,owner:"Sabrina-Sachs87@web.de",visibility:$scope.list.visibility})
+              ListsEdit.update({_name:$scope.list._name,owner:"test@test.de",visibility:$scope.list.visibility,color:$scope.list.color})
                window.location.replace('/');
           }
     }])
@@ -139,6 +196,10 @@ var vis
           templateUrl:'/listCreate.html',
             controller:'ListController'
       })
+      .when('/list/public',{
+          templateUrl:'/listsPublic.html',
+          controller:'ListControllerPublic'
+        })
       .when('/list/:id',{
           templateUrl:'/listEdit.html',
           controller:'ListControllerEdit'

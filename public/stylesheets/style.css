@@ -16,3 +16,38 @@ body {
 a {
   color: #00B7FF;
 }
+
+
+/* Selectable Colours for List*/
+.blue {
+    background-color: rgba(4, 79, 103, 0.6) !important;
+    color: white !important;
+}
+.red {
+    background-color:rgba(143, 29, 33, 0.6) !important;
+    color: white !important;
+}
+.orange {
+    background-color:rgba(255, 164, 0, 0.6) !important;
+    color: white !important;
+}
+.green {
+    background-color:rgba(64, 122, 82, 0.6) !important;
+    color: white !important;
+}
+.yellow{
+    background-color:rgba(217, 182, 17, 0.6) !important;
+    color: white !important;
+}
+.purple{
+    background-color:rgba(91, 50, 86, 0.6) !important;
+    color: white !important;
+}
+.pink {
+    background-color:rgba(245, 143, 132, 0.6) !important;
+    color: white !important;
+}
+div .showcolor {
+    width:30px;
+    height:10px;
+}

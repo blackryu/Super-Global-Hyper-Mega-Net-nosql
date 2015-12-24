@@ -4,7 +4,7 @@
          <div class="row-fluid">
             <h5 class="col-xs-6 col-sm-3">Edit List {{list.name}}</h5>
             <div class="col-xs-6 col-sm-3 pull-right">
-               <div role="group" class="btn-group">
+               <div role="group" class="btn-group ">
                 <a href='#/list/' role='button' class='btn btn-default'><span class=' glyphicon glyphicon-arrow-left'></span></a>
                 <button class='btn btn-success' ng-click="update()" type='submit'><span class='glyphicon glyphicon-floppy-disk'></span></button>
                 <button class='btn btn-danger'  ng-click="remove($index)"><span class='glyphicon glyphicon-remove'></span></button>
@@ -17,12 +17,27 @@
       <div class="container-fluid">
          <div class="row">
          
+          <div  class=" col-xs-6 col-sm-3">
+          <div class="form-group">
+			 <label for="color">Color: </label>
+                   <select id="color"   ng-model="list.color" name="colors"  class="form-control" title="Choose a colors">
+             
+                <option value="blue" class="blue">Blue</option>
+                <option value="green" class="green">Green</option>
+                <option value="orange" class="orange">Orange</option>
+                <option value="red" class="red">Red</option>
+                <option value="yellow" class="yellow">Yellow</option>
+                <option value="pink" class="pink">Pink</option>
+                <option value="purple" class="purple">Purple</option>
+            </select>
+            </div>
+            </div>
             <div  class=" col-xs-6 col-sm-3">
                <div class="panel panel-default">
                   <div class="panel-heading">
                      <input type='text' ng-model='list._name'/>
                   </div>
-                  <div class="panel-body">
+                  <div class="panel-body {{list.color}}">
                      <table class="table">
                         <tbody class="table-striped">
                            <tr ng-repeat="todo in list.todos">
