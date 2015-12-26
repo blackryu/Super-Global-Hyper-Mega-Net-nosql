@@ -116,13 +116,14 @@ router.get('/', function(req, res, next) {
     var day=new Date();
     var CurrentDay=day.getDate()+"."+(day.getMonth()+1)+" "+days[ day.getDay() ];
     
+    console.info("current Day" +CurrentDay);
     listModel.findOne({
             owner: user,
             _name:PrivateB
     }).exec(function(err,results){
-        if(err){
+        if(err ||results===null){
             console.info("Creating Default List for user "+user);
-             var newList = new listModel({owner:user,_name:PrivateB,color:pink});
+             var newList = new listModel({owner:user,_name:PrivateB,color:'pink'});
     newList.save(function(err) {
 
         if(err) {
@@ -138,12 +139,13 @@ router.get('/', function(req, res, next) {
             owner: user,
             _name:WorkB
     }).exec(function(err,results){
-        if(err){
+        console.info("results "+results  );
+        if(err || results===null){
             console.info("Creating Default List for user "+user);
-            var newList = new listModel({owner:user,_name:WorkB,color:pink});
+            var newList = new listModel({owner:user,_name:WorkB,color:'pink'});
             newList.save(function(err) {
 
-            if(err) {
+            if(err ) {
                 console.error(err.errmsg);
                // return next(err);
             }
@@ -154,12 +156,14 @@ router.get('/', function(req, res, next) {
             owner: user,
             _name:CurrentDay
     }).exec(function(err,results){
-        if(err){
+        console.info("results "+results );
+        
+        if(err || results===null){
             console.info("Creating Todays List for user "+user);
-            var newList = new listModel({owner:user,_name:CurrentDay,color:pink});
+            var newList = new listModel({owner:user,_name:CurrentDay,color:'blue'});
             newList.save(function(err) {
-
-                if(err) {
+            
+                if(err ) {
                     console.error(err.errmsg);
                    // return next(err);
             }
@@ -170,7 +174,6 @@ router.get('/', function(req, res, next) {
 
     
     
-    
     listModel.find({
                      owner : user,
 
@@ -179,7 +182,7 @@ router.get('/', function(req, res, next) {
         if(err) {
             console.error(err);
             nex(err);
-        };
+        }
         res.send(results);
     });
 
