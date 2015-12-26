@@ -22,6 +22,7 @@ router.use(function(req, res, next){
         }
     };
     req.listDoc = newListDoc;
+    req.listDoc.owner = req.user._name;
     next();
     });
 
