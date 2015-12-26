@@ -7,7 +7,16 @@
     .factory('Lists', function($resource) {
  return $resource('/list',{},{
       query: {method:'GET',isArray:true},
-      update: {method: 'POST',isArray:false},
+      update: {method: 'POST',isArray:true},
+    delete: {method: 'DELETE',isArray:false}
+      
+  }); 
+
+})
+  .factory('ListsCreate', function($resource) {
+ return $resource('/list',{},{
+      query: {method:'GET',isArray:true},
+      update: {method: 'POST',isArray:true},
     delete: {method: 'DELETE',isArray:false}
       
   }); 
@@ -16,7 +25,7 @@
    .factory('ListsEdit', function($resource) {
  return $resource('/list/:id',{},{
       query: {method:'GET',isArray:false},
-      update:{method:'PUT',isArray:false}
+      update:{method:'POST',isArray:false}
       
   }); 
  
@@ -24,7 +33,7 @@
 
  .factory('ListsPublic', function($resource) {
  return $resource('/list/public',{},{
-      query: {method:'GET',isArray:true}
+      query: {method:'POST',isArray:true}
       
   }); 
 
@@ -54,6 +63,57 @@
      
 $scope.lists = Lists.query();
 
+//Check for the lists.lists
+// Private Backlog, Work Backlog. List of day 
+/*
+var PrivateB="Private Backlog";
+var WorkB="Work Backlog";
+var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+var day=new Date($.now());
+var CurrentDay=day.getDate()+"."+(day.getMonth()+1)+" "+days[ day.getDay() ];
+var hasPrivateB=false;
+var hasWorkB=false;
+var hasCurrentDay=false;
+ $('.listNames').each( index,function() {
+    alert(this.text()) ;
+ });
+   $('.listNames').each( index,function() {
+       alert(this.text());
+    if(this.text() ==PrivateB){
+        hasPrivateB=true;
+    }
+     if(this.text()==WorkB){
+        hasWorkB=true;
+    }
+     if(this.text()==CurrentDay){
+        hasCurrentDay=true;
+    }
+});
+if(!hasPrivateB){
+     var listP = new Lists({ _name: PrivateB,  owner: 'test@test.de',color:"pink"  });
+
+        listP.$save(function(){
+          $scope.lists.push(list);
+        });
+}
+if(!hasWorkB){
+     listW = new Lists({ _name: WorkB,  owner: 'test@test.de' ,color:"pink" });
+
+        listW.$save(function(){
+          $scope.lists.push(list);
+        });
+}
+if(!hasCurrentDay){
+     var listD = new Lists({ _name: CurrentDay,  owner: 'test@test.de',color:"green" });
+
+        listD.$save(function(){
+          $scope.lists.push(list);
+        });
+}
+if(!hasCurrentDay || !hasWorkB || !hasPrivateB){
+    $scope.lists=Lists.query();
+}
+*/
 $scope.filterPrivates=function(){
     if((!$scope.filterPrivate) && (!$scope.filterPublic)){
         $scope.filterPrivate=true;
@@ -131,6 +191,35 @@ $scope.resetFilter=function(){
       }
 
     }])
+    
+    .controller('ListControllerCreate',['$scope','Lists',function($scope,Lists,user,index){
+        
+     
+$scope.lists = Lists.query();
+
+        $scope.save = function(){
+        if(!$scope.name || $scope.name.length < 1) return;
+        var vis
+        if($scope.visibility){
+            vis="public"
+        } else {
+            vis="private"
+        }
+        // TODO owner set in the post method.
+        var list = new Lists({ _name: $scope.name, owner: 'test@test.de' ,visibility:vis, color:$scope.color});
+
+        list.$save(function(){
+          $scope.lists.push(list);
+          
+        })
+        
+        window.location.replace('/');
+      }
+
+      
+     
+    }])
+    
     .controller('ListControllerPublic',['$scope','ListsPublicAll',function($scope,ListsPublicAll){
     
 $scope.lists = ListsPublicAll.query();
@@ -149,37 +238,12 @@ $scope.lists = ListsPublicAll.query();
           }
           
           $scope.update = function(){
-              ListsEdit.update({_name:$scope.list._name,owner:"test@test.de",visibility:$scope.list.visibility,color:$scope.list.color})
+              ListsEdit.update({_name:$scope.list._name,  owner: 'test@test.de',visibility:$scope.list.visibility,color:$scope.list.color})
                window.location.replace('/');
           }
     }])
    
-    /*
-    
-    $scope.saveTodo=function(){
-        
-      //  if(!$scope._name || $scope._name.length < 1) return;
-        
-     
-     //if(!$scope.todo_name || $scope.todo_name.length < 1) return;
-        var list=Lists.get({id: $scope._name })
-        alert($scope._name)
-        alert($scope.todo_name)
-        alert(list._name)
-        //saveTodoIntern()
-    }
-    */
-    .controller('ListControllerCreate',['$scope','$routeParams','Lists',function($scope,$routeParams,Lists){
-         $scope.lists = Lists.query();
-          $scope.save = function(){
-        if(!$scope.name || $scope.name.length < 1) return;
-        var list = new Lists({ name: $scope.name, owner: $scope.user,visibility:$scope.visibility  });
-
-        list.$save(function(){
-          $scope.lists.push(list);
-        })
-      }
-    }])
+  
   
   
 
@@ -194,7 +258,7 @@ $scope.lists = ListsPublicAll.query();
         })
         .when('/list/create',{
           templateUrl:'/listCreate.html',
-            controller:'ListController'
+            controller:'ListControllerCreate'
       })
       .when('/list/public',{
           templateUrl:'/listsPublic.html',
