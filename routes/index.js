@@ -17,6 +17,7 @@ var isAuthenticated = function(req, res, next) {
 function routeIndex(passport)
 {
 
+    
     /* Login page */
     router.get('/login', function(req, res) { res.render('login', { title : 'Please log in' }); });
 
@@ -47,6 +48,15 @@ function routeIndex(passport)
         res.sendFile('public/index.html', {root: __dirname + '/../'});
 
     });
+    
+    /* logs-out */
+    
+    router.get('/logout',isAuthenticated, function(req, res){
+        
+      req.logout();
+      res.redirect('/');
+    });    
+    
 
     return router;
 }
