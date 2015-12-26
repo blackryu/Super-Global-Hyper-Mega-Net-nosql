@@ -10,7 +10,7 @@ var listModel = require('../dbModels/lists');
 //this routes should return only json
 router.use(function(req, res, next){
     
-    res.set('Content-Type', 'application/json');
+
     //parse the request params into a object. 
     var bodyParamNames = Object.keys(req.body);
     var newListDoc = {};
@@ -117,6 +117,7 @@ router.get('/', function(req, res, next) {
     var CurrentDay=day.getDate()+"."+(day.getMonth()+1)+" "+days[ day.getDay() ];
     
     console.info("current Day" +CurrentDay);
+    
     listModel.findOne({
             owner: user,
             _name:PrivateB
@@ -220,7 +221,7 @@ router.post('/', function(req, res, next) {
 
         if(err) {
             console.error(err.errmsg);
-            return next(err);
+            next(err);
         } else {
             res.send({ status : 'ok' });
         }
