@@ -210,7 +210,7 @@ router.post('/', function(req, res, next) {
 
 
 /* DELETE a single list */
-router.delete ('/:id', function(req, res, next) {s
+router.delete ('/:id', function(req, res, next) {
 
     var id = req.params.id;
 
