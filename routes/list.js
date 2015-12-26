@@ -4,14 +4,12 @@ var router = express.Router();
 // DBA Acesss for lists.
 var listModel = require('../dbModels/lists');
 
+// set respose Type.
 
-//set respose Type.
+// this routes should return only json
+router.use(function(req, res, next) {
 
-//this routes should return only json
-router.use(function(req, res, next){
-    
-
-    //parse the request params into a object. 
+    // parse the request params into a object.
     var bodyParamNames = Object.keys(req.body);
     var newListDoc = {};
     for(var sentParam in bodyParamNames) {
@@ -24,15 +22,13 @@ router.use(function(req, res, next){
     req.listDoc = newListDoc;
     req.listDoc.owner = req.user._name;
     next();
-    });
-
+});
 
 /* GET Methods*/
 
-
 router.get('/public', function(req, res, next) {
 
-    //TODO show only for user when auth is added
+    // TODO show only for user when auth is added
 
     var user = req.user._name;
     listModel.find({
@@ -42,16 +38,16 @@ router.get('/public', function(req, res, next) {
                    }).exec(function(err, results) {
 
         if(err) {
-           return next(err);
+            return next(err);
         };
-       
+
         res.send(results);
     });
 });
 
 router.get('/publicAll', function(req, res, next) {
 
-    //TODO show only for user when auth is added
+    // TODO show only for user when auth is added
 
     var user = req.user._name;
     listModel.find({
@@ -60,37 +56,35 @@ router.get('/publicAll', function(req, res, next) {
                    }).exec(function(err, results) {
 
         if(err) {
-           return next(err);
+            return next(err);
         };
-       
+
         res.send(results);
     });
 });
 
 router.get('/private', function(req, res, next) {
 
-    //TODO show only for user when auth is added
+    // TODO show only for user when auth is added
     var user = req.user._name;
     listModel.find({
                      owner : user,
                      visibility : 'private'
 
                    }).exec(function(err, results) {
-        
+
         if(err) {
             return next(err);
         };
-        
+
         res.send(results);
     });
 });
-
 
 // get list from ID
 router.get('/:id', function(req, res, next) {
 
     var listID = req.params.id;
-
 
     var user = req.user._name;
     listModel.findOne({ _name : listID, owner : user }).exec(function(err, results) {
@@ -100,82 +94,69 @@ router.get('/:id', function(req, res, next) {
             return next(err);
         };
 
-        
         res.send(results);
     });
 });
 
 router.get('/', function(req, res, next) {
 
-    //TODO show only for user when auth is added
+    // TODO show only for user when auth is added
     var user = req.user._name;
-    
-    //Check the default Lists of the user.
-    var PrivateB="Private Backlog";
-    var WorkB="Work Backlog";
-    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    var day=new Date();
-    var CurrentDay=day.getDate()+"."+(day.getMonth()+1)+" "+days[ day.getDay() ];
-    
-    console.info("current Day" +CurrentDay);
-    
-    listModel.findOne({
-            owner: user,
-            _name:PrivateB
-    }).exec(function(err,results){
-        if(err ||results===null){
-            console.info("Creating Default List for user "+user);
-             var newList = new listModel({owner:user,_name:PrivateB,color:'pink'});
-    newList.save(function(err) {
 
-        if(err) {
-            console.error(err.errmsg);
-            return next(err);
-        }
+    // Check the default Lists of the user.
+    var PrivateB = "Private Backlog";
+    var WorkB = "Work Backlog";
+    var days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
+    var day = new Date();
+    var CurrentDay = day.getDate() + "." + (day.getMonth() + 1) + " " + days[day.getDay()];
 
-    });
-        }
-    });
-    
-     listModel.findOne({
-            owner: user,
-            _name:WorkB
-    }).exec(function(err,results){
-        console.info("results "+results  );
-        if(err || results===null){
-            console.info("Creating Default List for user "+user);
-            var newList = new listModel({owner:user,_name:WorkB,color:'pink'});
+    console.info("current Day" + CurrentDay);
+
+    listModel.findOne({ owner : user, _name : PrivateB }).exec(function(err, results) {
+        if(err || results === null) {
+            console.info("Creating Default List for user " + user);
+            var newList = new listModel({ owner : user, _name : PrivateB, color : 'pink' });
             newList.save(function(err) {
 
-            if(err ) {
-                console.error(err.errmsg);
-               // return next(err);
-            }
-        });
-        }
-    });
-     listModel.findOne({
-            owner: user,
-            _name:CurrentDay
-    }).exec(function(err,results){
-        console.info("results "+results );
-        
-        if(err || results===null){
-            console.info("Creating Todays List for user "+user);
-            var newList = new listModel({owner:user,_name:CurrentDay,color:'blue'});
-            newList.save(function(err) {
-            
-                if(err ) {
+                if(err) {
                     console.error(err.errmsg);
-                   // return next(err);
-            }
-        });
+                    return next(err);
+                }
+
+            });
         }
     });
 
+    listModel.findOne({ owner : user, _name : WorkB }).exec(function(err, results) {
+        console.info("results " + results);
+        if(err || results === null) {
+            console.info("Creating Default List for user " + user);
+            var newList = new listModel({ owner : user, _name : WorkB, color : 'pink' });
+            newList.save(function(err) {
 
-    
-    
+                if(err) {
+                    console.error(err.errmsg);
+                    // return next(err);
+                }
+            });
+        }
+    });
+    listModel.findOne({ owner : user, _name : CurrentDay }).exec(function(err, results) {
+        console.info("results " + results);
+
+        if(err || results === null) {
+            console.info("Creating Todays List for user " + user);
+            var newList = new listModel({ owner : user, _name : CurrentDay, color : 'blue' });
+            newList.save(function(err) {
+
+                if(err) {
+                    console.error(err.errmsg);
+                    // return next(err);
+                }
+            });
+        }
+    });
+
     listModel.find({
                      owner : user,
 
@@ -190,33 +171,30 @@ router.get('/', function(req, res, next) {
 
 });
 
-
 // POST methods
 
 // Updates or creates a list
 router.post('/:id', function(req, res, next) {
 
     var listID = req.params.id;
-     req.listDoc._name = listID;
-    listModel.findOneAndUpdate({_name: req.listDoc._name}, req.listDoc, {upsert: true, new: true}, function(err, newList){
-    
-    if(err) {
-            console.error(err.errmsg);
-            return next(err);
-        } else {
-            res.send({ status : 'ok' });
-        }
-    
-    
-    });
+    req.listDoc._name = listID;
+    listModel.findOneAndUpdate(
+        { _name : req.listDoc._name }, req.listDoc, { upsert : true, new : true }, function(err, newList) {
+
+            if(err) {
+                console.error(err.errmsg);
+                return next(err);
+            } else {
+                res.send({ status : 'ok' });
+            }
+
+        });
 
 });
-
 
 // Creates a new list
 router.post('/', function(req, res, next) {
 
-    
     var newList = new listModel(req.listDoc);
     newList.save(function(err) {
 
@@ -228,6 +206,25 @@ router.post('/', function(req, res, next) {
         }
 
     });
+});
+
+
+/* DELETE a single list */
+router.delete ('/:id', function(req, res, next) {s
+
+    var id = req.params.id;
+
+    list.model.findOne({ _name : id, owner : req.user._name }).remove().exec(function(err, doc) {
+
+        if(err) {
+
+            return next(err);
+        }
+
+        req.send({ status : 'ok' });
+
+    });
+
 });
 
 module.exports = router;
