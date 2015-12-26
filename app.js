@@ -50,7 +50,7 @@ var indexRoutes = require('./routes/index')(passport);
 var users = require('./routes/users');
 var listRoutes = require('./routes/list');
 var todosRoutes = require('./routes/todo');
-
+var devRoutes = require('./routes/dev')(mongoose);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -68,7 +68,6 @@ app.use(cookieParser());
 app.use('/bootflat/css',express.static(__dirname+'/node_modules/bootflat/css/'));
 app.use('/bootflat/js',express.static(__dirname+'/node_modules/bootflat/js/'));
 app.use('/bootflat/bootflat/img',express.static(__dirname+'/node_modules/bootflat/bootflat/img/'));
-
 app.use('/bootflat/bootflat/bootflat/img',express.static(__dirname+'/node_modules/bootflat/bootflat/img/'));
 app.use('/bootflat/bootflat/css',express.static(__dirname+'/node_modules/bootflat/bootflat/css/'));
 app.use('/bootflat/fonts',express.static(__dirname+'/node_modules/bootflat/fonts/'));
@@ -76,32 +75,30 @@ app.use('/bootflat/fonts',express.static(__dirname+'/node_modules/bootflat/fonts
 app.use('/lib/angular/angular.js',express.static(__dirname+'/node_modules/angular/angular.js'));
 app.use('/lib/angular-route/angular-route.js',express.static(__dirname+'/node_modules/angular-route/angular-route.js'));
 app.use('/lib/angular-resource/angular-resource.js',express.static(__dirname+'/node_modules/angular-resource/angular-resource.js'));
-
-
 app.use('/bootstrap-datepicker/css',express.static(__dirname+'/node_modules/bootstrap-datepicker/less/'));
 app.use('/bootstrap-datepicker/js',express.static(__dirname+'/node_modules/bootstrap-datepicker/js/'));
-
-app.use('/', indexRoutes);
  
 // auth for api
-app.use('/', function(req, res, next){
+var protectApi  =  function(req, res, next){
     
+    console.log('proctectApi');
     if(req.isAuthenticated()) {
 
 
         return next();
     }
     res.status(401);
-    res.send({error: 'not singed-in'});
+    return res.send({error: 'not singed-in'});
     
-    });
+    };
 
-app.use('/users', users);
-app.use('/list', listRoutes);
-app.use('/todos', todosRoutes);
-
+app.use('/users', protectApi, users);
+app.use('/list', protectApi, listRoutes);
+app.use('/todos', protectApi, todosRoutes);
+//routes for quick dev and db updtes - auth not required
+app.use('/dev', devRoutes);
+app.use('/', indexRoutes);
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 // catch 404 and forward to error handler
 
@@ -123,14 +120,14 @@ app.use(function(err, req, res, next) {
 
     res.status(err.status || 500);
     console.log('error handler!');
-    console.log(err);
+    console.error(err);
+    console.error(err.stack);
     if(res.get('Content-Type') === 'text/html') {
 
         res.render('error', { message : err.message, error : {} });
 
     } else {
-
-        res.send(err);
+        res.send({error: err.stack});
     }
 
 });
