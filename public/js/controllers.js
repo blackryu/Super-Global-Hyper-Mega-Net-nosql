@@ -7,21 +7,20 @@
     .factory('Lists', function($resource) {
  return $resource('/list',{},{
       query: {method:'GET',isArray:true},
-      update: {method: 'POST',isArray:true},
-    delete: {method: 'DELETE',isArray:false}
+      update: {method: 'POST',isArray:true}
       
   }); 
 
 })
-  .factory('ListsCreate', function($resource) {
- return $resource('/list',{},{
+    .factory('Todos', function($resource) {
+ return $resource('/todos',{},{
       query: {method:'GET',isArray:true},
-      update: {method: 'POST',isArray:true},
-    delete: {method: 'DELETE',isArray:false}
+      update: {method: 'POST',isArray:true}
       
   }); 
 
 })
+
    .factory('ListsEdit', function($resource) {
  return $resource('/list/:id',{id:'@_name'},{
       query: {method:'GET',isArray:false},
@@ -58,7 +57,7 @@
     // Controllers
     //---------------
  
-    .controller('ListController',['$scope','Lists','ListsPrivate','ListsPublic',function($scope,Lists,ListsPrivate,ListsPublic,user,index){
+    .controller('ListController',['$scope','Lists','ListsPrivate','ListsPublic','ListsEdit','Todos',function($scope,Lists,ListsPrivate,ListsPublic,ListsEdit,Todos,user,index){
         
      
 $scope.lists = Lists.query();
@@ -117,11 +116,20 @@ $scope.resetFilter=function(){
       $scope.saveTodo = function(){
           var todo=$('#todo_name').val();
           
-          var index=$('#idListHidden').val();
+          var id_name=$('#idlist').val();
          
-          
-         var listObject= $scope.lists[index];
-         listObject.todos.push({description:todo,completed:false});
+          var TodoObject=new Todos({description:todo,completed:false});
+        // var listObject= $scope.lists[index];
+        $scope.TodoList=ListsEdit.get({id:id_name});
+        var todoObject;
+        if($scope.TodoList.todos===undefined || $scope.TodoList ===undefined){
+            todoObject=[TodoObject];
+        } else {
+         todoObject=$scope.TodoList.todos;
+         todoObject[$scope.TodoList.todos.length()]=TodoObject;
+        }
+        ListsEdit.update({_name:id_name,todos:TodoObject});
+        // listObject.todos.push({description:todo,completed:false});
          /*
          
       $scope.update = function(index){
@@ -136,7 +144,7 @@ $scope.resetFilter=function(){
              $scope.lists[index]=ListObject;
              Lists[index]=listObject;
          })*/
-         Lists.update({id:listObject._name,todos:listObject.todos},listObject);
+        // Lists.update({id:listObject._name,todos:listObject.todos},listObject);
       }
 
     }])
