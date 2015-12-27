@@ -1,5 +1,5 @@
 angular.module('app.lists', ['ngRoute', 'ngResource','app.listsService','app.todosService'])
- .controller('ListController',['$scope','Lists','ListsPrivate','ListsPublic','ListsEdit','Todos',function($scope,Lists,ListsPrivate,ListsPublic,ListsEdit,Todos,user,index){
+ .controller('ListController',['$scope','Lists','ListsPrivate','ListsPublic','ListsEdit','Todos','TodosEdit',function($scope,Lists,ListsPrivate,ListsPublic,ListsEdit,Todos,TodosEdit,user,index){
         $scope.lists=Lists.query();
 /*   
 $scope.lists = Lists.query().$promise.then(function(data) {
@@ -103,7 +103,14 @@ $scope.filterPublics=function(){
         window.location.replace('/');
       }
       
-
+        $scope.updateTodo=function(id,complete){
+              TodosEdit.update({_id:id, completed:!complete}).$promise.then(function() {
+                //  $scope.todos=Todos.query();
+              });
+              
+              // window.location.replace('/');
+        
+        }
 
       $scope.saveTodo = function(){
           //Values from the Modal

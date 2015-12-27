@@ -132,8 +132,8 @@
                   <tbody class="table-striped">
                      <tr ng-repeat="todo in list.todos ">
                         <td>
-                          <div ng-if="todo!=null" ng-repeat="t in todos ">
-              <input ng-if="todo==t._id"   ng-value="t.completed" class="checkbox" type="checkbox"/>
+                          <div ng-if="todo!=null" ng-repeat="t in todos track by t._id">
+              <input ng-if="todo==t._id" ng-click="updateTodo(t._id,t.completed)" ng-checked="{{t.completed==true}}" ng-value="t.completed" class="checkbox" type="checkbox"/>
                           <span ng-if="todo==t._id"  > {{t.description}}</span> 
                             </div>
                         </td>
