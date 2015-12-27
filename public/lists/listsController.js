@@ -3,6 +3,13 @@ angular.module('app.lists', ['ngRoute', 'ngResource','app.listsService'])
         
      
 $scope.lists = Lists.query();
+$scope.todos=Todos.query();
+/*
+$scope.getTodoPerId=function(id){
+   return  $scope.todos.$promise.then(function(todo) {
+      return $.grep(todo, function(e){ return e._id == id; });
+    });
+}*/
 
 $scope.filterPrivates=function(){
     if((!$scope.filterPrivate) && (!$scope.filterPublic)){
@@ -51,41 +58,36 @@ $scope.filterPublics=function(){
         window.location.replace('/');
       }
 
-      
+
       $scope.saveTodo = function(){
+          //Values from the Modal
           var todo=$('#todo_name').val();
-          
           var id_name=$('#idlist').val();
-         
-          var TodoObject=new Todos({description:todo,completed:false});
-        // var listObject= $scope.lists[index];
-        $scope.TodoList=ListsEdit.get({id:id_name});
-        var todoObject;
-        if($scope.TodoList.todos===undefined || $scope.TodoList ===undefined){
-            todoObject=[TodoObject];
-        } else {
-         todoObject=$scope.TodoList.todos;
-         todoObject[$scope.TodoList.todos.length()]=TodoObject;
-        }
-        ListsEdit.update({_name:id_name,todos:TodoObject});
-        // listObject.todos.push({description:todo,completed:false});
-         /*
-         
-      $scope.update = function(index){
-        var todo = $scope.todos[index];
-        Todos.update({id: todo._id}, todo);
-        $scope.editing[index] = false;
+          
+          // Create new Todo in Todo Collection
+          TodoObject=new Todos({description:todo,completed:false});
+          TodoObject.$save(function(projectResponse){
+              // go on here to access the created _id of the new todo
+            $scope.todos.push(TodoObject);
+          
+          // Get the list the todo is for
+           ListsEdit.get({id:id_name}).$promise.then(function(data) {
+               var todos=data.todos;
+                //new flags stored with old todos.
+                if( todos.length<1){
+                    todos=[projectResponse._id];
+                } else {
+                    todos[todos.length]=projectResponse._id;
+                }
+                //update the list
+                ListsEdit.update({_name:id_name,todos:todos}).$promise.then(function(){
+                    $('#todoModal').modal('hide');
+                    $scope.lists=Lists.query();
+                    $scope.$apply()
+                });
+            }); 
+          });
       }
-
-         
-         *//*
-         listObject.$update(function(index){
-             $scope.lists[index]=ListObject;
-             Lists[index]=listObject;
-         })*/
-        // Lists.update({id:listObject._name,todos:listObject.todos},listObject);
-      }
-
     }])
       .config(['$routeProvider', function ($routeProvider) {
       $routeProvider        

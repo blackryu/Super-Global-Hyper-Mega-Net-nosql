@@ -130,11 +130,12 @@
     </div>
                <table class="table">
                   <tbody class="table-striped">
-                     <tr ng-repeat="todo in list.todos">
+                     <tr ng-repeat="todo in list.todos ">
                         <td>
-                          
-              <input  id="todo_completed" ng-value="todo.completed" class="checkbox" type="checkbox"/>
-                            {{todo.description}}
+                          <div ng-if="todo!=null" ng-repeat="t in todos ">
+              <input ng-if="todo==t._id"   ng-value="t.completed" class="checkbox" type="checkbox"/>
+                          <span ng-if="todo==t._id"  > {{t.description}}</span> 
+                            </div>
                         </td>
                      </tr>
                   </tbody>
