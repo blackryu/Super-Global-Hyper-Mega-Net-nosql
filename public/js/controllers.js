@@ -23,9 +23,9 @@
 
 })
    .factory('ListsEdit', function($resource) {
- return $resource('/list/:id',{},{
+ return $resource('/list/:id',{id:'@_name'},{
       query: {method:'GET',isArray:false},
-      update:{method:'POST',isArray:false}
+      update:{method:'POST',isArray:false},
       
   }); 
  
@@ -33,7 +33,7 @@
 
  .factory('ListsPublic', function($resource) {
  return $resource('/list/public',{},{
-      query: {method:'POST',isArray:true}
+      query: {method:'GET',isArray:true}
       
   }); 
 
@@ -63,57 +63,6 @@
      
 $scope.lists = Lists.query();
 
-//Check for the lists.lists
-// Private Backlog, Work Backlog. List of day 
-/*
-var PrivateB="Private Backlog";
-var WorkB="Work Backlog";
-var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-var day=new Date($.now());
-var CurrentDay=day.getDate()+"."+(day.getMonth()+1)+" "+days[ day.getDay() ];
-var hasPrivateB=false;
-var hasWorkB=false;
-var hasCurrentDay=false;
- $('.listNames').each( index,function() {
-    alert(this.text()) ;
- });
-   $('.listNames').each( index,function() {
-       alert(this.text());
-    if(this.text() ==PrivateB){
-        hasPrivateB=true;
-    }
-     if(this.text()==WorkB){
-        hasWorkB=true;
-    }
-     if(this.text()==CurrentDay){
-        hasCurrentDay=true;
-    }
-});
-if(!hasPrivateB){
-     var listP = new Lists({ _name: PrivateB,  owner: 'test@test.de',color:"pink"  });
-
-        listP.$save(function(){
-          $scope.lists.push(list);
-        });
-}
-if(!hasWorkB){
-     listW = new Lists({ _name: WorkB,  owner: 'test@test.de' ,color:"pink" });
-
-        listW.$save(function(){
-          $scope.lists.push(list);
-        });
-}
-if(!hasCurrentDay){
-     var listD = new Lists({ _name: CurrentDay,  owner: 'test@test.de',color:"green" });
-
-        listD.$save(function(){
-          $scope.lists.push(list);
-        });
-}
-if(!hasCurrentDay || !hasWorkB || !hasPrivateB){
-    $scope.lists=Lists.query();
-}
-*/
 $scope.filterPrivates=function(){
     if((!$scope.filterPrivate) && (!$scope.filterPublic)){
         $scope.filterPrivate=true;
