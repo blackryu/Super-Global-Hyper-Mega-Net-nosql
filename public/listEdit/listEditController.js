@@ -1,8 +1,8 @@
- angular.module('app.listEdit', ['ngRoute', 'ngResource','app.listEditService'])
- .controller('ListControllerEdit',['$scope','$routeParams','ListsEdit',function($scope,$routeParams,ListsEdit){
+ angular.module('app.listEdit', ['ngRoute', 'ngResource','app.listEditService','app.todosService'])
+ .controller('ListControllerEdit',['$scope','$routeParams','ListsEdit','Todos',function($scope,$routeParams,ListsEdit,Todos){
        
        $scope.list=ListsEdit.get({id: $routeParams.id });
-       
+       $scope.todos=Todos.query();
           $scope.remove = function(){
             //var list = $scope.lists[index];
             ListsEdit.delete({id: $scope.list._name})

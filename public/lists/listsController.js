@@ -1,15 +1,10 @@
-angular.module('app.lists', ['ngRoute', 'ngResource','app.listsService'])
+angular.module('app.lists', ['ngRoute', 'ngResource','app.listsService','app.todosService'])
  .controller('ListController',['$scope','Lists','ListsPrivate','ListsPublic','ListsEdit','Todos',function($scope,Lists,ListsPrivate,ListsPublic,ListsEdit,Todos,user,index){
         
      
 $scope.lists = Lists.query();
 $scope.todos=Todos.query();
-/*
-$scope.getTodoPerId=function(id){
-   return  $scope.todos.$promise.then(function(todo) {
-      return $.grep(todo, function(e){ return e._id == id; });
-    });
-}*/
+
 
 $scope.filterPrivates=function(){
     if((!$scope.filterPrivate) && (!$scope.filterPublic)){
