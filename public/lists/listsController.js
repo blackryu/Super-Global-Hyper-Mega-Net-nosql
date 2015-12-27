@@ -1,10 +1,11 @@
 angular.module('app.lists', ['ngRoute', 'ngResource','app.listsService','app.todosService'])
  .controller('ListController',['$scope','Lists','ListsPrivate','ListsPublic','ListsEdit','Todos',function($scope,Lists,ListsPrivate,ListsPublic,ListsEdit,Todos,user,index){
-        
-     
+        $scope.lists=Lists.query();
+/*   
 $scope.lists = Lists.query().$promise.then(function(data) {
     //Check for the lists.lists
 // Private Backlog, Work Backlog. List of day 
+
 var PrivateB="Private Backlog";
 var WorkB="Work Backlog";
 var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -13,7 +14,7 @@ var CurrentDay=day.getDate()+"."+(day.getMonth()+1)+" "+days[ day.getDay() ];
 var hasPrivateB=false;
 var hasWorkB=false;
 var hasCurrentDay=false;
-alert('here?');
+
 for(var i=0;i<data.length;i++){
     if(data[i]._name ==PrivateB){
         hasPrivateB=true;
@@ -21,36 +22,36 @@ for(var i=0;i<data.length;i++){
      if(data[i]._name==WorkB){
         hasWorkB=true;
     }
-     if(data[i]._name==CurrentDay){
+     if(data[i]._name=="01.01 Samstag"){
         hasCurrentDay=true;
     }
 }
 if(!hasPrivateB){
      var listP = new Lists({ _name: PrivateB,  owner: 'test@test.de',color:"pink" ,visibility:"private" });
 
-        listP.$save(function(){
-          $scope.lists.push(list);
-        });
+     //   listP.$save(function(){
+      //    $scope.lists.push(list);
+      //  });
 }
 if(!hasWorkB){
      listW = new Lists({ _name: WorkB,  owner: 'test@test.de' ,color:"pink",visibility:"private" });
 
-        listW.$save(function(){
-          $scope.lists.push(list);
-        });
+    //    listW.$save(function(){
+    //      $scope.lists.push(list);
+   //     });
 }
 if(!hasCurrentDay){
      var listD = new Lists({ _name: CurrentDay,  owner: 'test@test.de',color:"green",visibility:"private" });
 
-        listD.$save(function(){
-          $scope.lists.push(list);
-        });
+   //     listD.$save(function(){
+   //       $scope.lists.push(list);
+   //     });
 }
 if(!hasCurrentDay || !hasWorkB || !hasPrivateB){
-    $scope.lists=Lists.query();
+  //  $scope.lists=Lists.query();
 }
 
-});
+});*/
 $scope.todos=Todos.query();
 
 

@@ -5,8 +5,8 @@
        $scope.todos=Todos.query();
           $scope.remove = function(){
             //var list = $scope.lists[index];
+            alert($scope.list._name);
             ListsEdit.delete({id: $scope.list._name})
-
                      window.location.replace('/');
           }
           
