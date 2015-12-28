@@ -1,7 +1,7 @@
 angular.module('app.lists', ['ngRoute', 'ngResource','app.listsService','app.todosService'])
  .controller('ListController',['$scope','Lists','ListsPrivate','ListsPublic','ListsEdit','Todos','TodosEdit',function($scope,Lists,ListsPrivate,ListsPublic,ListsEdit,Todos,TodosEdit,user,index){
-        $scope.lists=Lists.query();
-/*   
+        //$scope.lists=Lists.query();
+
 $scope.lists = Lists.query().$promise.then(function(data) {
     //Check for the lists.lists
 // Private Backlog, Work Backlog. List of day 
@@ -22,37 +22,39 @@ for(var i=0;i<data.length;i++){
      if(data[i]._name==WorkB){
         hasWorkB=true;
     }
-     if(data[i]._name=="01.01 Samstag"){
+     if(data[i]._name==CurrentDay){
         hasCurrentDay=true;
     }
 }
 if(!hasPrivateB){
-     var listP = new Lists({ _name: PrivateB,  owner: 'test@test.de',color:"pink" ,visibility:"private" });
+     
+    
+     var listP = new Lists({ _name: PrivateB ,visibility:"private" ,color:"pink"});
 
-     //   listP.$save(function(){
-      //    $scope.lists.push(list);
-      //  });
+        listP.$save(function(){
+          $scope.lists.push(listP);
+        })
 }
 if(!hasWorkB){
-     listW = new Lists({ _name: WorkB,  owner: 'test@test.de' ,color:"pink",visibility:"private" });
+     listW = new Lists({ _name: WorkB,visibility:"private",color:"pink" });
 
-    //    listW.$save(function(){
-    //      $scope.lists.push(list);
-   //     });
+       listW.$save(function(){
+         $scope.lists.push(listW);
+        })
 }
 if(!hasCurrentDay){
-     var listD = new Lists({ _name: CurrentDay,  owner: 'test@test.de',color:"green",visibility:"private" });
+     var listD = new Lists({ _name: CurrentDay,visibility:"private",color:"pink" });
 
-   //     listD.$save(function(){
-   //       $scope.lists.push(list);
-   //     });
+        listD.$save(function(){
+          $scope.lists.push(listD);
+        })
 }
-if(!hasCurrentDay || !hasWorkB || !hasPrivateB){
-  //  $scope.lists=Lists.query();
-}
+   
 
-});*/
+
+});
 $scope.todos=Todos.query();
+ $scope.lists=Lists.query();
 
 
 
@@ -93,7 +95,7 @@ $scope.filterPublics=function(){
             vis="private"
         }
         // TODO owner set in the post method.
-        var list = new Lists({ _name: $scope.name, owner: 'test@test.de' ,visibility:vis, color:$scope.color});
+        var list = new Lists({ _name: $scope.name ,visibility:vis, color:$scope.color});
 
         list.$save(function(){
           $scope.lists.push(list);
@@ -106,6 +108,7 @@ $scope.filterPublics=function(){
         $scope.updateTodo=function(id,complete){
               TodosEdit.update({_id:id, completed:!complete}).$promise.then(function() {
                 //  $scope.todos=Todos.query();
+                
               });
               
               // window.location.replace('/');
@@ -133,7 +136,8 @@ $scope.filterPublics=function(){
                     todos[todos.length]=projectResponse._id;
                 }
                 //update the list
-                ListsEdit.update({_name:id_name,todos:todos}).$promise.then(function(){
+                ListsEdit.update({_id:data._id,_name:data._name,todos:todos}).$promise.then(function(){
+              //   data.$update({_id:data._id,todos:todos}).$promise.then(function(){
                     $('#todoModal').modal('hide');
                     $scope.lists=Lists.query();
                     $scope.$apply()

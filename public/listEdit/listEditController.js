@@ -5,13 +5,12 @@
        $scope.todos=Todos.query();
           $scope.remove = function(){
             //var list = $scope.lists[index];
-            alert($scope.list._name);
             ListsEdit.delete({id: $scope.list._name})
                      window.location.replace('/');
           }
           
           $scope.update = function(){
-              ListsEdit.update({_name:$scope.list._name,  owner: 'test@test.de',visibility:$scope.list.visibility,color:$scope.list.color})
+              ListsEdit.update({_name:$scope.list._name,visibility:$scope.list.visibility,color:$scope.list.color})
                window.location.replace('/');
           }
     }])

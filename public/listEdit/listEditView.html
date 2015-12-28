@@ -45,15 +45,17 @@
                                  <div class='container-fluid'>
                                     <div class='row'>
                                         <div ng-if="todo!=null" ng-repeat="t in todos ">
-              <input ng-if="todo==t._id"   ng-value="t.completed" class="checkbox" type="checkbox"/>
+              <input ng-if="todo==t._id"  disabled="" ng-checked="{{t.completed==true}}" ng-value="t.completed" class="checkbox" type="checkbox"/>
                           <span ng-if="todo==t._id"  > {{t.description}}</span> 
                            
                                        <div ng-if="todo==t._id" class="btn-group pull-right">
+                                       <div role="group" class="bnt-group">
                                        <a ng-if="todo==t._id" class="btn btn-danger btn-xs pull-right">
                                           <span ng-if="todo==t._id" class='glyphicon glyphicon-remove '></span></a>
                                     <a ng-if="todo==t._id" class="btn btn-default btn-xs pull-right" >
                                           <span ng-if="todo==t._id" class='glyphicon glyphicon-pencil '></span></a>
                                           </div>
+                                           </div>
                                            </div>
                                     </div>
                                  </div>
