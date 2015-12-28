@@ -7,7 +7,9 @@ var listSchema = new schema({
     visibility: {type: String, default: 'private'},
     color: {type: String, default: '#e95e01'},
     activ: {type: Boolean, default: true},
-    todos: []
+    todos: {active: [{duedate: Date, description: {type: String, required: true}, completed: {type: Boolean, default: false}}],
+            completed: [{duedate: Date, description: {type: String, required: true}, completed: {type: Boolean, true: false}}]
+        }
     });        
     listSchema.index({_name: 1, owner: 1}, {unique: true});
     listSchema.index({owner: 1, visibility: 1});

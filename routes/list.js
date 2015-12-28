@@ -28,8 +28,6 @@ router.use(function(req, res, next) {
 
 router.get('/public', function(req, res, next) {
 
-    // TODO show only for user when auth is added
-
     var user = req.user._name;
     listModel.find({
                      owner : user,
@@ -47,8 +45,6 @@ router.get('/public', function(req, res, next) {
 
 router.get('/publicAll', function(req, res, next) {
 
-    // TODO show only for user when auth is added
-
     var user = req.user._name;
     listModel.find({
                      visibility : 'public'
@@ -65,7 +61,6 @@ router.get('/publicAll', function(req, res, next) {
 
 router.get('/private', function(req, res, next) {
 
-    // TODO show only for user when auth is added
     var user = req.user._name;
     listModel.find({
                      owner : user,
@@ -155,7 +150,6 @@ router.delete ('/:id', function(req, res, next) {
 
 router.get('/', function(req, res, next) {
 
-    // TODO show only for user when auth is added
     var user = req.user._name;
 
     // Check the default Lists of the user.

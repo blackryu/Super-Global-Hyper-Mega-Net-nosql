@@ -51,7 +51,6 @@ passport.deserializeUser(function(id, done) {
 var indexRoutes = require('./routes/index')(passport);
 var users = require('./routes/users');
 var listRoutes = require('./routes/list');
-var todosRoutes = require('./routes/todo');
 var devRoutes = require('./routes/dev')(mongoose);
 
 // view engine setup
@@ -96,7 +95,6 @@ var protectApi  =  function(req, res, next){
 
 app.use('/users', protectApi, users);
 app.use('/list', protectApi, listRoutes);
-app.use('/todos', protectApi, todosRoutes);
 //routes for quick dev and db updtes - auth not required
 app.use('/dev', devRoutes);
 app.use('/', indexRoutes);
