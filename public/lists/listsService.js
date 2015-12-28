@@ -1,6 +1,6 @@
    angular.module('app.listsService', ['ngRoute', 'ngResource'])
     .factory('Lists', function($resource) {
- return $resource('/list',{},{
+ return $resource('/list/:id',{id:'@_name'},{
       query: {method:'GET',isArray:true},
       update: {method: 'POST',isArray:false}
       

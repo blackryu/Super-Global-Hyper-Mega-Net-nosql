@@ -4,7 +4,7 @@
          <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title" id="todoeModalLabel"><span class='glyphicon glyphicon-plus '></span> New Todo </h4>
-         </div>
+         </div> 
          <div class="modal-body">
             <form>
                <div class="form-group">
@@ -30,7 +30,7 @@
          <div class="modal-footer">
          <div role="group" class="btn-group">
             <button type="button" class="btn btn-default" data-dismiss="modal"><span class='glyphicon glyphicon-remove'></span></button>
-            <button class='btn btn-success' id="saveTodo" type='submit' ng-click="saveTodo()"><span class='glyphicon glyphicon-floppy-disk'></span></button>
+            <button class='btn btn-success' id="saveTodo" type='submit' data-dismiss="modal" ng-click="saveTodo()"><span class='glyphicon glyphicon-floppy-disk'></span></button>
           </div>
          </div>
       </div>
@@ -123,15 +123,17 @@
             </div>
             <div class="panel-body {{list.color}}">
             
-           
+             <p> List visibility: {{list.visibility}}</p> 
                <table class="table">
                   <tbody class="table-striped">
-                     <tr ng-repeat="todo in list.todos ">
+                     <tr ng-repeat="activeTodo in list.todos.active ">
                         <td>
-                          <div ng-if="todo!=null" ng-repeat="t in todos track by t._id">
+                        <p>{{activeTodo.description}}</p>
+                        <p> is completed: {{activeTodo.completed}}</p>
+                        
                           <div class="checkbox">
-              <input ng-if="todo==t._id" ng-click="updateTodo(t._id,t.completed)" ng-checked="{{t.completed==true}}" ng-value="t.completed" class="checkbox" type="checkbox"/>
-                          <span ng-if="todo==t._id"  > {{t.description}} <span class="{{checkDueDate(t.duedate)}} dates" >{{t.duedate}}</span></span> 
+              <input ng-model="activeTodo.completed" class="checkbox" type="checkbox"/>
+                            <span class="{{checkDueDate(activeTodo.duedate)}} dates" >{{activeTodo.duedate}}</span> 
                             </div>
                             </div>
                         </td>
@@ -142,7 +144,7 @@
             <div class="panel-footer">
                <span class="glyphicon glyphicon-user" aria-hidden="list.visibility"></span>
                <label class="toggle">
-			  <input ng-model="list.visibility" ng-checked="{{list.visibility=='public'}}" ng-True-Value="{{public}}" ng-False-Value="{{private}}" disabled="" type="checkbox"> 
+			  <input ng-model="list.visibility" ng-true-value="'public'" ng-false-value="'private'" type="checkbox"> 
 			  <span class="handle">
              </span>
 			</label>
