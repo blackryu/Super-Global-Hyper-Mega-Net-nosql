@@ -20,7 +20,7 @@
           <div  class=" col-xs-6 col-sm-3">
           <div class="form-group">
 			 <label for="color">Color: </label>
-                   <select id="color"   ng-model="list.color" name="colors"  class="form-control" title="Choose a colors">
+                <select id="color"   ng-model="list.color" name="colors"  class="form-control" title="Choose a colors">
              
                 <option value="blue" class="blue">Blue</option>
                 <option value="green" class="green">Green</option>
@@ -40,20 +40,18 @@
                   <div class="panel-body {{list.color}}">
                      <table class="table">
                         <tbody class="table-striped">
-                           <tr ng-repeat="todo in list.todos">
+                           <tr ng-repeat="activeTodo in list.todos.active">
                               <td>
                                  <div class='container-fluid'>
                                     <div class='row'>
-                                        <div ng-if="todo!=null" ng-repeat="t in todos ">
-              <input ng-if="todo==t._id"  disabled="" ng-checked="{{t.completed==true}}" ng-value="t.completed" class="checkbox" type="checkbox"/>
-                          <span ng-if="todo==t._id"  > {{t.description}}</span> 
-                           
-                                       <div ng-if="todo==t._id" class="btn-group pull-right">
+              <input ng-checked="activeTodo.completed" ng-value="activeTodo.completed" class="checkbox" type="checkbox"/>
+                          <span> {{activeTodo.description}}</span> 
+                                       <div class="btn-group pull-right">
                                        <div role="group" class="bnt-group">
-                                       <a ng-if="todo==t._id" class="btn btn-danger btn-xs pull-right">
-                                          <span ng-if="todo==t._id" class='glyphicon glyphicon-remove '></span></a>
-                                    <a ng-if="todo==t._id" class="btn btn-default btn-xs pull-right" >
-                                          <span ng-if="todo==t._id" class='glyphicon glyphicon-pencil '></span></a>
+                                       <a class="btn btn-danger btn-xs pull-right">
+                                          <span class='glyphicon glyphicon-remove '></span></a>
+                                    <a class="btn btn-default btn-xs pull-right" >
+                                          <span class='glyphicon glyphicon-pencil '></span></a>
                                           </div>
                                            </div>
                                            </div>

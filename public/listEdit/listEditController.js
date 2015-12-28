@@ -4,7 +4,6 @@
        $scope.list=ListsEdit.get({id: $routeParams.id });
        $scope.todos=Todos.query();
           $scope.remove = function(){
-            //var list = $scope.lists[index];
             ListsEdit.delete({id: $scope.list._name}).$promise.then(function(data) {
                 window.location.replace('/');
             });
@@ -12,8 +11,7 @@
           }
           
           $scope.update = function(){
-              ListsEdit.update({_name:$scope.list._name,visibility:$scope.list.visibility,color:$scope.list.color}).$promise.then(function(data) {
-                window.location.replace('/');
+              ListsEdit.update($scope.list).$promise.then(function(data) {
             });
           }
     }])

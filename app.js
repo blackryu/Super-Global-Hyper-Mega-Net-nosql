@@ -76,8 +76,8 @@ app.use('/bootflat/fonts',express.static(__dirname+'/node_modules/bootflat/fonts
 app.use('/lib/angular/angular.js',express.static(__dirname+'/node_modules/angular/angular.js'));
 app.use('/lib/angular-route/angular-route.js',express.static(__dirname+'/node_modules/angular-route/angular-route.js'));
 app.use('/lib/angular-resource/angular-resource.js',express.static(__dirname+'/node_modules/angular-resource/angular-resource.js'));
-app.use('/bootstrap-datepicker/css',express.static(__dirname+'/node_modules/bootstrap-datepicker/less/'));
-app.use('/bootstrap-datepicker/js',express.static(__dirname+'/node_modules/bootstrap-datepicker/js/'));
+app.use('/bootstrap-datepicker/css',express.static(__dirname+'/node_modules/bootstrap-datepicker/dist/css/'));
+app.use('/bootstrap-datepicker/js',express.static(__dirname+'/node_modules/bootstrap-datepicker/dist/js/'));
  
 // auth for api
 var protectApi  =  function(req, res, next){
