@@ -94,7 +94,7 @@ $scope.filterPublics=function(){
         } else {
             vis="private"
         }
-        // TODO owner set in the post method.
+        
         var list = new Lists({ _name: $scope.name ,visibility:vis, color:$scope.color});
 
         list.$update(function(){
@@ -119,9 +119,10 @@ $scope.filterPublics=function(){
           //Values from the Modal
           var todo=$('#todo_name').val();
           var id_name=$('#idlist').val();
-          
+          var date=$('#duedatepicker').val();
+          alert(date);
           // Create new Todo in Todo Collection
-          TodoObject=new Todos({description:todo,completed:false});
+          TodoObject=new Todos({description:todo,completed:false,duedate:new Date(date)});
           TodoObject.$save(function(projectResponse){
               // go on here to access the created _id of the new todo
             $scope.todos.push(TodoObject);

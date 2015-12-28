@@ -10,22 +10,22 @@
                <div class="form-group">
                   <label for="idlist" class="control-label">List:</label>
                   <input type="text"  ng-value="list._name"  disabled="" class="list_class form-control" id="idlist">
-               
-
-  <input type="hidden" name="list" id="idListHidden" value="">
-
-                   
+                 <input type="hidden" name="list" id="idListHidden" value="">
                </div>
                <div class="form-group">
                   <label for="todo_name" class="control-label">Todo name:</label>
                   <input type="text" ng-init="todo_name='test'"    class="form-control" id="todo_name">
                </div>
-  <!--div class="input-group date" data-provide="datepicker">
-    <input type="text" class="form-control">
+               <div class="form-group">
+               <label for="duedatepicker" class="control-label">duedate:</label>
+  <div class="input-group date" data-provide="datepicker">
+    <input type="text" id="duedatepicker" data-date-format="YYYY-MM-DD" class="form-control">
     <div class="input-group-addon">
         <span class="glyphicon glyphicon-th"></span>
     </div>
-</div-->    </form>
+</div>  
+    
+</div>  </form>
         </div>
          <div class="modal-footer">
          <div role="group" class="btn-group">
@@ -123,20 +123,16 @@
             </div>
             <div class="panel-body {{list.color}}">
             
-            <div ng-repeat="todo in list.todos">
-            <!--div class="checkbox">
-                  <input type="checkbox" id="{{todo._id}}">
-                  <label for="{{todo._id}}"> {{todo.description}}</label>
-                </div-->
-                  
-    </div>
+           
                <table class="table">
                   <tbody class="table-striped">
                      <tr ng-repeat="todo in list.todos ">
                         <td>
                           <div ng-if="todo!=null" ng-repeat="t in todos track by t._id">
+                          <div class="checkbox">
               <input ng-if="todo==t._id" ng-click="updateTodo(t._id,t.completed)" ng-checked="{{t.completed==true}}" ng-value="t.completed" class="checkbox" type="checkbox"/>
-                          <span ng-if="todo==t._id"  > {{t.description}}</span> 
+                          <span ng-if="todo==t._id"  > {{t.description}} {{t.duedate}}</span> 
+                            </div>
                             </div>
                         </td>
                      </tr>

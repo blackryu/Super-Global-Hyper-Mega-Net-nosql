@@ -15,11 +15,11 @@
         modal.find('.modal-body .list_class').attr("ng-init","list_index='"+index+"'")
         
         modal.find('.modal-body #idListHidden').val(index)
-        /*
-    $(".prev .next .day").addClass('unit');
-     })
-     $( document ).ready(function() {
-    $("#datepicker").datepicker();*/
+        
+  
+    $("#datepicker").datepicker({
+          format: 'YYYY-MM-DD',
+    });
 });
 /*     jQuery.noConflict();
 $('.datepicker').datepicker({
