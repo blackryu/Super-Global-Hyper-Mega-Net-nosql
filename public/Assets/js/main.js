@@ -21,6 +21,16 @@
           format: 'YYYY-MM-DD',
     });
 });
+function checkDate(span){
+    var d=new Date(span.innerHTML);
+    alert(span);
+    var today=new Date();
+    if(d>today){
+      span.className="red";
+    } else if(d==today){
+       span.className="orange"; 
+    }
+}
 /*     jQuery.noConflict();
 $('.datepicker').datepicker({
     format: 'mm/dd/yyyy',

@@ -55,7 +55,21 @@ if(!hasCurrentDay){
 });
 $scope.todos=Todos.query();
  $scope.lists=Lists.query();
+ 
+ $scope.checkDueDate=function(element){
 
+   //  this.innerHTML = this + " is the element, " + index + " is the position";
+   if(element==''){return }
+   var d=new Date(element);
+   var today=new Date();
+   alert(today)
+   alert(d);
+   if(element =='2016-01-05T23:00:00.000Z'){
+       return "red";
+   } else {
+       return "green";
+   }
+};
 
 
 $scope.filterPrivates=function(){

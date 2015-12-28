@@ -131,7 +131,7 @@
                           <div ng-if="todo!=null" ng-repeat="t in todos track by t._id">
                           <div class="checkbox">
               <input ng-if="todo==t._id" ng-click="updateTodo(t._id,t.completed)" ng-checked="{{t.completed==true}}" ng-value="t.completed" class="checkbox" type="checkbox"/>
-                          <span ng-if="todo==t._id"  > {{t.description}} {{t.duedate}}</span> 
+                          <span ng-if="todo==t._id"  > {{t.description}} <span class="{{checkDueDate(t.duedate)}} dates" >{{t.duedate}}</span></span> 
                             </div>
                             </div>
                         </td>
