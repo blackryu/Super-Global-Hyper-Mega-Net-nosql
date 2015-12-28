@@ -238,8 +238,8 @@ $scope.lists = ListsPublicAll.query();
           }
           
           $scope.update = function(){
-              ListsEdit.update({_name:$scope.list._name,  owner: 'test@test.de',visibility:$scope.list.visibility,color:$scope.list.color})
-               window.location.replace('/');
+              ListsEdit.update({id:$scope.list._name },{_name:$scope.list._name ,visibility:$scope.list.visibility,color:$scope.list.color})
+               //window.location.replace('/');
           }
     }])
    

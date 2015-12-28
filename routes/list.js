@@ -105,7 +105,6 @@ router.post('/:id', function(req, res, next) {
 
     var listID = req.params.id;
     req.listDoc._name = listID;
-    console.log(req.listDoc);
     listModel.findOneAndUpdate(
         { _name : listID, owner: req.user._name }, req.listDoc, { upsert : false, new : true }, function(err, newList) {
 
@@ -122,7 +121,6 @@ router.post('/:id', function(req, res, next) {
 // Creates a new list
 router.post('/', function(req, res, next) {
 
-    console.log('#### im here ####')
     var newList = new listModel(req.listDoc);
     newList.save(function(err) {
 
