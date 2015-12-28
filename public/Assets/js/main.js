@@ -15,12 +15,22 @@
         modal.find('.modal-body .list_class').attr("ng-init","list_index='"+index+"'")
         
         modal.find('.modal-body #idListHidden').val(index)
-        /*
-    $(".prev .next .day").addClass('unit');
-     })
-     $( document ).ready(function() {
-    $("#datepicker").datepicker();*/
+        
+  
+    $("#datepicker").datepicker({
+          format: 'YYYY-MM-DD',
+    });
 });
+function checkDate(span){
+    var d=new Date(span.innerHTML);
+    alert(span);
+    var today=new Date();
+    if(d>today){
+      span.className="red";
+    } else if(d==today){
+       span.className="orange"; 
+    }
+}
 /*     jQuery.noConflict();
 $('.datepicker').datepicker({
     format: 'mm/dd/yyyy',

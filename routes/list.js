@@ -4,14 +4,12 @@ var router = express.Router();
 // DBA Acesss for lists.
 var listModel = require('../dbModels/lists');
 
+// set respose Type.
 
-//set respose Type.
+// this routes should return only json
+router.use(function(req, res, next) {
 
-//this routes should return only json
-router.use(function(req, res, next){
-    
-    res.set('Content-Type', 'application/json');
-    //parse the request params into a object. 
+    // parse the request params into a object.
     var bodyParamNames = Object.keys(req.body);
     var newListDoc = {};
     for(var sentParam in bodyParamNames) {
@@ -22,16 +20,15 @@ router.use(function(req, res, next){
         }
     };
     req.listDoc = newListDoc;
+    req.listDoc.owner = req.user._name;
     next();
-    });
-
+});
 
 /* GET Methods*/
 
-
 router.get('/public', function(req, res, next) {
 
-    //TODO show only for user when auth is added
+    // TODO show only for user when auth is added
 
     var user = req.user._name;
     listModel.find({
@@ -41,16 +38,16 @@ router.get('/public', function(req, res, next) {
                    }).exec(function(err, results) {
 
         if(err) {
-           return next(err);
+            return next(err);
         };
-       
+
         res.send(results);
     });
 });
 
 router.get('/publicAll', function(req, res, next) {
 
-    //TODO show only for user when auth is added
+    // TODO show only for user when auth is added
 
     var user = req.user._name;
     listModel.find({
@@ -59,37 +56,35 @@ router.get('/publicAll', function(req, res, next) {
                    }).exec(function(err, results) {
 
         if(err) {
-           return next(err);
+            return next(err);
         };
-       
+
         res.send(results);
     });
 });
 
 router.get('/private', function(req, res, next) {
 
-    //TODO show only for user when auth is added
+    // TODO show only for user when auth is added
     var user = req.user._name;
     listModel.find({
                      owner : user,
                      visibility : 'private'
 
                    }).exec(function(err, results) {
-        
+
         if(err) {
             return next(err);
         };
-        
+
         res.send(results);
     });
 });
-
 
 // get list from ID
 router.get('/:id', function(req, res, next) {
 
     var listID = req.params.id;
-
 
     var user = req.user._name;
     listModel.findOne({ _name : listID, owner : user }).exec(function(err, results) {
@@ -99,15 +94,15 @@ router.get('/:id', function(req, res, next) {
             return next(err);
         };
 
-        
         res.send(results);
     });
 });
 
 router.get('/', function(req, res, next) {
 
-    //TODO show only for user when auth is added
+    // TODO show only for user when auth is added
     var user = req.user._name;
+
     listModel.find({
                      owner : user,
 
@@ -116,12 +111,11 @@ router.get('/', function(req, res, next) {
         if(err) {
             console.error(err);
             nex(err);
-        };
+        }
         res.send(results);
     });
 
 });
-
 
 // POST methods
 
@@ -129,37 +123,59 @@ router.get('/', function(req, res, next) {
 router.post('/:id', function(req, res, next) {
 
     var listID = req.params.id;
-     req.listDoc._name = listID;
-    listModel.findOneAndUpdate({_name: req.listDoc._name}, req.listDoc, {upsert: true, new: true}, function(err, newList){
-    
-    if(err) {
-            console.error(err.errmsg);
-            return next(err);
-        } else {
-            res.send({ status : 'ok' });
-        }
-    
-    
-    });
+    req.listDoc._name = listID;
+    req.listDoc.owner=req.user._name;
+     // changed find by _name to _id. Otherwise it creates a new _id for default lists.
+    listModel.findOneAndUpdate(
+        { _id : req.listDoc._id }, req.listDoc,  function(err, newList) {
+
+            if(err) {
+                console.error(err.errmsg);
+                return next(err);
+            } else {
+                res.send({ status : 'ok' });
+            }
+
+        });
 
 });
+
 
 
 // Creates a new list
 router.post('/', function(req, res, next) {
 
-    
     var newList = new listModel(req.listDoc);
+    newList.owner=req.user._name; 
     newList.save(function(err) {
 
         if(err) {
             console.error(err.errmsg);
-            return next(err);
+            next(err);
         } else {
             res.send({ status : 'ok' });
         }
 
     });
+});
+
+
+/* DELETE a single list */
+router.delete ('/:id', function(req, res, next) {
+
+    var id = req.params.id;
+
+    listModel.findOne({ _name : id, owner : req.user._name }).remove().exec(function(err, doc) {
+
+        if(err) {
+
+            return next(err);
+        }
+
+        res.send({ status : 'ok' });
+
+    });
+
 });
 
 module.exports = router;
