@@ -93,6 +93,27 @@ router.get('/:id', function(req, res, next) {
     });
 });
 
+router.get('/', function(req, res, next) {
+
+    // TODO show only for user when auth is added
+    var user = req.user._name;
+
+    
+
+    listModel.find({
+                     owner : user,
+
+                   }).exec(function(err, results) {
+
+        if(err) {
+            console.error(err);
+            nex(err);
+        }
+        res.send(results);
+    });
+
+});
+
 // POST methods
 
 // Updates or creates a list
@@ -101,7 +122,7 @@ router.post('/:id', function(req, res, next) {
     var listID = req.params.id;
     req.listDoc._name = listID;
     listModel.findOneAndUpdate(
-        { _name : listID, owner: req.user._name }, req.listDoc, { upsert : false, new : true }, function(err, newList) {
+        { _id : req.listDoc._id, owner: req.user._name }, req.listDoc, { upsert : false, new : true }, function(err, newList) {
 
             if(err) {
                 console.error(err.errmsg);
@@ -135,6 +156,7 @@ router.delete ('/:id', function(req, res, next) {
 
     var id = req.params.id;
 
+
     list.model.findOne({ _name : id, owner : req.user._name }).remove().exec(function(err, doc) {
 
         if(err) {
@@ -148,76 +170,7 @@ router.delete ('/:id', function(req, res, next) {
 
 });
 
-router.get('/', function(req, res, next) {
 
-    var user = req.user._name;
 
-    // Check the default Lists of the user.
-    var PrivateB = "Private Backlog";
-    var WorkB = "Work Backlog";
-    var days = [ 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday' ];
-    var day = new Date();
-    var CurrentDay = day.getDate() + "." + (day.getMonth() + 1) + " " + days[day.getDay()];
-
-    console.info("current Day" + CurrentDay);
-
-    listModel.findOne({ owner : user, _name : PrivateB }).exec(function(err, results) {
-        if(err || results === null) {
-            console.info("Creating Default List for user " + user);
-            var newList = new listModel({ owner : user, _name : PrivateB, color : 'pink' });
-            newList.save(function(err) {
-
-                if(err) {
-                    console.error(err.errmsg);
-                    return next(err);
-                }
-
-            });
-        }
-    });
-
-    listModel.findOne({ owner : user, _name : WorkB }).exec(function(err, results) {
-        console.info("results " + results);
-        if(err || results === null) {
-            console.info("Creating Default List for user " + user);
-            var newList = new listModel({ owner : user, _name : WorkB, color : 'pink' });
-            newList.save(function(err) {
-
-                if(err) {
-                    console.error(err.errmsg);
-                    // return next(err);
-                }
-            });
-        }
-    });
-    listModel.findOne({ owner : user, _name : CurrentDay }).exec(function(err, results) {
-        console.info("results " + results);
-
-        if(err || results === null) {
-            console.info("Creating Todays List for user " + user);
-            var newList = new listModel({ owner : user, _name : CurrentDay, color : 'blue' });
-            newList.save(function(err) {
-
-                if(err) {
-                    console.error(err.errmsg);
-                    // return next(err);
-                }
-            });
-        }
-    });
-
-    listModel.find({
-                     owner : user,
-
-                   }).exec(function(err, results) {
-
-        if(err) {
-            console.error(err);
-            nex(err);
-        }
-        res.send(results);
-    });
-
-});
 
 module.exports = router;
