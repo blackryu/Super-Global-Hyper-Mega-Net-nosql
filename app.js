@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+//turn on debug on mongodb
+mongoose.set('debug', true);
 var app = express();
 // Sectret Config
 var config = require('./secret');

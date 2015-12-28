@@ -103,6 +103,8 @@ router.get('/', function(req, res, next) {
     // TODO show only for user when auth is added
     var user = req.user._name;
 
+    
+
     listModel.find({
                      owner : user,
 
@@ -124,10 +126,8 @@ router.post('/:id', function(req, res, next) {
 
     var listID = req.params.id;
     req.listDoc._name = listID;
-    req.listDoc.owner=req.user._name;
-     // changed find by _name to _id. Otherwise it creates a new _id for default lists.
     listModel.findOneAndUpdate(
-        { _id : req.listDoc._id }, req.listDoc,  function(err, newList) {
+        { _id : req.listDoc._id, owner: req.user._name }, req.listDoc, { upsert : false, new : true }, function(err, newList) {
 
             if(err) {
                 console.error(err.errmsg);
@@ -135,18 +135,14 @@ router.post('/:id', function(req, res, next) {
             } else {
                 res.send({ status : 'ok' });
             }
-
         });
 
 });
-
-
 
 // Creates a new list
 router.post('/', function(req, res, next) {
 
     var newList = new listModel(req.listDoc);
-    newList.owner=req.user._name; 
     newList.save(function(err) {
 
         if(err) {
@@ -165,17 +161,21 @@ router.delete ('/:id', function(req, res, next) {
 
     var id = req.params.id;
 
-    listModel.findOne({ _name : id, owner : req.user._name }).remove().exec(function(err, doc) {
+
+    list.model.findOne({ _name : id, owner : req.user._name }).remove().exec(function(err, doc) {
 
         if(err) {
 
             return next(err);
         }
 
-        res.send({ status : 'ok' });
+        req.send({ status : 'ok' });
 
     });
 
 });
+
+
+
 
 module.exports = router;
