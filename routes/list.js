@@ -125,8 +125,9 @@ router.post('/:id', function(req, res, next) {
     var listID = req.params.id;
     req.listDoc._name = listID;
     req.listDoc.owner=req.user._name;
+     // changed find by _name to _id. Otherwise it creates a new _id for default lists.
     listModel.findOneAndUpdate(
-        { _name : req.listDoc._name }, req.listDoc, { upsert : true, new : true }, function(err, newList) {
+        { _id : req.listDoc._id }, req.listDoc,  function(err, newList) {
 
             if(err) {
                 console.error(err.errmsg);
@@ -138,6 +139,8 @@ router.post('/:id', function(req, res, next) {
         });
 
 });
+
+
 
 // Creates a new list
 router.post('/', function(req, res, next) {

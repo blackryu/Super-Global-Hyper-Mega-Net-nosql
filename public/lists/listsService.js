@@ -2,7 +2,7 @@
     .factory('Lists', function($resource) {
  return $resource('/list',{},{
       query: {method:'GET',isArray:true},
-      update: {method: 'POST',isArray:true}
+      update: {method: 'POST',isArray:false}
       
   }); 
 

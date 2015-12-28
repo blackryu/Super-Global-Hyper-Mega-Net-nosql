@@ -31,23 +31,23 @@ if(!hasPrivateB){
     
      var listP = new Lists({ _name: PrivateB ,visibility:"private" ,color:"pink"});
 
-        listP.$save(function(){
-          $scope.lists.push(listP);
+        listP.$update(function(){
+            $scope.lists.push(listP);
         })
 }
 if(!hasWorkB){
      listW = new Lists({ _name: WorkB,visibility:"private",color:"pink" });
 
-       listW.$save(function(){
-         $scope.lists.push(listW);
+       listW.$update(function(){
+           $scope.lists.push(listW);
         })
 }
 if(!hasCurrentDay){
      var listD = new Lists({ _name: CurrentDay,visibility:"private",color:"pink" });
 
-        listD.$save(function(){
-          $scope.lists.push(listD);
-        })
+        listD.$update(function(){
+            $scope.lists.push(listD);
+            })
 }
    
 
@@ -97,7 +97,7 @@ $scope.filterPublics=function(){
         // TODO owner set in the post method.
         var list = new Lists({ _name: $scope.name ,visibility:vis, color:$scope.color});
 
-        list.$save(function(){
+        list.$update(function(){
           $scope.lists.push(list);
           
         })
@@ -136,11 +136,15 @@ $scope.filterPublics=function(){
                     todos[todos.length]=projectResponse._id;
                 }
                 //update the list
-                ListsEdit.update({_id:data._id,_name:data._name,todos:todos}).$promise.then(function(){
-              //   data.$update({_id:data._id,todos:todos}).$promise.then(function(){
+              //  ListsEdit.update({_name:data._name,todos:todos}).$promise.then(function(){
+                 data.todos=todos;
+                 data.$update(function(){
                     $('#todoModal').modal('hide');
                     $scope.lists=Lists.query();
+                    if(!$scope.$$phase) {
+  
                     $scope.$apply()
+}
                 });
             }); 
           });

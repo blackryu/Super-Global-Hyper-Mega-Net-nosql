@@ -1,4 +1,4 @@
-angular.module('app.listCreate', ['ngRoute', 'ngResource'])
+angular.module('app.listCreate', ['ngRoute', 'ngResource','app.listsService'])
   
  
    
@@ -15,10 +15,9 @@ $scope.lists = Lists.query();
         } else {
             vis="private"
         }
-        // TODO owner set in the post method.
-        var list = new Lists({ _name: $scope.name, owner: 'test@test.de' ,visibility:vis, color:$scope.color});
+        var list = new Lists({ _name: $scope.name ,visibility:vis, color:$scope.color});
 
-        list.$save(function(){
+        list.$update(function(){
           $scope.lists.push(list);
           
         })
