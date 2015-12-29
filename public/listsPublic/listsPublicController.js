@@ -4,7 +4,6 @@
 $scope.lists = ListsPublicAll.query();
      
      $scope.share=function(index){
-         alert(index);
          var newList=new Lists({
              _name:$scope.lists[index]._name,
              color:$scope.lists[index].color,
@@ -16,6 +15,7 @@ $scope.lists = ListsPublicAll.query();
      }
 
     }])
+    
      .config(['$routeProvider', function ($routeProvider) {
       $routeProvider        
      
