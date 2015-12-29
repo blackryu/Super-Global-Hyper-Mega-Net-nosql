@@ -165,7 +165,7 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
                     }
                     
                 $scope.lists[index].todos.active.push(newTodo);
-                Lists.update({}, $scope.lists[index], callbacks.createTodoSuccess, callbacks.createTodoError);
+                ListsEdit.update({}, $scope.lists[index], callbacks.createTodoSuccess, callbacks.createTodoError);
 
             };
         }
