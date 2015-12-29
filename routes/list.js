@@ -138,6 +138,7 @@ router.post('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
     var newList = new listModel(req.listDoc);
+    newList.owner= req.user._name;
     newList.save(function(err) {
 
         if(err) {
