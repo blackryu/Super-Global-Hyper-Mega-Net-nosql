@@ -125,14 +125,14 @@
              
                <table class="table">
                   <tbody class="table-striped">
-                     <tr ng-repeat="activeTodo in list.todos.active ">
+                     <tr class="{{checkDueDate(activeTodo.duedate)}}" ng-repeat="activeTodo in list.todos.active ">
                         <td>
                         <p>{{activeTodo.description}}</p>
                         <p> is completed: {{activeTodo.completed}}</p>
                         
                           <div class="checkbox">
               <input ng-model="activeTodo.completed" class="checkbox" type="checkbox"/>
-                            <span class="{{checkDueDate(activeTodo.duedate)}} dates" >{{activeTodo.duedate}}</span> 
+                            <span class=" dates" >{{dateReadable(activeTodo.duedate)}}</span> 
                             </div>
                           
                         </td>

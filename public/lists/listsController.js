@@ -105,21 +105,30 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
 
             Lists.query(callbacks.getAllListsSuccess, callbacks.getAllListsError);
 
+            
             //TODO refactor. maybe use moment js? 
             $scope.checkDueDate = function(element) {
 
                 //  this.innerHTML = this + " is the element, " + index + " is the position";
-                if(element == '') {
+                if(element === '') {
                     return '';
                 }
                 var d = new Date(element);
                 var today = new Date();
-                if(element == '2016-01-05T23:00:00.000Z') {
-                    return "red";
-                } else {
-                    return "green";
+                if(d.getDate()==today.getDate() && d.getYear()==today.getYear() && d.getMonth()==today.getMonth()) {
+                    return "warning colorForTodoInfos";
+                } else if(d.getYear()<=today.getYear() || (d.getYear()==today.getYear() && d.getMonth()<=today.getMonth())
+                || (d.getYear()==today.getYear() && d.getMonth()== today.getMonth() && d.getDate()<today.getMonth())){
+                    return "danger colorForTodoInfos";
+                }else {
+                    return "success colorForTodoInfos";
                 }
             };
+            
+            $scope.dateReadable=function(element){
+                var d =new Date(element);
+                return d.getMonth() +"/"+d.getDate()+"/"+d.getYear();
+            }
 
             // TODO Who needs this function? why is it in the scope???
             $scope.filterPrivates = function() {
