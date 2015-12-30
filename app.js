@@ -51,7 +51,6 @@ passport.deserializeUser(function(id, done) {
 var indexRoutes = require('./routes/index')(passport);
 var users = require('./routes/users');
 var listRoutes = require('./routes/list');
-var todosRoutes = require('./routes/todo');
 var devRoutes = require('./routes/dev')(mongoose);
 
 // view engine setup
@@ -77,8 +76,8 @@ app.use('/bootflat/fonts',express.static(__dirname+'/node_modules/bootflat/fonts
 app.use('/lib/angular/angular.js',express.static(__dirname+'/node_modules/angular/angular.js'));
 app.use('/lib/angular-route/angular-route.js',express.static(__dirname+'/node_modules/angular-route/angular-route.js'));
 app.use('/lib/angular-resource/angular-resource.js',express.static(__dirname+'/node_modules/angular-resource/angular-resource.js'));
-app.use('/bootstrap-datepicker/css',express.static(__dirname+'/node_modules/bootstrap-datepicker/less/'));
-app.use('/bootstrap-datepicker/js',express.static(__dirname+'/node_modules/bootstrap-datepicker/js/'));
+app.use('/bootstrap-datepicker/css',express.static(__dirname+'/node_modules/bootstrap-datepicker/dist/css/'));
+app.use('/bootstrap-datepicker/js',express.static(__dirname+'/node_modules/bootstrap-datepicker/dist/js/'));
  
 // auth for api
 var protectApi  =  function(req, res, next){
@@ -96,7 +95,6 @@ var protectApi  =  function(req, res, next){
 
 app.use('/users', protectApi, users);
 app.use('/list', protectApi, listRoutes);
-app.use('/todos', protectApi, todosRoutes);
 //routes for quick dev and db updtes - auth not required
 app.use('/dev', devRoutes);
 app.use('/', indexRoutes);

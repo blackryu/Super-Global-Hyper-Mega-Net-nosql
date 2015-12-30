@@ -28,8 +28,6 @@ router.use(function(req, res, next) {
 
 router.get('/public', function(req, res, next) {
 
-    // TODO show only for user when auth is added
-
     var user = req.user._name;
     listModel.find({
                      owner : user,
@@ -47,8 +45,6 @@ router.get('/public', function(req, res, next) {
 
 router.get('/publicAll', function(req, res, next) {
 
-    // TODO show only for user when auth is added
-
     var user = req.user._name;
     listModel.find({
                      visibility : 'public'
@@ -65,7 +61,6 @@ router.get('/publicAll', function(req, res, next) {
 
 router.get('/private', function(req, res, next) {
 
-    // TODO show only for user when auth is added
     var user = req.user._name;
     listModel.find({
                      owner : user,
@@ -125,9 +120,8 @@ router.get('/', function(req, res, next) {
 router.post('/:id', function(req, res, next) {
 
     var listID = req.params.id;
-    req.listDoc._name = listID;
     listModel.findOneAndUpdate(
-        { _id : req.listDoc._id, owner: req.user._name }, req.listDoc, { upsert : false, new : true }, function(err, newList) {
+        { _name : req.listDoc._name, owner: req.user._name }, req.listDoc, { upsert : false, new : true }, function(err, newList) {
 
             if(err) {
                 console.error(err.errmsg);
@@ -149,7 +143,7 @@ router.post('/', function(req, res, next) {
             console.error(err.errmsg);
             next(err);
         } else {
-            res.send({ status : 'ok' });
+            res.send(newList);
         }
 
     });
