@@ -95,10 +95,7 @@
                   <input type="checkbox" id="newone">
                   <label for="newone"> {{todo.name}}</label>
                 </div>
-                  <script>    $('.checkbox input').iCheck({
-        checkboxClass: 'icheckbox_flat',
-        increaseArea: '20%'
-    });</script> </li>
+                  </li>
 </ul>
 </div>
 </div>
@@ -127,13 +124,12 @@
                   <tbody class="table-striped">
                      <tr class="{{checkDueDate(activeTodo.duedate)}}" ng-repeat="activeTodo in list.todos.active ">
                         <td>
-                        <p>{{activeTodo.description}}</p>
-                        <p> is completed: {{activeTodo.completed}}</p>
-                        
-                          <div class="checkbox">
+                        <div class="checkbox">
               <input ng-model="activeTodo.completed" class="checkbox" type="checkbox"/>
-                            <span class=" dates" >{{dateReadable(activeTodo.duedate)}}</span> 
-                            </div>
+                            <span class=" dates" >{{activeTodo.description}}<br/>s{{dateReadable(activeTodo.duedate)}}</span> 
+                            </div> 
+                        
+                          
                           
                         </td>
                      </tr>
@@ -142,12 +138,7 @@
             </div>
             <div class="panel-footer">
                <span class="glyphicon {{isPublic(list.visibility)}}" aria-hidden="list.visibility"></span>
-               <!--label class="toggle">
-			  <input ng-model="list.visibility" disabled="" ng-true-value="'public'" ng-false-value="'private'" type="checkbox"> 
-			  <span class="handle"_>
-             </span>
-			</label-->
-                
+              
             </div>
          </div>
       </div>
@@ -155,3 +146,7 @@
 </div>
 </div>
 </div>
+ <script>    $('.checkbox input').iCheck({
+        checkboxClass: 'icheckbox_flat',
+        increaseArea: '20%'
+    });</script>

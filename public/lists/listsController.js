@@ -105,6 +105,8 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
 
             Lists.query(callbacks.getAllListsSuccess, callbacks.getAllListsError);
 
+        
+    
             $scope.isPublic=function(vis){
                 if(vis=='public'){
                     return ' glyphicon-user';
