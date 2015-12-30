@@ -1,11 +1,34 @@
 extends layout
 
 block content
-    .container
-        form.form-signin(action="/login", method="post")
-            h2.form-signin-heading Please sign in
-            input.input-block-level(type="text", name="username", placeholder="Email address")
-            input.input-block-level(type="password", name="password", placeholder="Password")
-            label.checkbox.
-                <input type="checkbox" value="remember-me" /> Remember me
-            button.btn.btn-large.btn-primary(type="submit") Sign in
+    div(class='panel-heading')
+        div(class="container")
+            div( class="row-fluid")
+                div.col-sm-4
+                div.col-sm-6
+                    h2.form-signin-heading Please sign in 
+                        span
+                            a(href="/singup" class="btn btn-small btn-success") Register
+                div.col-sm-4
+                        
+    div(class='panel-body')
+        div.container
+            div.row
+                div.col-sm-4
+                div.col-sm-4
+                    form.form-signin(action="/login", method="post")
+                        fieldset(class="form-group")
+                            label(for="email") Email address
+                            input.input-block-level.form-control(type="text",id="email", name="username", placeholder="Email address")
+                        fieldset(class="form-group")
+                            label(for="pw") Email address
+                            input.input-block-level.form-control(type="password",id="pw", name="password", placeholder="Password")
+                       
+                        fieldset(class="form-group")
+                            label.checkbox.
+                            <input type="checkbox" value="remember-me" /> Remember me
+                        div(class="btn-group ",role="group")
+                            button.btn.btn-large.btn-success(type="submit") 
+                                span.glyphicon.glyphicon-log-in
+                            
+                div.col-sm-4

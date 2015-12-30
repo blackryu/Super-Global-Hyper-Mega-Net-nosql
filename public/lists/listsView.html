@@ -9,7 +9,7 @@
             <form>
                <div class="form-group">
                   <label for="idlist" class="control-label">List:</label>
-                  <input type="text"  ng-value="list._name"  disabled="" class="list_class form-control" id="idlist">
+                  <input type="text"  ng-value="list._name" type="hidden" disabled="" class="list_class form-control" id="idlist">
                  <input type="hidden" name="list" id="idListHidden" value="">
                </div>
                <div class="form-group">
@@ -86,7 +86,7 @@
                         <td>
 
               <input ng-model="activeTodo.completed"  ng-change="updateTodo($parent.$index)"  type="checkbox"/>
-                            <span class=" " >{{activeTodo.description}} - {{dateReadable(activeTodo.duedate)}}</span> 
+                            <span class=" " >{{activeTodo.description}} {{dateReadable(activeTodo.duedate)}}</span> 
                           
                         </td>
                      </tr>

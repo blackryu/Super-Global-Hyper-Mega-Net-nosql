@@ -2,6 +2,11 @@ doctype html
 html
   head
     title= title
-    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/Assets/stylesheets/style.css')
+    link(rel='stylesheet', href='/bootflat/css/site.min.css')
   body
-    block content
+    div(class='panel panel-default')
+        block content
+        
+    
+  script( type="text/javascript", src="/bootflat/js/site.min.js")

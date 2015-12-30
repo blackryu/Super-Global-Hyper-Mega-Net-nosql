@@ -124,7 +124,9 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
             //TODO refactor. maybe use moment js? 
             $scope.checkDueDate = function(element) {
                 //  this.innerHTML = this + " is the element, " + index + " is the position";
-                
+                if(element === '' || element === null ) {
+                    return '';
+                }
                 var d = new Date(element);
                 var today = new Date();
                 if( isNaN(d.getTime())){return ;}
@@ -145,7 +147,7 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
                 var d =new Date(element);
                 
                 if( isNaN(d.getTime())){return ;}
-                return d.getMonth() +"/"+d.getDate()+"/"+d.getFullYear();
+                return ' - '+d.getMonth() +"/"+d.getDate()+"/"+d.getFullYear();
             }
 
             // TODO Who needs this function? why is it in the scope???
