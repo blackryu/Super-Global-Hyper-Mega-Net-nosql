@@ -120,7 +120,6 @@ router.get('/', function(req, res, next) {
 router.post('/:id', function(req, res, next) {
 
     var listID = req.params.id;
-    req.listDoc._name = listID;
     listModel.findOneAndUpdate(
         { _name : req.listDoc._name, owner: req.user._name }, req.listDoc, { upsert : false, new : true }, function(err, newList) {
 
@@ -138,7 +137,6 @@ router.post('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
 
     var newList = new listModel(req.listDoc);
-    newList.owner= req.user._name;
     newList.save(function(err) {
 
         if(err) {
