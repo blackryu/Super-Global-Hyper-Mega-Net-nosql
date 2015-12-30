@@ -131,7 +131,7 @@
                         <p> is completed: {{activeTodo.completed}}</p>
                         
                           <div class="checkbox">
-              <input ng-model="activeTodo.completed" class="checkbox" type="checkbox"/>
+              <input ng-model="activeTodo.completed" ng-click="updateTodo($parent.$index)" class="checkbox" type="checkbox"/>
                             <span class=" dates" >{{dateReadable(activeTodo.duedate)}}</span> 
                             </div>
                           

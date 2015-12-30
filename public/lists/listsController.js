@@ -25,6 +25,16 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
                     console.log("error creating a new todo");
                     console.log(httpResponse);
                     },    
+                    
+                updateTodoSucess: function(result, responseHeaders){
+                    console.log('successfully updated todo on list');
+                    console.log(result);
+                },
+                
+                updateTodoError: function(httpRespones){
+                    console.log('error updating a todo');
+                    console.log(httpResponse);
+                },
 
                 createListSuccess :
                     function(result, responseHeaders) {
@@ -108,9 +118,8 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
             
             //TODO refactor. maybe use moment js? 
             $scope.checkDueDate = function(element) {
-
                 //  this.innerHTML = this + " is the element, " + index + " is the position";
-                if(element === '') {
+                if(element === '' || element === null ) {
                     return '';
                 }
                 var d = new Date(element);
@@ -157,7 +166,10 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
                     $scope.filterPublic = false;
                 }
             };
-            
+            $scope.updateTodo= function(index){
+             //   $(this).attr("checked", !checkBoxes.attr("checked"));
+                 ListsEdit.update({}, $scope.lists[index], callbacks.updateTodoSuccess, callbacks.updateTodoError);
+ }
 
             $scope.saveTodo = function() {
                 
