@@ -1,12 +1,10 @@
-angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.todosService' ])
+angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
     .controller('ListController', [
         '$scope',
         'Lists',
         'ListsPrivate',
         'ListsPublic',
         'ListsEdit',
-        'Todos',
-        'TodosEdit',
         function($scope, Lists, ListsPrivate, ListsPublic, ListsEdit, Todos, TodosEdit, user, index) {
             //$scope.lists=Lists.query();
 
@@ -25,6 +23,16 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
                     console.log("error creating a new todo");
                     console.log(httpResponse);
                     },    
+                    
+                updateTodoSucess: function(result, responseHeaders){
+                    console.log('successfully updated todo on list');
+                    console.log(result);
+                },
+                
+                updateTodoError: function(httpRespones){
+                    console.log('error updating a todo');
+                    console.log(httpResponse);
+                },
 
                 createListSuccess :
                     function(result, responseHeaders) {
@@ -105,20 +113,27 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
 
             Lists.query(callbacks.getAllListsSuccess, callbacks.getAllListsError);
 
+        
+    
+            $scope.isPublic=function(vis){
+                if(vis=='public'){
+                    return ' glyphicon-user';
+                }
+            }
             
             //TODO refactor. maybe use moment js? 
             $scope.checkDueDate = function(element) {
-
                 //  this.innerHTML = this + " is the element, " + index + " is the position";
-                if(element === '') {
+                if(element === '' || element === null ) {
                     return '';
                 }
                 var d = new Date(element);
                 var today = new Date();
-                if(d.getDate()==today.getDate() && d.getYear()==today.getYear() && d.getMonth()==today.getMonth()) {
+                if( isNaN(d.getTime())){return ;}
+                if(d.getDate()==today.getDate() && d.getFullYear()==today.getFullYear() && d.getMonth()==today.getMonth()) {
                     return "warning colorForTodoInfos";
-                } else if(d.getYear()<=today.getYear() || (d.getYear()==today.getYear() && d.getMonth()<=today.getMonth())
-                || (d.getYear()==today.getYear() && d.getMonth()== today.getMonth() && d.getDate()<today.getMonth())){
+                } else if(d.getFullYear()<=today.getFullYear() || (d.getFullYear()==today.getFullYear() && d.getMonth()<=today.getMonth())
+                || (d.getFullYear()==today.getFullYear() && d.getMonth()== today.getMonth() && d.getDate()<today.getMonth())){
                     return "danger colorForTodoInfos";
                 }else {
                     return "success colorForTodoInfos";
@@ -126,8 +141,13 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
             };
             
             $scope.dateReadable=function(element){
+                if(element === '' || element === null ) {
+                    return '';
+                }
                 var d =new Date(element);
-                return d.getMonth() +"/"+d.getDate()+"/"+d.getYear();
+                
+                if( isNaN(d.getTime())){return ;}
+                return ' - '+d.getMonth() +"/"+d.getDate()+"/"+d.getFullYear();
             }
 
             // TODO Who needs this function? why is it in the scope???
@@ -157,7 +177,9 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService', 'app.
                     $scope.filterPublic = false;
                 }
             };
-            
+            $scope.updateTodo= function(index){
+                 ListsEdit.update({}, $scope.lists[index], callbacks.updateTodoSuccess, callbacks.updateTodoError);
+            }
 
             $scope.saveTodo = function() {
                 

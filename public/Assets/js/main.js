@@ -1,13 +1,11 @@
 
 
      $("*").delegate('#todoModal','shown.bs.modal', function (event) { 
+      
          var button = $(event.relatedTarget) ;// Button that triggered the modal
         var recipient = button.data('whatever');
         var index=button.data('index');
-        /*
-        $('#idlist').text( recipient);
-        $('#todoModalLabel').text('New Todo for List ' + recipient);
-        */
+       
          var modal = $(this)
         modal.find('.modal-title').text('New Todo for List: ' + recipient)
         modal.find('.modal-body .list_class').val(recipient)
@@ -21,35 +19,4 @@
           format: 'YYYY-MM-DD',
     });
 });
-function checkDate(span){
-    var d=new Date(span.innerHTML);
-    alert(span);
-    var today=new Date();
-    if(d>today){
-      span.className="red";
-    } else if(d==today){
-       span.className="orange"; 
-    }
-}
-/*     jQuery.noConflict();
-$('.datepicker').datepicker({
-    format: 'mm/dd/yyyy',
-    startDate: '-3d'
-})*/
-  /*
-!function ($) {
-  $(function(){
-       $('.checkbox input').iCheck({
-        checkboxClass: 'icheckbox_flat',
-        increaseArea: '20%'
-    });
 
-    $('.radio input').iCheck({
-        radioClass: 'iradio_flat',
-        increaseArea: '20%'
-    });
-  })
-}(window.jQuery)
- */
-
- 
