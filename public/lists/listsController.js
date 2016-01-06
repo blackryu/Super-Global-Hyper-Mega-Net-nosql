@@ -140,6 +140,7 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
                 }
             };
             
+            
             $scope.dateReadable=function(element){
                 if(element === '' || element === null ) {
                     return '';
@@ -147,7 +148,7 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
                 var d =new Date(element);
                 
                 if( isNaN(d.getTime())){return ;}
-                return ' - '+d.getMonth() +"/"+d.getDate()+"/"+d.getFullYear();
+                return ' - '+(d.getMonth() +1)+"/"+d.getDate()+"/"+d.getFullYear(); //getMonth seems to have a 0-count index
             }
 
             // TODO Who needs this function? why is it in the scope???
