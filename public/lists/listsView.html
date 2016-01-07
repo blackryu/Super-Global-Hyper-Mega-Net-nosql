@@ -47,15 +47,11 @@
                <button id="filterPrivate" title="filter private lists" data-toggle="tooltip"  ng-click="filterPrivates()" class="btn btn-default {{getActiveClass(filterPrivate)}}"><span class="glyphicon glyphicon-eye-close"></span></button>
             <button id="filterPublic" title="filter public lists" data-toggle="tooltip" ng-click="filterPublics()" class="btn btn-default {{getActiveClass(filterPublic)}}"><span class="glyphicon glyphicon-eye-open"></span></button>
          <button id="filterCompleted" title="toogle filter show completed" data-toggle="tooltip" ng-click="filterCompleted()" class="btn btn-default"><span class="glyphicon glyphicon-{{getIconForCompletedFilter()}}"></span></button>
-        
-              
           </div>
            <div role="group" class="btn-group ">
-           
-                <a href="#/list/public" title="show public lists of all users (sharing)" data-toggle="tooltip" role="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></a>
-          
+           <a href="#/list/public" title="show public lists of all users (sharing)" data-toggle="tooltip" role="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></a>
+           <a href="#/todaylist" role="button" class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></a>
            <a href="#/list/create" title="create a new list" role="button" data-toggle="tooltip" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a>
-               
            </div>
            
           <div role="group" class="btn-group ">

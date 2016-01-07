@@ -5,7 +5,7 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
         'ListsPrivate',
         'ListsPublic',
         'ListsEdit',
-        function($scope, Lists, ListsPrivate, ListsPublic, ListsEdit, Todos, TodosEdit, user, index) {
+        function($scope, Lists, ListsPrivate, ListsPublic, ListsEdit) {
             //$scope.lists=Lists.query();
 
             $scope.lists = [];
