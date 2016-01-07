@@ -82,8 +82,9 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
 
                         if(!hasPrivateB) {
 
-                            newLists.push({ _name : PrivateB, visibility : "private", color : "pink", todos: 
-                            {active:[{duedate: Date('2014-12-08'), description: "test todo 1"}], completed: []} });
+                           // newLists.push({ _name : PrivateB, visibility : "private", color : "pink", todos: 
+                            //{active:[{duedate: Date('2014-12-08'), description: "test todo 1"}], completed: []} });
+                             newLists.push({ _name : PrivateB, visibility : "private", color : "pink" })
                         };
 
                         if(!hasWorkB) {
