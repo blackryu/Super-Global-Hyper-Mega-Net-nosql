@@ -90,17 +90,9 @@
                                           -->
                                           <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="delete this todo. You need to save this list." ng-click="isConfirmed($index,true)"><span class="glyphicon glyphicon-remove"></span></button>
                                     
-                                          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" rel="tooltip" title="edit this todo. You need to save this list." data-target="#todoModalEdit"  data-active="true" data-todo="{{activeTodo.description}}" data-date="{{activeTodo.duedate}}" data-index="{{$index}}">
+                                          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" title="edit this todo. You need to save this list." data-target="#todoModalEdit"  data-active="true" data-todo="{{activeTodo.description}}" data-date="{{activeTodo.duedate}}" data-index="{{$index}}">
                                           <span class='glyphicon glyphicon-pencil '></span>
                                               </button>
-                                                                 <script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-
-    $('[rel="tooltip"]').tooltip();
-    
-});
-</script>
                                           </div>
                                     </div>
                                  </div>

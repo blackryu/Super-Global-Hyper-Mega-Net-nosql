@@ -76,16 +76,8 @@
                      
                      <div role="group" class="btn-group pull-right"  >
                      <a type="button"  class="btn btn-success btn-xs" href="#/list/{{list._name}}"><span data-toggle="tooltip" title="edit this list"  class='glyphicon glyphicon-pencil '></span></a>
-                        <button type="button" rel="tooltip" title="create new todo for this list" class="btn btn-success btn-xs" data-toggle="modal" data-target="#todoModal"  data-whatever="{{list._name}}" data-index="{{$index}}">
+                        <button type="button" title="create new todo for this list" class="btn btn-success btn-xs" data-toggle="modal" data-target="#todoModal"  data-whatever="{{list._name}}" data-index="{{$index}}">
                         <span   class='glyphicon glyphicon-plus '></span></button>
-                      <script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-    
-    $('[rel="tooltip"]').tooltip();
-});
-</script> 
-                         
                      </div>
                      </div>
                   </div>
