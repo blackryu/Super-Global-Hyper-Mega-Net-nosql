@@ -132,8 +132,9 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
                 if( isNaN(d.getTime())){return ;}
                 if(d.getDate()==today.getDate() && d.getFullYear()==today.getFullYear() && d.getMonth()==today.getMonth()) {
                     return "warning colorForTodoInfos";
-                } else if(d.getFullYear()<=today.getFullYear() || (d.getFullYear()==today.getFullYear() && d.getMonth()<=today.getMonth())
-                || (d.getFullYear()==today.getFullYear() && d.getMonth()== today.getMonth() && d.getDate()<today.getMonth())){
+                } else if(d.getFullYear()<today.getFullYear() 
+                || (d.getFullYear()==today.getFullYear() && d.getMonth()<today.getMonth())
+                || (d.getFullYear()==today.getFullYear() && d.getMonth()== today.getMonth() && d.getDate()<today.getDate())){
                     return "danger colorForTodoInfos";
                 }else {
                     return "success colorForTodoInfos";

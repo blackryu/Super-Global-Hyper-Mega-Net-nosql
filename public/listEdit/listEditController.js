@@ -12,6 +12,35 @@
             
           }
           
+          $scope.saveTodo = function() {
+                
+                // TODO two-way-bind this maybe??
+                var todo = $('#todo_name').val();
+                var index = $('#idListHidden').val();
+                var date = $('#duedatepicker').val();
+                var active = $('#active').val();
+                
+                if(!$scope.list.todos){
+                  
+                    // TODO mongoose should create the empty objects as default. 
+                $scope.list.todos = {active: [], completed: []};
+                }
+                
+                 if(active){
+                     
+                var newTodo = {duedate: date, description: todo, completed: false};
+                    
+                
+                     $scope.list.todos.active[index]=newTodo;
+                 } else{
+                        var newTodo = {duedate: date, description: todo, completed: true};
+                    
+                
+                     $scope.list.todos.completed[index]=newTodo;
+                 }
+               //only save will post the data changes
+            };
+          
           $scope.update = function(){
               console.log("and also made it to update");
               ListsEdit.update($scope.list).$promise.then(function(data) {

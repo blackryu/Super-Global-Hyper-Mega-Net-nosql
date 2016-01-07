@@ -19,5 +19,26 @@
           format: 'YYYY-MM-DD',
     });
 });
+  $("*").delegate('#todoModalEdit','shown.bs.modal', function (event) { 
+      
+         var button = $(event.relatedTarget) ;// Button that triggered the modal
+        var active = button.data('active');
+        var index=button.data('index');
+       var date=button.data('date');
+       var todoname=button.data('todo');
+         var modal = $(this)
+        modal.find('.modal-title').text('Edit Todo ')
+        //ng-init="list_index=" idListHidden
+        
+        modal.find('.modal-body #idListHidden').val(index)
+         modal.find('.modal-body #active').val(active)
+         
+  modal.find('.modal-body #todo_name').val(todoname)
+  
+  modal.find('.modal-body #duedatepicker').val(date)
+    $("#datepicker").datepicker({
+          format: 'YYYY-MM-DD',
+    });
+});
 
 
