@@ -65,7 +65,7 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
                         var hasWorkB = false;
                         var hasCurrentDay = false;
 
-                        $scope.lists = data;
+                        $scope.lists = filterTodaysList(data,CurrentDay);
 
                         for(var i = 0; i < data.length; i++) {
 
@@ -112,7 +112,7 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
             };
 
             Lists.query(callbacks.getAllListsSuccess, callbacks.getAllListsError);
-
+           
         
     
             $scope.isPublic=function(vis){
@@ -181,12 +181,12 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
             $scope.updateTodo= function(index,indexTodo,active){
                 
                 if(active){
-                    
+                // mark active todo as completed
                 var Todo=$scope.lists[index].todos.active[indexTodo];
                 $scope.lists[index].todos.active.splice(indexTodo,1);
                 $scope.lists[index].todos.completed.push(Todo);
                 } else {
-                    
+                // mark completed todo as activw
                 var Todo=$scope.lists[index].todos.complet[indexTodo];
                     $scope.lists[index].todos.completed.splice(indexTodo,1);
                 $scope.lists[index].todos.active.push(Todo);
@@ -221,3 +221,15 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
             '/list',
             { templateUrl : '/lists/listsView.html', controller : 'ListController' }) }
     ]);
+   
+ function  filterTodaysList(data,CurrentDay){
+            var resultList=[];
+            var regexNotToday=/^\d\.\d|\d\d\.\d|\d\.\d\d|\d\d\.\d\d/i;
+            for(var i = 0; i < data.length; i++) {
+                if(data[i]._name==CurrentDay || 
+                    data[i]._name.match(regexNotToday)===null){
+                    resultList.push(data[i]);
+                }
+            }
+            return resultList;
+        }
