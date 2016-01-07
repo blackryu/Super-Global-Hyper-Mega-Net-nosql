@@ -42,11 +42,47 @@
             <!-- end todo accordeon -->
           </div>
             <div  class=" col-xs-6 col-sm-3">
-            <h3>{{newList._name}}</h3>
+            <!--h3>{{newList._name}}</h3>
             <ul class="list-group">
                 <li ng-repeat="moveDtodo in newList.todos.active" class="list-group-item">{{moveDtodo.description}}</li>
-            </ul>
+            </ul-->
+             <div class="panel panel-default">
+                  <div class="panel-heading">
+                     <input disabled="" type='text' ng-model='todayList._name'/>
+                  </div>
+                  <div class="panel-body {{todayList.color}}">
+                     <table class="table">
+                        <tbody class="table-striped">
+                           <tr ng-repeat="activeTodo in todayList.todos.active">
+                              <td>
+                                 
+              <input disabled="" ng-checked="activeTodo.completed" ng-value="activeTodo.completed"  type="checkbox"/>
+                      <span class=" " >{{activeTodo.description}} {{dateReadable(activeTodo.duedate)}}</span> 
+                                       
+                              </td>
+                           </tr>
+                           </tbody>
+                           <tbody class="table-striped">
+                           <tr ng-repeat="activeTodo in todayList.todos.completed">
+                              <td>
+              <input disabled="" ng-checked="activeTodo.completed" ng-value="activeTodo.completed"  type="checkbox"/>
+                           <span class=" " >{{activeTodo.description}} {{dateReadable(activeTodo.duedate)}}</span> 
+                                       
+                                        
+                              </td>
+                           </tr>
+                        </tbody>
+  
+                     </table>
+                  </div>
+                  <div class="panel-footer">
+              
+                  
+
+                  </div>
+               </div>
+            </div>
+         </div>
             </div>
          </div>
    </div>   
-</div>

@@ -14,7 +14,7 @@ angular.module('app.todayList',
 
                         console.log("got the following lists");
                         console.log(data);
-                        $scope.lists = data;
+                        $scope.lists = filterNotDay(data);
 
                     },
                 getAllListsError :
@@ -27,6 +27,7 @@ angular.module('app.todayList',
                 updateListSuccess :
                     function(reponse) {
 
+                   window.location.replace('/');
                         // TODO notifications?
 
                     },
@@ -108,3 +109,14 @@ angular.module('app.todayList',
                       { templateUrl : '/todayList/todayListView.html', controller : 'ListControllerToday' })
         }
     ]);
+     function  filterNotDay(data){
+            var resultList=[];
+            var regexNotToday=/^\d\.\d|\d\d\.\d|\d\.\d\d|\d\d\.\d\d/i;
+            for(var i = 0; i < data.length; i++) {
+                if(
+                    data[i]._name.match(regexNotToday)===null){
+                    resultList.push(data[i]);
+                }
+            }
+            return resultList;
+        }
