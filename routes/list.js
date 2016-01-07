@@ -121,7 +121,7 @@ router.post('/:id', function(req, res, next) {
 
     var listID = req.params.id;
     listModel.findOneAndUpdate(
-        { _name : req.listDoc._name, owner: req.user._name }, req.listDoc, { upsert : false, new : true }, function(err, newList) {
+        { _name : req.listDoc._name, owner: req.user._name }, req.listDoc, { upsert : true, new : true }, function(err, newList) {
 
             if(err) {
                 console.error(err.errmsg);

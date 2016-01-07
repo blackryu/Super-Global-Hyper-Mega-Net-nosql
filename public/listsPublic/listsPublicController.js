@@ -1,4 +1,4 @@
- angular.module('app.todayList', ['ngRoute', 'ngResource','app.listsPublicService','app.listsService'])
+ angular.module('app.listsPublic', ['ngRoute', 'ngResource','app.listsPublicService','app.listsService'])
  .controller('ListControllerPublic',['$scope','ListsPublicAll','Lists',function($scope,ListsPublicAll,Lists,index){
     
 $scope.lists = ListsPublicAll.query();
