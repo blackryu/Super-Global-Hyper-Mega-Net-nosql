@@ -8,8 +8,7 @@
          <div class="modal-body">
             <form>
                <div class="form-group">
-                  <label for="idlist" class="control-label">List:</label>
-                  <input type="text"  ng-value="list._name" type="hidden" disabled="" class="list_class form-control" id="idlist">
+                  <input   ng-value="list._name" type="hidden" disabled="" class="list_class form-control" id="idlist">
                  <input type="hidden" name="list" id="idListHidden" value="">
                </div>
                <div class="form-group">
@@ -36,24 +35,29 @@
       </div>
    </div>
 </div>
-                 
+          
 <div class="panel panel-default">
 <div class="panel-heading ">
    <div class="container">
       <div class="row-fluid">
          <h5 class="col-xs-6 col-sm-3">My Lists {{user.username}}</h5>
-         <div class="col-xs-6 col-sm-3 pull-right">
-         
+         <div class="col-xs-8 col-sm-5 pull-right"> 
+         <span>Filter: </span>
+          <div role="group" class="btn-group ">
+               <button id="filterPrivate" title="filter private lists" data-toggle="tooltip"  ng-click="filterPrivates()" class="btn btn-default {{getActiveClass(filterPrivate)}}"><span class="glyphicon glyphicon-eye-close"></span></button>
+            <button id="filterPublic" title="filter public lists" data-toggle="tooltip" ng-click="filterPublics()" class="btn btn-default {{getActiveClass(filterPublic)}}"><span class="glyphicon glyphicon-eye-open"></span></button>
+         <button id="filterCompleted" title="toogle filter show completed" data-toggle="tooltip" ng-click="filterCompleted()" class="btn btn-default"><span class="glyphicon glyphicon-{{getIconForCompletedFilter()}}"></span></button>
+          </div>
            <div role="group" class="btn-group ">
-           
-                <a href='/logout' role='button' class='btn btn-default'><span class=' glyphicon glyphicon-log-out'></span></a>
-            <a href="#/list/public" role="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></a>
-          <button id="filterPrivate"  ng-click="filterPrivates()" class="btn btn-default"><span class="glyphicon glyphicon-eye-close"></span></button>
-          <button id="filterPublic"  ng-click="filterPublics()" class="btn btn-default"><span class="glyphicon glyphicon-eye-open"></span></button>
-          <a href="#/todaylist" role="button" class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></a>
-          <a href="#/list/create" role="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a>
-               
+           <a href="#/list/public" title="show public lists of all users (sharing)" data-toggle="tooltip" role="button" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></a>
+           <a href="#/todaylist" role="button" class="btn btn-default"><span class="glyphicon glyphicon-th-list"></span></a>
+           <a href="#/list/create" title="create a new list" role="button" data-toggle="tooltip" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a>
            </div>
+           
+          <div role="group" class="btn-group ">
+               <a href='/logout' role='button' title="logout" data-toggle="tooltip" class='btn btn-default'><span class=' glyphicon glyphicon-log-out'></span></a>
+           
+          </div>
          </div>
       </div>
    </div>
@@ -70,9 +74,18 @@
                      <span class="listNames">{{list._name}}</span>
                      <div class='pull-right'>
                      
-                     <div role="group" class="btn-group pull-right">
-                     <a type="button" class="btn btn-success btn-xs" href="#/list/{{list._name}}"><span class='glyphicon glyphicon-pencil '></span></a>
-                        <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#todoModal"  data-whatever="{{list._name}}" data-index="{{$index}}"><span class='glyphicon glyphicon-plus '></span></button>
+                     <div role="group" class="btn-group pull-right"  >
+                     <a type="button"  class="btn btn-success btn-xs" href="#/list/{{list._name}}"><span data-toggle="tooltip" title="edit this list"  class='glyphicon glyphicon-pencil '></span></a>
+                        <button type="button" rel="tooltip" title="create new todo for this list" class="btn btn-success btn-xs" data-toggle="modal" data-target="#todoModal"  data-whatever="{{list._name}}" data-index="{{$index}}">
+                        <span   class='glyphicon glyphicon-plus '></span></button>
+                      <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+    
+    $('[rel="tooltip"]').tooltip();
+});
+</script> 
+                         
                      </div>
                      </div>
                   </div>
@@ -92,7 +105,7 @@
                      </tr>
                   </tbody>
                    <tbody class="table-striped">
-                     <tr class="{{checkDueDate(activeTodo.duedate)}}" ng-repeat="activeTodo in list.todos.completed ">
+                     <tr class="{{checkDueDate(activeTodo.duedate)}}" ng-if="showCompleted" ng-repeat="activeTodo in list.todos.completed ">
                         <td>
 
               <input ng-model="activeTodo.completed"  ng-change="updateTodo($parent.$index,$index,false)"  type="checkbox"/>
@@ -104,7 +117,7 @@
                </table>
             </div>
             <div class="panel-footer">
-               <span class="glyphicon {{isPublic(list.visibility)}}" aria-hidden="list.visibility"></span>
+               <span class="glyphicon {{isPublic(list.visibility)}}" data-toggle="tooltip" title="this list is public. Other users can share this list"  aria-hidden="list.visibility"></span>
               
             </div>
          </div>
@@ -114,3 +127,8 @@
 </div>
 </div>
 
+ <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script> 

@@ -1,3 +1,40 @@
+<div class="modal fade" id="todoModalEdit" tabindex="-1" role="dialog" aria-labelledby="todoeModalLabel">
+   <div class="modal-dialog" role="document" >
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="todoeModalLabel"><span class='glyphicon glyphicon-plus '></span> New Todo </h4>
+         </div> 
+         <div class="modal-body">
+            <form>
+               <div class="form-group">
+                 <input type="hidden" name="list" id="idListHidden" value="">
+                  <input type="hidden" name="active" id="active" value="">
+               </div>
+               <div class="form-group">
+                  <label for="todo_name" class="control-label">Todo name:</label>
+                  <input type="text" ng-init="todo_name='test'"    class="form-control" id="todo_name">
+               </div>
+               <div class="form-group">
+               <label for="duedatepicker" class="control-label">duedate:</label>
+  <div class="input-group date" data-provide="datepicker">
+    <input type="text" id="duedatepicker" data-date-format="YYYY-MM-DD" class="form-control">
+    <div class="input-group-addon">
+        <span class="glyphicon glyphicon-th"></span>
+    </div>
+</div>  
+    
+</div>  </form>
+        </div>
+         <div class="modal-footer">
+         <div role="group" class="btn-group">
+            <button type="button" class="btn btn-default" data-dismiss="modal"><span class='glyphicon glyphicon-remove'></span></button>
+            <button class='btn btn-success' id="saveTodo" type='submit' data-dismiss="modal" ng-click="saveTodo()"><span class='glyphicon glyphicon-pencil'></span></button>
+          </div>
+         </div>
+      </div>
+   </div>
+</div>
 <div class="panel panel-default">
    <div class="panel-heading ">
       <div class="container">
@@ -5,9 +42,9 @@
             <h5 class="col-xs-6 col-sm-3">Edit List {{list.name}}</h5>
             <div class="col-xs-6 col-sm-3 pull-right">
                <div role="group" class="btn-group ">
-                <a href='#/list/' role='button' class='btn btn-default'><span class=' glyphicon glyphicon-arrow-left'></span></a>
-                <button class='btn btn-success' ng-click="update()" type='submit'><span class='glyphicon glyphicon-floppy-disk'></span></button>
-                <button class='btn btn-danger'  ng-click="remove()"><span class='glyphicon glyphicon-remove'></span></button>
+                <a href='#/list/' data-toggle="tooltip" title="go back to My Lists. All changes will be discarded" role='button' class='btn btn-default'><span class=' glyphicon glyphicon-arrow-left'></span></a>
+                <button class='btn btn-success' data-toggle="tooltip" title="save all changes of this list" ng-click="update()" type='submit'><span class='glyphicon glyphicon-floppy-disk'></span></button>
+                <button class='btn btn-danger' data-toggle="tooltip" title="delete this list"  ng-click="remove()"><span class='glyphicon glyphicon-remove'></span></button>
             </div>
             </div>
          </div>
@@ -19,7 +56,7 @@
          
           <div  class=" col-xs-6 col-sm-3">
           <div class="form-group">
-			 <label for="color">Color: </label>
+			 <label for="color" data-toggle="tooltip" title="select a color for this list">Color: </label>
                 <select id="color"   ng-model="list.color" name="colors"  class="form-control" title="Choose a colors">
              
                 <option value="blue" class="blue">Blue</option>
@@ -35,7 +72,7 @@
             <div  class=" col-xs-6 col-sm-3">
                <div class="panel panel-default">
                   <div class="panel-heading">
-                     <input type='text' ng-model='list._name'/>
+                     <input disabled="" type='text' ng-model='list._name'/>
                   </div>
                   <div class="panel-body {{list.color}}">
                      <table class="table">
@@ -44,34 +81,69 @@
                               <td>
                                  <div class='container-fluid'>
                                     <div class='row'>
-              <input ng-checked="activeTodo.completed" ng-value="activeTodo.completed" class="checkbox" type="checkbox"/>
+                                    
+              <input disabled="" ng-checked="activeTodo.completed" ng-value="activeTodo.completed" class="checkbox" type="checkbox"/>
                           <span> {{activeTodo.description}}</span> 
-                                       <div class="btn-group pull-right">
-                                       <div role="group" class="bnt-group">
-                                       <a class="btn btn-danger btn-xs pull-right">
+                                       <div role="group" class="btn-group pull-right">
                                           <!--
                                           <span class='glyphicon glyphicon-remove ' ng-click="remove()"></span></a>
                                           -->
-                                          <button class="btn btn-danger" ng-click="isConfirmed()"><span class="glyphicon glyphicon-remove"></span></button>
-                                    <a class="btn btn-default btn-xs pull-right" >
-                                          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#todoModal"  data-whatever="{{list._name}}" data-index="{{$index}}">
+                                          <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="delete this todo. You need to save this list." ng-click="isConfirmed($index,true)"><span class="glyphicon glyphicon-remove"></span></button>
+                                    
+                                          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" rel="tooltip" title="edit this todo. You need to save this list." data-target="#todoModalEdit"  data-active="true" data-todo="{{activeTodo.description}}" data-date="{{activeTodo.duedate}}" data-index="{{$index}}">
                                           <span class='glyphicon glyphicon-pencil '></span>
                                               </button>
-                                          </a>
+                                                                 <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('[rel="tooltip"]').tooltip();
+    
+});
+</script>
                                           </div>
-                                           </div>
-                                           </div>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr>
+                           </tbody>
+                           <tbody class="table-striped">
+                           <tr ng-repeat="activeTodo in list.todos.completed">
+                              <td>
+                                 <div class='container-fluid'>
+                                    <div class='row'>
+              <input disabled="" ng-checked="activeTodo.completed" ng-value="activeTodo.completed" class="checkbox" type="checkbox"/>
+                          <span> {{activeTodo.description}}</span> 
+                                       <div role="group" class="btn-group pull-right">
+                                          <!--
+                                          <span class='glyphicon glyphicon-remove ' ng-click="remove()"></span></a>
+                                          -->
+                                          <button class="btn btn-danger btn-xs" data-toggle="tooltip" title="delete this todo. You need to save this llist" ng-click="isConfirmed($index,false)"><span class="glyphicon glyphicon-remove"></span></button>
+                                   
+                                          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" rel="tooltip" title="edit this todo. You need to save this list." data-target="#todoModalEdit"  data-active="false" data-todo="{{activeTodo.description}}" data-date="{{activeTodo.duedate}}" data-index="{{$index}}">
+                                          <span class='glyphicon glyphicon-pencil '></span>
+                                           </button>
+                                                                <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('[rel="tooltip"]').tooltip();
+    
+});
+</script>
+                                          </div>
                                     </div>
                                  </div>
                               </td>
                            </tr>
                         </tbody>
+  
                      </table>
                   </div>
                   <div class="panel-footer">
-                  <span class="glyphicon glyphicon-user" aria-hidden="list.visibility"></span>
-               <label class="toggle">
-			  <input ng-model="list.visibility" ng-checked="list.visibility=='public'" ng-True-Value="'public'" ng-False-Value="'private'"  type="checkbox"> 
+                  <span class="glyphicon glyphicon-user"  aria-hidden="list.visibility"></span>
+               <label class="toggle" data-toggle="tooltip" title="change visibility of this list">
+			  <input ng-model="list.visibility"  ng-checked="list.visibility=='public'" ng-True-Value="'public'" ng-False-Value="'private'"  type="checkbox"> 
 			  <span class="handle">
              </span>
 			</label>
@@ -84,3 +156,9 @@
       </div>
    </div>
 </div>
+
+ <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>

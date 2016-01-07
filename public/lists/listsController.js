@@ -113,7 +113,25 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
 
             Lists.query(callbacks.getAllListsSuccess, callbacks.getAllListsError);
            
+           
         
+                $scope.showCompleted=true;
+            $scope.filterCompleted=function(){
+                if($scope.showCompleted){
+                $scope.showCompleted=false;
+                } else {
+                    
+                $scope.showCompleted=true;
+                }
+            }
+            
+            $scope.getIconForCompletedFilter=function(){
+                if($scope.showCompleted){
+                 return "chevron-up";
+                } else {
+                    return "chevron-down";
+                } 
+            }
     
             $scope.isPublic=function(vis){
                 if(vis=='public'){
@@ -132,8 +150,9 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
                 if( isNaN(d.getTime())){return ;}
                 if(d.getDate()==today.getDate() && d.getFullYear()==today.getFullYear() && d.getMonth()==today.getMonth()) {
                     return "warning colorForTodoInfos";
-                } else if(d.getFullYear()<=today.getFullYear() || (d.getFullYear()==today.getFullYear() && d.getMonth()<=today.getMonth())
-                || (d.getFullYear()==today.getFullYear() && d.getMonth()== today.getMonth() && d.getDate()<today.getMonth())){
+                } else if(d.getFullYear()<today.getFullYear() 
+                || (d.getFullYear()==today.getFullYear() && d.getMonth()<today.getMonth())
+                || (d.getFullYear()==today.getFullYear() && d.getMonth()== today.getMonth() && d.getDate()<today.getDate())){
                     return "danger colorForTodoInfos";
                 }else {
                     return "success colorForTodoInfos";
@@ -165,6 +184,17 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
                 }
 
             };
+            
+            $scope.getActiveClass=function(isActive){
+                if(isActive){
+                return "active";
+                } else if(!$scope.filterPrivate && !$scope.filterPublic){
+                    
+                return "active";
+                }else {
+                    return "";
+                }
+            }
             // TODO Who needs this function? why is it in the scope???
             $scope.filterPublics = function() {
 
