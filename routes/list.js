@@ -156,14 +156,14 @@ router.delete ('/:id', function(req, res, next) {
     var id = req.params.id;
 
 
-    list.model.findOne({ _name : id, owner : req.user._name }).remove().exec(function(err, doc) {
+    listModel.findOne({ _name : id, owner : req.user._name }).remove().exec(function(err, doc) {
 
         if(err) {
 
             return next(err);
         }
 
-        req.send({ status : 'ok' });
+        res.send({ status : 'ok' });
 
     });
 
