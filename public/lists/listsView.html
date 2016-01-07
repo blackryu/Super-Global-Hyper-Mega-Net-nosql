@@ -82,10 +82,20 @@
              
                <table class="table">
                   <tbody class="table-striped">
-                     <tr class="{{checkDueDate(activeTodo.duedate)}}" ng-repeat="activeTodo in list.todos.active | filter : {completed : false}">
+                     <tr class="{{checkDueDate(activeTodo.duedate)}}" ng-repeat="activeTodo in list.todos.active ">
                         <td>
 
-              <input ng-model="activeTodo.completed"  ng-change="updateTodo($parent.$index)"  type="checkbox"/>
+              <input ng-model="activeTodo.completed"  ng-change="updateTodo($parent.$index,$index,true)"  type="checkbox"/>
+                            <span class=" " >{{activeTodo.description}} {{dateReadable(activeTodo.duedate)}}</span> 
+                          
+                        </td>
+                     </tr>
+                  </tbody>
+                   <tbody class="table-striped">
+                     <tr class="{{checkDueDate(activeTodo.duedate)}}" ng-repeat="activeTodo in list.todos.completed ">
+                        <td>
+
+              <input ng-model="activeTodo.completed"  ng-change="updateTodo($parent.$index,$index,false)"  type="checkbox"/>
                             <span class=" " >{{activeTodo.description}} {{dateReadable(activeTodo.duedate)}}</span> 
                           
                         </td>
