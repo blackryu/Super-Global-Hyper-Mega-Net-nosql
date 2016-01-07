@@ -42,9 +42,8 @@ angular.module('app.todayList',
             // get all lists
             Lists.query(callbacks.getAllListsSuccess, callbacks.getAllListsError);
             $scope.viewName = "Create you List for Today!";
-            // save the indexes of lists that are changed here
-            $scope.touchedLists = [];
-            $scope.getWeekDay = function() {
+            
+             $scope.getWeekDay = function() {
                 var d = new Date();
                 var weekday = new Array(7);
                 weekday[0] = "Sunday";
@@ -54,26 +53,28 @@ angular.module('app.todayList',
                 weekday[4] = "Thursday";
                 weekday[5] = "Friday";
                 weekday[6] = "Saturday";
-
                 var n = weekday[d.getDay()];
-                
-                return (d.getMonth() + 1) + '.' + d.getDay() + ' '  + n;
+                 return  d.getDate()+ '.' + (d.getMonth() + 1)+ ' '  + n;
             };
-            $scope.newList = {
-                _name : 'My list for ' + $scope.getWeekDay(),
-                active : true,
-                color : "pink",
-                visibility : "private",
-                todos : { active : [], completed : [] }
-            };
+            // get todays List
+            $scope.todayList=ListsEdit.query({id:$scope.getWeekDay()});
+            
+            // save the indexes of lists that are changed here
+            $scope.touchedLists = [];
+           
             $scope.moveToNewList = function(listIndex, todoIndex) {
-
+            if(!$scope.todayList.todos){
+                  // TODO mongoose should create the empty objects as default. 
+                $scope.todayList.todos = {active: [], completed: []};
+            }
                 console.log("moving todo");
 
                 var removedTodo = $scope.lists[listIndex].todos.active.splice(todoIndex, 1)[0];
-                // add to new list
-                $scope.newList.todos.active.push(removedTodo);
-                // save the updated list
+                // add to todays List
+                
+               $scope.todayList.todos.active.push( removedTodo);
+            
+                $scope.touchedLists.push();
                 $scope.touchedLists.push(listIndex);
             };
 
@@ -92,9 +93,8 @@ angular.module('app.todayList',
                                      callbacks.updateListSuccess,
                                      callbacks.updateListError);
                 }
-                // create the new list
-                ListsEdit.update({}, $scope.newList, callbacks.updateListSuccess, callbacks.updateListError);
-            };
+                // save todays list
+                 ListsEdit.update({id:$scope.todayList._name},$scope.todayList); };
 
         }
     ])
