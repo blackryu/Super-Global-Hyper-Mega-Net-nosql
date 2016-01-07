@@ -2,7 +2,8 @@
   'app.listCreate',
   'app.lists',
   'app.listsPublic',
-  'app.listEdit'
+  'app.listEdit',
+  'app.todayList'
   ])
    //---------------
     // Routes
