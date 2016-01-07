@@ -7,20 +7,34 @@
             ListsEdit.delete({id: $scope.list._name}).$promise.then(function(data) {
                 window.location.replace('/');
             });
-                     
+
+            //$scope.update();
+            
           }
           
           $scope.update = function(){
+              console.log("and also made it to update");
               ListsEdit.update($scope.list).$promise.then(function(data) {
                    window.location.replace('/');
             });
           }
           
-          $scope.isConfirmed = function(){
+          $scope.isConfirmed = function(index, flag){
               console.log("going from isConfirmed");
               if(confirm("Are you sure you want to delete this entry?")){
-                  $scope.remove();
+                    if(flag){
+                        console.log($scope.list.todos.active);
+                        $scope.list.todos.active.splice(index,1);
+                    } else {
+                        console.log($scope.list.todos.completed);
+                        $scope.list.todos.completed.splice(index,1);
+	                }
+	               // $scope.update();
               }
+            console.log($scope.list.todos);
+	        console.log(flag);
+	        console.log(index);
+	       
           }
     }])
     .config(['$routeProvider', function ($routeProvider) {
