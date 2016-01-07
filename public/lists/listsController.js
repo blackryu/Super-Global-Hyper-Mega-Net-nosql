@@ -252,8 +252,7 @@ angular.module('app.lists', [ 'ngRoute', 'ngResource', 'app.listsService' ])
             '/list',
             { templateUrl : '/lists/listsView.html', controller : 'ListController' }) }
     ]);
-   
- function  filterTodaysList(data,CurrentDay){
+    function  filterTodaysList(data,CurrentDay){
             var resultList=[];
             var regexNotToday=/^\d\.\d|\d\d\.\d|\d\.\d\d|\d\d\.\d\d/i;
             for(var i = 0; i < data.length; i++) {
