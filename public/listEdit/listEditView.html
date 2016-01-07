@@ -52,7 +52,31 @@
                                           <!--
                                           <span class='glyphicon glyphicon-remove ' ng-click="remove()"></span></a>
                                           -->
-                                          <button class="btn btn-danger" ng-click="isConfirmed()"><span class="glyphicon glyphicon-remove"></span></button>
+                                          <button class="btn btn-danger" ng-click="isConfirmed($index,true)"><span class="glyphicon glyphicon-remove"></span></button>
+                                    <a class="btn btn-default btn-xs pull-right" >
+                                          <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#todoModal"  data-whatever="{{list._name}}" data-index="{{$index}}">
+                                          <span class='glyphicon glyphicon-pencil '></span>
+                                              </button>
+                                          </a>
+                                          </div>
+                                           </div>
+                                           </div>
+                                    </div>
+                                 </div>
+                              </td>
+                           </tr><tr ng-repeat="activeTodo in list.todos.completed">
+                              <td>
+                                 <div class='container-fluid'>
+                                    <div class='row'>
+              <input ng-checked="activeTodo.completed" ng-value="activeTodo.completed" class="checkbox" type="checkbox"/>
+                          <span> {{activeTodo.description}}</span> 
+                                       <div class="btn-group pull-right">
+                                       <div role="group" class="bnt-group">
+                                       <a class="btn btn-danger btn-xs pull-right">
+                                          <!--
+                                          <span class='glyphicon glyphicon-remove ' ng-click="remove()"></span></a>
+                                          -->
+                                          <button class="btn btn-danger" ng-click="isConfirmed($index,false)"><span class="glyphicon glyphicon-remove"></span></button>
                                     <a class="btn btn-default btn-xs pull-right" >
                                           <button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#todoModal"  data-whatever="{{list._name}}" data-index="{{$index}}">
                                           <span class='glyphicon glyphicon-pencil '></span>
