@@ -40,11 +40,11 @@
           
                <table class="table">
                   <tbody class="table-striped">
-                     <tr ng-repeat="todo in list.todos">
+                     <tr ng-repeat="activeTodo in list.todos.active | filter : {completed : false}">
                         <td>
                           
               <input disabled="" id="todo_completed" ng-value="todo.completed" class="checkbox" type="checkbox"/>
-                            {{todo.description}}
+                            {{activeTodo.description}} {{dateReadable(activeTodo.duedate)}}
                         </td>
                      </tr>
                   </tbody>
