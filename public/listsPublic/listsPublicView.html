@@ -32,12 +32,8 @@
                        <div class='pull-right'>
                      
                      <div role="group" class="btn-group pull-right">
-                         <button type="button" class="btn btn-success btn-xs"  data-toggle="tooltip" title="share this list. A copy will added to your lists."  ng-click="share($index)" ><span class='glyphicon glyphicon-share'></span></button>
-                      <script>
-$(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip();
-});
-</script>
+                         <button type="button" class="btn btn-success btn-xs"    ng-click="share($index)" ><span class='glyphicon glyphicon-share'></span></button>
+          
                          
                      </div>
                      </div>
@@ -53,8 +49,8 @@ $(document).ready(function(){
                      <tr ng-repeat="activeTodo in list.todos.active ">
                         <td>
                           
-              <input disabled="" id="todo_completed" ng-value="todo.completed" class="checkbox" type="checkbox"/>
-                            {{activeTodo.description}} {{dateReadable(activeTodo.duedate)}}
+              <input disabled="" id="todo_completed" ng-model="activeTodo.completed"  type="checkbox"/>
+                            {{activeTodo.description}}
                         </td>
                      </tr>
                   </tbody>
@@ -62,8 +58,8 @@ $(document).ready(function(){
                      <tr ng-repeat="activeTodo in list.todos.completed ">
                         <td>
                           
-              <input disabled="" id="todo_completed" ng-value="todo.completed" class="checkbox" type="checkbox"/>
-                            {{activeTodo.description}} {{dateReadable(activeTodo.duedate)}}
+              <input disabled="" id="todo_completed" ng-model="activeTodo.completed"  type="checkbox"/>
+                            {{activeTodo.description}} 
                         </td>
                      </tr>
                   </tbody>
