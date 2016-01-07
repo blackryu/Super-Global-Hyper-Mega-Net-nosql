@@ -3,6 +3,24 @@
     
 $scope.lists = ListsPublicAll.query();
      
+           $scope.showCompleted=true;
+            $scope.filterCompleted=function(){
+                if($scope.showCompleted){
+                $scope.showCompleted=false;
+                } else {
+                    
+                $scope.showCompleted=true;
+                }
+            }
+            
+            $scope.getIconForCompletedFilter=function(){
+                if($scope.showCompleted){
+                 return "chevron-up";
+                } else {
+                    return "chevron-down";
+                } 
+            }
+     
      $scope.share=function(index){
          var newList=new Lists({
              _name:$scope.lists[index]._name,

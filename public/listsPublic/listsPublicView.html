@@ -4,12 +4,16 @@
       <div class="row-fluid">
          <h5 class="col-xs-6 col-sm-3">Public Lists</h5>
          <div class="col-xs-6 col-sm-3 pull-right">
-         
+         <span>Filter: </span>
+         <div role="group" class="btn-group">
+              <button id="filterCompleted" title="toogle filter show completed" data-toggle="tooltip" ng-click="filterCompleted()" class="btn btn-default"><span class="glyphicon glyphicon-{{getIconForCompletedFilter()}}"></span></button>
+        
+         </div>
            <div role="group" class="btn-group">
            
-                <a href='/logout' role='button' class='btn btn-default'><span class=' glyphicon glyphicon-log-out'></span></a>
-           <a href="/" role="button" class="btn btn-default"><span class="glyphicon glyphicon-home"></span></a>
-               
+              <a href="/" role="button"  data-toggle="tooltip" title="go back to main view"  class="btn btn-default"><span class="glyphicon glyphicon-home"></span></a>
+                   <a href='/logout'  data-toggle="tooltip" title="logout"  role='button' class='btn btn-default'><span class=' glyphicon glyphicon-log-out'></span></a>
+         
            </div>
          </div>
       </div>
@@ -28,7 +32,13 @@
                        <div class='pull-right'>
                      
                      <div role="group" class="btn-group pull-right">
-                         <button type="button" class="btn btn-success btn-xs" ng-click="share($index)" ><span class='glyphicon glyphicon-share'></span></button>
+                         <button type="button" class="btn btn-success btn-xs"  data-toggle="tooltip" title="share this list. A copy will added to your lists."  ng-click="share($index)" ><span class='glyphicon glyphicon-share'></span></button>
+                      <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
+                         
                      </div>
                      </div>
                   </div>
@@ -40,7 +50,16 @@
           
                <table class="table">
                   <tbody class="table-striped">
-                     <tr ng-repeat="activeTodo in list.todos.active | filter : {completed : false}">
+                     <tr ng-repeat="activeTodo in list.todos.active ">
+                        <td>
+                          
+              <input disabled="" id="todo_completed" ng-value="todo.completed" class="checkbox" type="checkbox"/>
+                            {{activeTodo.description}} {{dateReadable(activeTodo.duedate)}}
+                        </td>
+                     </tr>
+                  </tbody>
+                  <tbody ng-if="showCompleted" class="table-striped">
+                     <tr ng-repeat="activeTodo in list.todos.completed ">
                         <td>
                           
               <input disabled="" id="todo_completed" ng-value="todo.completed" class="checkbox" type="checkbox"/>
@@ -61,3 +80,8 @@
 </div>
 </div>
 </div>
+ <script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();
+});
+</script>
