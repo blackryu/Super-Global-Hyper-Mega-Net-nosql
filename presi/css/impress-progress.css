@@ -1,0 +1,29 @@
+.progressbar {
+	position:absolute;
+	right:118px;
+	bottom:15px;
+	left:118px;
+	border-radius:7px;
+	border:2px solid rgba(255, 255, 255, 1);
+}
+.progressbar DIV {
+	width:0;
+	height:10px;
+	border-radius:5px;
+	background:rgba(200, 200, 200, 1);
+	-webkit-transition:width 1s linear;
+	-moz-transition:width 1s linear;
+	-ms-transition:width 1s linear;
+	-o-transition:width 1s linear;
+	transition:width 1s linear;
+}
+.progress-off {
+	z-index:2999;
+}
+.progress {
+	font-size:40px;
+	position:absolute;
+	right:50px;
+	bottom:15px;
+	text-align: right;
+}
